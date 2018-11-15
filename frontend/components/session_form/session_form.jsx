@@ -43,12 +43,13 @@ class SessionForm extends React.Component {
     return (
       <div className="login-form-container">
         {this.props.navLink}
+
         <form onSubmit={this.handleSubmit} className="login-form-box">
-          {this.renderErrors()}
           <div className="login-form">
 
             {this.props.message}
-
+            {this.renderErrors()}
+            
             <label>
               <input type="text"
                 value={this.state.username}
