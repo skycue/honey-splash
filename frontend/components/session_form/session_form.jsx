@@ -26,26 +26,36 @@ class SessionForm extends React.Component {
   }
 
   render() {
+    // const returnMessage = this.props.formType === 'Log In' ? <h3>Been here before? Welcome back!</h3> : <br/> ;
+    // let returnMessage;
+    // if (this.props.formType === 'Log In') {
+    //   returnMessage = <h3>Been here before? Welcome back!</h3>
+    // } else {
+    //   returnMessage = <br/>
+    // }
+
     return (
       <div className="login-form-container">
         <form onSubmit={this.handleSubmit} className="login-form-box">
-          Welcome to HoneySplash!
-          <br/>
-          Please {this.props.formType} or {this.props.navLink}
+          {this.props.navLink}
           {this.renderErrors()}
           <div className="login-form">
-            <br/>
-            <label>Username:
+
+            {this.props.message}
+
+            <label>
               <input type="text"
                 value={this.state.username}
+                placeholder="Username"
                 onChange={this.update('username')}
                 className="login-input"
               />
             </label>
-            <br/>
-            <label>Password:
+
+            <label>
               <input type="password"
                 value={this.state.password}
+                placeholder="Password"
                 onChange={this.update('password')}
                 className="login-input"
               />

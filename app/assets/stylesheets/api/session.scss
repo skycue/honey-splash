@@ -1,3 +1,120 @@
 // Place all the styles related to the api/session controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.authentication {
+  display: flex;
+  flex-direction: row;
+}
+
+// Left Side
+.authentication-left {
+  background-color: lightblue; //#0065BA;
+  color: white;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  width: 220px;
+  height: 220px;
+}
+
+.quote-container {
+  margin: 0 auto;
+  width: 420px;
+}
+
+.quote {
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: 500;
+}
+
+
+// Right Side
+.authentication-right {
+  // background-color: pink;
+  width: 50%;
+}
+
+.login-form-box {
+  display: flex;
+  flex-direction: column;
+}
+
+//Signup for free
+.signup-link,
+.login-link {
+  // background-color: pink;
+  margin: 43px -2px 0 0;
+  margin-left: auto;
+  // width: 129.72px;
+}
+
+.login-form-container {
+  // display: block
+}
+
+.login-form {
+  // background-color: lightgreen;
+  display: flex;
+  flex-direction: column;
+  padding: 126px 10px 0;
+  margin: 0 auto; //Technicall,y will have to make it a bit more aligned to the left
+  // vertical-align: baseline; Doesn't do anything
+}
+
+.login-form > h3 {
+  font-size: 21px;
+  color: #000;
+  margin-bottom: 28px;
+  margin-top: 20px;
+  font-weight: 500; //Applied for all headers
+  line-height: 1.1; //Applied for all headers
+  font-family: MuseoSansRounded, "Helvetica Neue", Helvetica, Arial, sans-serif; //Applied for all headers
+}
+
+.login-form > label {
+  // background-color: purple;
+  // display: flex;
+  margin: 0 auto;
+}
+
+// textbox
+.login-input {
+  // background-color: white;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  // font-weight: 300px; Doesn't seem to work
+  // margin: 0 auto;
+}
+
+.session-submit {
+  // background-color: yellow;
+  background-color: #009dff;
+  color: #fff;
+  border-color: transparent;
+  text-align: center;
+  // font-weight: 300px;  Doesn't seem to work
+}
+
+.login-input,
+.session-submit {
+  width: 400px;
+  height: 48px;
+  box-sizing: border-box;
+  font-size: 20px;
+  border-radius: 3px;
+  padding: 10px 12px;
+}
+
+.logout-button {
+  // background-color: grey;
+}
+
+.login-form-box {
+  // background-color: lightgrey;
+}
