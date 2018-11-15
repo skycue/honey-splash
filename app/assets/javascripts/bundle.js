@@ -165,7 +165,9 @@ var logout = function logout() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _session_session__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./session/session */ "./frontend/components/session/session.jsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var _session_session__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./session/session */ "./frontend/components/session/session.jsx");
+/* harmony import */ var _greeting_greeting_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./greeting/greeting_container */ "./frontend/components/greeting/greeting_container.js");
  // import { Route } from 'react-router-dom'; //May not need anymore because of Authroute
 // import GreetingContainer from './greeting/greeting_container';
 // import LoginFormContainer from './session_form/login_form_container';
@@ -174,10 +176,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var App = function App() {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "app"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_session_session__WEBPACK_IMPORTED_MODULE_1__["default"], null));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    exact: true,
+    path: "/",
+    component: _greeting_greeting_container__WEBPACK_IMPORTED_MODULE_3__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    exact: true,
+    path: "/login",
+    component: _session_session__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    exact: true,
+    path: "/signup",
+    component: _session_session__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
@@ -328,15 +344,15 @@ __webpack_require__.r(__webpack_exports__);
 var Session = function Session() {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "authentication"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "authentication-left"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "quote-logo-container"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     className: "logo",
-    src: "/logo.png",
+    src: "/bee_logo.png",
     alt: "HoneySplash"
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "quote-container"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
     className: "quote"
   }, "\u201CYou have brains in your head. You have feet in your shoes. You can steer yourself any direction you choose.\u201D"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
     className: "quote-author"
@@ -458,6 +474,16 @@ function (_React$Component) {
   }
 
   _createClass(SessionForm, [{
+    key: "handleSubmitDemo",
+    value: function handleSubmitDemo(e) {
+      e.preventDefault();
+      var demoUser = {
+        username: "guest",
+        password: "guest_password"
+      };
+      dispatch(login(demoUser));
+    }
+  }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
@@ -485,10 +511,10 @@ function (_React$Component) {
       // }
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "login-form-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      }, this.props.navLink, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit,
         className: "login-form-box"
-      }, this.props.navLink, this.renderErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.renderErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "login-form"
       }, this.props.message, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
@@ -502,11 +528,18 @@ function (_React$Component) {
         placeholder: "Password",
         onChange: this.update('password'),
         className: "login-input"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "session-submit",
         type: "submit",
         value: this.props.formType
-      }))));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        onSubmit: this.handleSubmitDemo,
+        className: "login-demo-form-box"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "session-demo-submit",
+        type: "submit",
+        value: "Demo Login"
+      })))));
     }
   }, {
     key: "renderErrors",
@@ -552,6 +585,7 @@ var mapStateToProps = function mapStateToProps(_ref) {
   return {
     errors: errors.session,
     formType: 'Sign up!',
+    message: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, "Sign up for free."),
     navLink: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
       className: "login-link",
       to: "/login"
