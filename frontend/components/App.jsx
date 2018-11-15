@@ -1,20 +1,14 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
-import GreetingContainer from './greeting/greeting_container';
-import LoginFormContainer from './session_form/login_form_container';
-import SignupFormContainer from './session_form/signup_form_container';
-import { AuthRoute } from '../util/route_util';
+// import { Route } from 'react-router-dom'; //May not need anymore because of Authroute
+// import GreetingContainer from './greeting/greeting_container';
+// import LoginFormContainer from './session_form/login_form_container';
+// import SignupFormContainer from './session_form/signup_form_container';
+// import { AuthRoute } from '../util/route_util';
+import Session from './session/session';
 
 const App = () => (
-  <div className="page">
-    <header>
-      <h1>HoneySplash</h1>
-      <GreetingContainer />
-    </header>
-
-    <AuthRoute exact path="/login" component={LoginFormContainer} />
-    <AuthRoute exact path="/signup" component={SignupFormContainer} />
-
+  <div className="app">
+    <Session />
   </div>
 );
 
