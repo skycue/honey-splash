@@ -13,6 +13,12 @@ class SessionForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  handleSubmitDemo(e) {
+    e.preventDefault();
+    const demoUser = {username: "guest", password: "guest_password"};
+    dispatch(login(demoUser));
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     const user = Object.assign({}, this.state);
@@ -36,8 +42,8 @@ class SessionForm extends React.Component {
 
     return (
       <div className="login-form-container">
+        {this.props.navLink}
         <form onSubmit={this.handleSubmit} className="login-form-box">
-          {this.props.navLink}
           {this.renderErrors()}
           <div className="login-form">
 
@@ -60,8 +66,12 @@ class SessionForm extends React.Component {
                 className="login-input"
               />
             </label>
-            <br/>
             <input className="session-submit" type="submit" value={this.props.formType} />
+
+            <div onSubmit={this.handleSubmitDemo} className="login-demo-form-box">
+              <input className="session-demo-submit" type="submit" value="Demo Login" />
+            </div>
+
           </div>
         </form>
       </div>
