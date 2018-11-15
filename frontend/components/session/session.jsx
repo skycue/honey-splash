@@ -9,9 +9,9 @@ const Session = () => (
   <div className="authentication">
 
     <div className="authentication-left">
-      <img className="logo" src="/logo.png" alt="HoneySplash"/>
 
-      <div className="quote-container">
+      <div className="quote-logo-container">
+        <img className="logo" src="/bee_logo.png" alt="HoneySplash"/>
         <p className="quote">
           “You have brains in your head.
           You have feet in your shoes.
