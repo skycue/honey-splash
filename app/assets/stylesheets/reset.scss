@@ -21,6 +21,10 @@ html, body, main, div, form {
   height: 100%;
 }
 
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
 ul {
   list-style: none;
 }
