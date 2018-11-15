@@ -8,11 +8,9 @@ import { AuthRoute } from '../../util/route_util';
 const Session = () => (
   <div className="authentication">
 
-    <GreetingContainer />
-
     <div className="authentication-left">
       <img className="logo" src="/logo.png" alt="HoneySplash"/>
-      
+
       <div className="quote-container">
         <p className="quote">
           “You have brains in your head.
@@ -30,10 +28,13 @@ const Session = () => (
 
       <AuthRoute exact path="/login" component={LoginFormContainer} />
       <AuthRoute exact path="/signup" component={SignupFormContainer} />
+
     </div>
 
   </div>
 );
+
+
 
 
 
