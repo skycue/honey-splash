@@ -11,12 +11,13 @@ class SessionForm extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmitDemo = this.handleSubmitDemo.bind(this);
   }
 
   handleSubmitDemo(e) {
     e.preventDefault();
     const demoUser = {username: "guest", password: "guest_password"};
-    dispatch(login(demoUser));
+    this.props.demoLogin(demoUser);
   }
 
   handleSubmit(e) {
@@ -49,7 +50,7 @@ class SessionForm extends React.Component {
 
             {this.props.message}
             {this.renderErrors()}
-            
+
             <label>
               <input type="text"
                 value={this.state.username}
@@ -69,7 +70,7 @@ class SessionForm extends React.Component {
             </label>
             <input className="session-submit" type="submit" value={this.props.formType} />
 
-            <div onSubmit={this.handleSubmitDemo} className="login-demo-form-box">
+            <div onClick={this.handleSubmitDemo} className="login-demo-form-box">
               <input className="session-demo-submit" type="submit" value="Demo Login" />
             </div>
 
@@ -80,15 +81,17 @@ class SessionForm extends React.Component {
   }
 
   renderErrors() {
-    return(
-      <ul>
-        {this.props.errors.map((error, i) => (
-          <li key={`error-${i}`}>
-            {error}
-          </li>
-        ))}
-      </ul>
-    );
+    if (this.props.errors.length > 0) {
+      return(
+        <ul>
+          {this.props.errors.map((error, i) => (
+            <li key={`error-${i}`}>
+              {error}
+            </li>
+          ))}
+        </ul>
+      );
+    }
   }
 }
 
