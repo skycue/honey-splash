@@ -411,6 +411,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     processForm: function processForm(user) {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__["login"])(user));
+    },
+    demoLogin: function demoLogin(user) {
+      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__["login"])(user));
     }
   };
 };
@@ -470,6 +473,7 @@ function (_React$Component) {
       password: ""
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleSubmitDemo = _this.handleSubmitDemo.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
@@ -481,7 +485,7 @@ function (_React$Component) {
         username: "guest",
         password: "guest_password"
       };
-      dispatch(login(demoUser));
+      this.props.demoLogin(demoUser);
     }
   }, {
     key: "handleSubmit",
@@ -533,7 +537,7 @@ function (_React$Component) {
         type: "submit",
         value: this.props.formType
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        onSubmit: this.handleSubmitDemo,
+        onClick: this.handleSubmitDemo,
         className: "login-demo-form-box"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "session-demo-submit",
@@ -544,11 +548,13 @@ function (_React$Component) {
   }, {
     key: "renderErrors",
     value: function renderErrors() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.errors.map(function (error, i) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-          key: "error-".concat(i)
-        }, error);
-      }));
+      if (this.props.errors.length > 0) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.errors.map(function (error, i) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+            key: "error-".concat(i)
+          }, error);
+        }));
+      }
     }
   }]);
 
@@ -597,6 +603,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     processForm: function processForm(user) {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__["signup"])(user));
+    },
+    demoLogin: function demoLogin(user) {
+      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__["login"])(user));
     }
   };
 };
