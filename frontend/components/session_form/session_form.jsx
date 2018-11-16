@@ -1,5 +1,6 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
+import { removeErrors } from '../../actions/session_actions.js';
 
 class SessionForm extends React.Component {
 
@@ -33,17 +34,12 @@ class SessionForm extends React.Component {
   }
 
   render() {
-    // const returnMessage = this.props.formType === 'Log In' ? <h3>Been here before? Welcome back!</h3> : <br/> ;
-    // let returnMessage;
-    // if (this.props.formType === 'Log In') {
-    //   returnMessage = <h3>Been here before? Welcome back!</h3>
-    // } else {
-    //   returnMessage = <br/>
-    // }
+
+    const linkText = this.props.navLink === "login" ? "Log in" : "Sign up";
 
     return (
       <div className="login-form-container">
-        {this.props.navLink}
+        <Link onClick={this.props.clearErrors} className={`${this.props.navLink}-link`} to={`/${this.props.navLink}`}>{linkText}</Link>
 
         <form onSubmit={this.handleSubmit} className="login-form-box">
           <div className="login-form">
