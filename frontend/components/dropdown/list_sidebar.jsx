@@ -1,5 +1,4 @@
 import React from 'react';
-import { SlideDown } from 'react-slidedown';
 import ListFormContainer from '../list_form/list_form_container';
 
 class ListSidebar extends React.Component {
@@ -72,7 +71,7 @@ class ListSidebar extends React.Component {
                 }
 
                 <ul>
-                  
+
                 </ul>
 
               </div>
