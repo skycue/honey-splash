@@ -1,18 +1,20 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import { createList } from '../../actions/list_actions';
+import { createList, fetchLists } from '../../actions/list_actions';
 import ListSidebar from './list_sidebar';
 
 const mapStateToProps = state => {
+  debugger
   return {
-    currentUserId: state.session.id
+    currentUserId: state.session.id,
+    lists: Object.keys(state.entities.lists).map(list_id => state.entities.lists[list_id]),
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getLists: (user_id) => dispatch(fetchLists(user_id))
+    fetchLists: (user_id) => dispatch(fetchLists(user_id))
   };
 };
 
-export default connect(null, mapDispatchToProps)(ListSidebar);
+export default connect(mapStateToProps, mapDispatchToProps)(ListSidebar);
