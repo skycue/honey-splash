@@ -6,11 +6,12 @@ const listsReducer = (state = {}, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_LISTS:
-      const lists= {};
-      action.lists.forEach(list => {
-        lists[list.id] = list;
-      });
-      return lists;
+      // const lists= {};
+      // action.lists.forEach(list => {
+      //   lists[list.id] = list;
+      // });
+      // return lists;
+      return merge({}, state, action.lists)
     case RECEIVE_LIST:
       return merge({}, state, { [action.list.id]: action.list })
     case REMOVE_LIST:
