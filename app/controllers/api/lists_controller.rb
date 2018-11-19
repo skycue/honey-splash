@@ -4,7 +4,7 @@ class Api::ListsController < ApplicationController
 
   def create
     @list = List.new(list_params)
-    @list.user_id = params[:user_id]
+    @list.user_id = current_user.id
 
     if @list.save
       render 'api/lists/show'
@@ -13,9 +13,9 @@ class Api::ListsController < ApplicationController
     end
   end
 
-  # def index
-  #
-  # end
+  def index
+    @lists = current_user.lists
+  end
   #
   # def update
   #
