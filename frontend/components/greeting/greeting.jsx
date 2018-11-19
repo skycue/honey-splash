@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import ListSidebar from '../dropdown/list_sidebar';
+import ListSidebarContainer from '../dropdown/list_sidebar_container';
 
 const Greeting = ({ currentUser, logout }) => {
   const sessionLinks = () => (
@@ -12,7 +12,7 @@ const Greeting = ({ currentUser, logout }) => {
 
       <header className="main-nav">
         <nav className="left-nav">
-          <ListSidebar/>
+          <ListSidebarContainer/>
         </nav>
 
         <nav className="right-nav">
