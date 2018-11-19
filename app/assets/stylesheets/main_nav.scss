@@ -5,6 +5,24 @@
   justify-content: space-between;
 }
 
-.left-nav {
+.main-nav i {
+	font-size: 24px;
+  color: #F7E691;
+}
 
+.right-nav ul {
+  display: flex;
+}
+
+.sidebar {
+  width: 180px;
+}
+
+.sidebar img {
+  width: 80px;
+  height: 71px;
+}
+
+.main-content {
+  background-color: #F8ECA5;
 }
