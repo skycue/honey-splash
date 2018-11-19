@@ -302,23 +302,27 @@ var ListSidebar =
 function (_React$Component) {
   _inherits(ListSidebar, _React$Component);
 
-  function ListSidebar() {
+  function ListSidebar(props) {
     var _this;
 
     _classCallCheck(this, ListSidebar);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(ListSidebar).call(this));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ListSidebar).call(this, props));
     _this.state = {
       showSidebar: true,
       showListForm: false
     };
-    _this.renderCount = 0;
     _this.toggleSidebar = _this.toggleSidebar.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.toggleListForm = _this.toggleListForm.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
   _createClass(ListSidebar, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchLists(this.props.currentUserId);
+    }
+  }, {
     key: "toggleSidebar",
     value: function toggleSidebar(e) {
       e.preventDefault();
@@ -352,6 +356,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var lists = this.props.lists;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         onClick: this.toggleSidebar,
         className: "fas fa-bars"
@@ -362,7 +367,9 @@ function (_React$Component) {
         alt: "HoneySplash"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
         onClick: this.toggleListForm
-      }, "Lists"), this.renderCount, this.state.showListForm ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_list_form_list_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], null) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null)) : null);
+      }, "Lists"), this.state.showListForm ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_list_form_list_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], null) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, lists ? this.props.lists.map(function (list) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, list.title);
+      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Uh oh"))) : null);
     }
   }]);
 
@@ -390,6 +397,47 @@ function (_React$Component) {
 
 /***/ }),
 
+/***/ "./frontend/components/dropdown/list_sidebar_container.jsx":
+/*!*****************************************************************!*\
+  !*** ./frontend/components/dropdown/list_sidebar_container.jsx ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _actions_list_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/list_actions */ "./frontend/actions/list_actions.js");
+/* harmony import */ var _list_sidebar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./list_sidebar */ "./frontend/components/dropdown/list_sidebar.jsx");
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  debugger;
+  return {
+    currentUserId: state.session.id,
+    lists: Object.keys(state.entities.lists).map(function (list_id) {
+      return state.entities.lists[list_id];
+    })
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchLists: function fetchLists(user_id) {
+      return dispatch(Object(_actions_list_actions__WEBPACK_IMPORTED_MODULE_2__["fetchLists"])(user_id));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_list_sidebar__WEBPACK_IMPORTED_MODULE_3__["default"]));
+
+/***/ }),
+
 /***/ "./frontend/components/greeting/greeting.jsx":
 /*!***************************************************!*\
   !*** ./frontend/components/greeting/greeting.jsx ***!
@@ -402,7 +450,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _dropdown_list_sidebar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../dropdown/list_sidebar */ "./frontend/components/dropdown/list_sidebar.jsx");
+/* harmony import */ var _dropdown_list_sidebar_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../dropdown/list_sidebar_container */ "./frontend/components/dropdown/list_sidebar_container.jsx");
 
 
 
@@ -424,7 +472,7 @@ var Greeting = function Greeting(_ref) {
       className: "main-nav"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
       className: "left-nav"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dropdown_list_sidebar__WEBPACK_IMPORTED_MODULE_2__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dropdown_list_sidebar_container__WEBPACK_IMPORTED_MODULE_2__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
       className: "right-nav"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "logout-button",
@@ -1067,11 +1115,12 @@ var listsReducer = function listsReducer() {
 
   switch (action.type) {
     case _actions_list_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_LISTS"]:
-      var lists = {};
-      action.lists.forEach(function (list) {
-        lists[list.id] = list;
-      });
-      return lists;
+      // const lists= {};
+      // action.lists.forEach(list => {
+      //   lists[list.id] = list;
+      // });
+      // return lists;
+      return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state, action.lists);
 
     case _actions_list_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_LIST"]:
       return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state, _defineProperty({}, action.list.id, action.list));
