@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import ListSidebar from '../dropdown/list_sidebar';
 
 const Greeting = ({ currentUser, logout }) => {
   const sessionLinks = () => (
@@ -7,12 +8,30 @@ const Greeting = ({ currentUser, logout }) => {
   );
 
   const personalGreeting = () => (
-    <header className="main-nav">
-      <nav className="left-nav"></nav>
-      <nav className="right-nav">
-        <button className="logout-button" onClick={logout}>Log Out</button>
-      </nav>
-    </header>
+    <div className="main-page">
+
+      <header className="main-nav">
+        <nav className="left-nav">
+          <ListSidebar/>
+        </nav>
+
+        <nav className="right-nav">
+          <ul>
+            <li>
+              <button className="logout-button" onClick={logout}>Log Out</button>
+            </li>
+            <li className="gear-dropdown-btn">
+              <i className="fas fa-cog"></i>
+            </li>
+          </ul>
+        </nav>
+      </header>
+
+      <div className="main-content">
+
+      </div>
+
+    </div>
   );
 
   return currentUser ? personalGreeting() : sessionLinks();
