@@ -21,14 +21,13 @@ const Greeting = ({ currentUser, logout }) => {
               <button className="logout-button" onClick={logout}>Log Out</button>
             </li>
             <li className="gear-dropdown-btn">
-              <i className="fas fa-cog"></i>
+              <i className="material-icons">settings</i>
             </li>
           </ul>
         </nav>
       </header>
 
       <div className="main-content">
-
       </div>
 
     </div>

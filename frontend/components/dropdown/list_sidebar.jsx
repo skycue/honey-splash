@@ -51,8 +51,7 @@ class ListSidebar extends React.Component {
     const { lists } = this.props;
     return (
       <div>
-        <i onClick={this.toggleSidebar} className="fas fa-bars"></i>
-
+          <i onClick={this.toggleSidebar} className="material-icons">menu</i>
         {
           this.state.showSidebar
             ? (
@@ -73,7 +72,7 @@ class ListSidebar extends React.Component {
                 <ul>
                   {
                     lists
-                    ? this.props.lists.map(list => (<li>{list.title}</li>))
+                    ? this.props.lists.map(list => (<li key={list.id}>{list.title}</li>))
                     : <h1>Uh oh</h1>
                   }
                 </ul>
@@ -90,26 +89,5 @@ class ListSidebar extends React.Component {
     );
   }
 }
-
-// <SlideDown className="slidedown" closed>
-//   {this.renderCount += 1}
-//   {`${this.state.showSidebar}`}
-//   <div>
-//     <ul>
-//       <li> Sidebar item 1 </li>
-//       <br/>
-//       <li> Sidebar item 2 </li>
-//       <br/>
-//       <li> Sidebar item 3 </li>
-//       <br/>
-//     </ul>
-//   </div>
-// </SlideDown>
-
-
-
-// <button onClick={this.showSidebar}>
-//   Show Sidebar
-// </button>
 
 export default ListSidebar;
