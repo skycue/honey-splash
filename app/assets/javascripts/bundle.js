@@ -359,8 +359,8 @@ function (_React$Component) {
       var lists = this.props.lists;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         onClick: this.toggleSidebar,
-        className: "fas fa-bars"
-      }), this.state.showSidebar ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "material-icons"
+      }, "menu"), this.state.showSidebar ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sidebar"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: "/bee_logo.png",
@@ -368,30 +368,15 @@ function (_React$Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
         onClick: this.toggleListForm
       }, "Lists"), this.state.showListForm ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_list_form_list_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], null) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, lists ? this.props.lists.map(function (list) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, list.title);
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          key: list.id
+        }, list.title);
       }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Uh oh"))) : null);
     }
   }]);
 
   return ListSidebar;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); // <SlideDown className="slidedown" closed>
-//   {this.renderCount += 1}
-//   {`${this.state.showSidebar}`}
-//   <div>
-//     <ul>
-//       <li> Sidebar item 1 </li>
-//       <br/>
-//       <li> Sidebar item 2 </li>
-//       <br/>
-//       <li> Sidebar item 3 </li>
-//       <br/>
-//     </ul>
-//   </div>
-// </SlideDown>
-// <button onClick={this.showSidebar}>
-//   Show Sidebar
-// </button>
-
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (ListSidebar);
 
@@ -417,7 +402,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  debugger;
   return {
     currentUserId: state.session.id,
     lists: Object.keys(state.entities.lists).map(function (list_id) {
@@ -480,8 +464,8 @@ var Greeting = function Greeting(_ref) {
     }, "Log Out")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
       className: "gear-dropdown-btn"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "fas fa-cog"
-    }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "material-icons"
+    }, "settings"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "main-content"
     }));
   };
@@ -785,7 +769,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__["login"])(user));
     },
     clearErrors: function clearErrors() {
-      debugger;
       dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__["removeErrors"])());
     }
   };

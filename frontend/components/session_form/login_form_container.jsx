@@ -18,7 +18,6 @@ const mapDispatchToProps = dispatch => {
     processForm: (user) => dispatch(login(user)),
     demoLogin: (user) => dispatch(login(user)),
     clearErrors: () => {
-      debugger
       dispatch(removeErrors())
     }
   };
