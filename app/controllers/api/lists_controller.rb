@@ -22,7 +22,7 @@ class Api::ListsController < ApplicationController
   # end
 
   def destroy
-    @list = List.find_by_user_id(current_user.id)
+    @list = current_user.lists.find(params[:id])
 
     if @list
       @list.destroy
