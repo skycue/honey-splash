@@ -11,12 +11,12 @@ function Modal({modal, closeModal}) {
   }
   let component;
   switch (modal) {
-    case 'listForm':
-      component = <ListFormContainer />;
+    case 'Add':
+      component = <ListFormContainer instruction={modal}/>;
       break;
-    // case 'signup':
-    //   component = <SignupFormContainer />;
-    //   break;
+    case 'Save':
+      component = <ListFormContainer instruction={modal}/>;
+      break;
     default:
       return null;
   }
