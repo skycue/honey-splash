@@ -17,7 +17,6 @@ class Api::ListsController < ApplicationController
   end
 
   def update
-    debugger
     @list = current_user.lists.find(params[:id])
     if @list.update_attributes(list_params)
       render "api/lists/show"
