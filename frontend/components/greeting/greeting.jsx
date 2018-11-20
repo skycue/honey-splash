@@ -2,45 +2,121 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import ListSidebarContainer from '../dropdown/list_sidebar_container';
 
-const Greeting = ({ currentUser, logout }) => {
-  const sessionLinks = () => (
+class Greeting extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showSidebar: true,
+      showSettings: false
+    }
+
+    this.toggleSidebar = this.toggleSidebar.bind(this);
+    this.toggleSettings = this.toggleSettings.bind(this);
+
+  }
+
+  toggleSidebar(e) {
+    e.preventDefault();
+
+    if (this.state.showSidebar) {
+      this.setState({
+        showSidebar: false
+      });
+    } else {
+      this.setState({
+        showSidebar: true
+      });
+    }
+  }
+
+  toggleSettings(e) {
+    e.preventDefault();
+
+    if (this.state.showSettings) {
+      this.setState({
+        showSettings: false
+      });
+    } else {
+      this.setState({
+        showSettings: true
+      });
+    }
+  }
+
+  sessionLinks() {
+    return (
       <Redirect to="/login" />
-  );
+    );
+  };
 
-  const personalGreeting = () => (
-    <div className="main-page">
+  appPage() {
+    return (
+      <div className="main-page">
 
-      <header className="main-nav">
-        <nav className="left-nav">
-          <ListSidebarContainer/>
-        </nav>
+        <header className="main-nav">
+          <nav className="left-nav">
+            <i onClick={this.toggleSidebar} className="material-icons">menu</i>
+          </nav>
 
-        <nav className="right-nav">
-          <ul>
-            <li>
-              <button className="logout-button" onClick={logout}>Log Out</button>
-            </li>
-            <li className="gear-dropdown-btn">
-              <i className="material-icons">settings</i>
-            </li>
-          </ul>
-        </nav>
-      </header>
+          <nav className="right-nav">
+            <ul>
+              <li className="gear-dropdown-btn">
+                <i onClick={this.toggleSettings} className="material-icons">settings</i>
+                {
+                  this.state.showSettings
+                    ? (
+                      <div className="settings">
+                        <button className="logout-button" onClick={this.props.logout}>Log Out</button>
+                      </div>
+                    )
+                    : (
+                      null
+                    )
+                }
 
-      <div className="main-content">
+              </li>
+            </ul>
+          </nav>
+        </header>
+
+        <div className="main-content">
+          {
+            this.state.showSidebar
+              ? (
+                <ListSidebarContainer />
+              )
+              : (
+                null
+              )
+          }
+        </div>
+
       </div>
+    );
+  };
 
-    </div>
-  );
+  render() {
 
-  return currentUser ? personalGreeting() : sessionLinks();
-
-};
-
-// <hgroup className="header-group">
-//   <h2 className="header-name">Hi, {currentUser.username}!</h2>
-// </hgroup>
-
+    return (
+      <div>
+        {
+          this.props.currentUser
+            ? (
+              <div>
+                {this.appPage()}
+              </div>
+            )
+            : (
+              <div>
+                {this.sessionLinks()}
+              </div>
+            )
+        }
+      </div>
+    );
+  }
+}
 
 
 export default Greeting;
