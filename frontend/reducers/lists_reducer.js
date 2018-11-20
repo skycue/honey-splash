@@ -17,6 +17,7 @@ const listsReducer = (state = {}, action) => {
     case REMOVE_LIST:
       let newState = merge({}, state)
       delete newState[action.list_id]
+      return newState;
     default:
       return state;
   }
