@@ -2,8 +2,6 @@ import React from 'react';
 import { closeModal } from '../../actions/modal_actions';
 import { connect } from 'react-redux';
 import ListFormContainer from '../list_form/list_form_container';
-// import LoginFormContainer from '../session_form/login_form_container';
-// import SignupFormContainer from '../session_form/signup_form_container';
 
 function Modal({modal, closeModal}) {
   if (!modal) {
@@ -12,8 +10,6 @@ function Modal({modal, closeModal}) {
   let component;
   switch (modal) {
     case 'Add':
-      component = <ListFormContainer instruction={modal}/>;
-      break;
     case 'Save':
       component = <ListFormContainer instruction={modal}/>;
       break;
