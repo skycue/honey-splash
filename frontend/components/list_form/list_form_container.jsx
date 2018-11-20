@@ -1,18 +1,25 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import { createList } from '../../actions/list_actions';
+import { createList, updateList } from '../../actions/list_actions';
 import ListForm from './list_form';
 import { closeModal } from '../../actions/modal_actions';
 
 const mapStateToProps = state => {
   return {
-    currentUserId: state.session.id
+    currentUserId: state.session.id,
+    selectedListId: state.ui.selectedListId
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    processForm: (currentUserId, list) => dispatch(createList(currentUserId, list)),
+    processForm: (currentUserId, list, instruction) => {
+      if (instruction == 'Add') {
+        return dispatch(createList(currentUserId, list))
+      } else if (instruction == 'Save') {
+        return dispatch(updateList(currentUserId, list))
+      }
+    },
     closeModal: () => dispatch(closeModal())
   };
 };
