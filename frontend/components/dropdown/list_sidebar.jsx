@@ -6,30 +6,15 @@ class ListSidebar extends React.Component {
     super(props);
 
     this.state = {
-      showSidebar: true,
       showListForm: false
     }
 
-    this.toggleSidebar = this.toggleSidebar.bind(this);
+    // this.toggleSidebar = this.toggleSidebar.bind(this);
     this.toggleListForm = this.toggleListForm.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchLists(this.props.currentUserId);
-  }
-
-  toggleSidebar(e) {
-    e.preventDefault();
-
-    if (this.state.showSidebar) {
-      this.setState({
-        showSidebar: false
-      });
-    } else {
-      this.setState({
-        showSidebar: true
-      });
-    }
   }
 
   toggleListForm(e) {
@@ -50,39 +35,32 @@ class ListSidebar extends React.Component {
   render() {
     const { lists } = this.props;
     return (
-      <div>
-          <i onClick={this.toggleSidebar} className="material-icons">menu</i>
+      <div className="sidebar">
+        <img src="/bee_logo.png" alt="HoneySplash"/>
+
+        <div className="all-lists">
+          <ul>
+            <li>
+              <i className="material-icons md-17 drop-down-icon">arrow_drop_down</i>
+              Lists
+              <i onClick={this.toggleListForm} className="material-icons md-12 add-box-icon">add_box</i>
+            </li>
+            {
+              this.props.lists.map(list => (<li key={list.id}>{list.title}</li>))
+            }
+          </ul>
+        </div>
+
         {
-          this.state.showSidebar
+          this.state.showListForm
             ? (
-              <div className="sidebar">
-                <img src="/bee_logo.png" alt="HoneySplash"/>
-                <h2 onClick={this.toggleListForm}>Lists</h2>
-
-                {
-                  this.state.showListForm
-                    ? (
-                      <ListFormContainer/>
-                    )
-                    : (
-                      null
-                    )
-                }
-
-                <ul>
-                  {
-                    lists
-                    ? this.props.lists.map(list => (<li key={list.id}>{list.title}</li>))
-                    : <h1>Uh oh</h1>
-                  }
-                </ul>
-
-              </div>
+              <ListFormContainer/>
             )
             : (
               null
             )
         }
+
 
 
       </div>
