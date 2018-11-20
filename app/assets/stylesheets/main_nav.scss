@@ -30,3 +30,16 @@
 .main-content {
   background-color: #F8ECA5;
 }
+
+.settings {
+  position: absolute;
+  z-index: 7;
+  width: 50px;
+  height: 16px;
+  background-color: white;
+  right: 5px;
+  padding: 6px;
+  font-size: .8125rem;
+  border-radius: 3px;
+  top: 40px;
+}

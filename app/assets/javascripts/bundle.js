@@ -90,7 +90,7 @@
 /*!******************************************!*\
   !*** ./frontend/actions/list_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_LISTS, RECEIVE_LIST, REMOVE_LIST, receiveLists, receiveList, removeList, createList, fetchLists */
+/*! exports provided: RECEIVE_LISTS, RECEIVE_LIST, REMOVE_LIST, receiveLists, receiveList, removeList, createList, updateList, fetchLists, deleteList */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -102,7 +102,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveList", function() { return receiveList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeList", function() { return removeList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createList", function() { return createList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateList", function() { return updateList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchLists", function() { return fetchLists; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteList", function() { return deleteList; });
 /* harmony import */ var _util_list_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/list_api_util */ "./frontend/util/list_api_util.js");
 
 var RECEIVE_LISTS = 'RECEIVE_LISTS';
@@ -122,7 +124,8 @@ var receiveList = function receiveList(list) {
 };
 var removeList = function removeList(list_id) {
   return {
-    type: REMOVE_LIST
+    type: REMOVE_LIST,
+    list_id: list_id
   };
 };
 var createList = function createList(user_id, list) {
@@ -132,10 +135,26 @@ var createList = function createList(user_id, list) {
     });
   };
 };
+var updateList = function updateList(user_id, list) {
+  return function (dispatch) {
+    return _util_list_api_util__WEBPACK_IMPORTED_MODULE_0__["updateList"](user_id, list).then(function (list) {
+      return dispatch(receiveList(list));
+    }, function (error) {
+      return console.log(error.responesJSON);
+    });
+  };
+};
 var fetchLists = function fetchLists(user_id) {
   return function (dispatch) {
     return _util_list_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchLists"](user_id).then(function (lists) {
       return dispatch(receiveLists(lists));
+    });
+  };
+};
+var deleteList = function deleteList(user_id, list_id) {
+  return function (dispatch) {
+    return _util_list_api_util__WEBPACK_IMPORTED_MODULE_0__["removeList"](user_id, list_id).then(function (list) {
+      return dispatch(removeList(list.id));
     });
   };
 };
@@ -157,10 +176,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeModal", function() { return closeModal; });
 var OPEN_MODAL = 'OPEN_MODAL';
 var CLOSE_MODAL = 'CLOSE_MODAL';
-var openModal = function openModal(modal) {
+var openModal = function openModal(modal, options) {
   return {
     type: OPEN_MODAL,
-    modal: modal
+    modal: modal,
+    options: options
   };
 };
 var closeModal = function closeModal() {
@@ -342,10 +362,13 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ListSidebar).call(this, props));
     _this.state = {
-      showListForm: false // this.toggleSidebar = this.toggleSidebar.bind(this);
+      showListForm: false,
+      showListOptions: null // this.toggleSidebar = this.toggleSidebar.bind(this);
 
     };
     _this.toggleListForm = _this.toggleListForm.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.toggleListOptions = _this.toggleListOptions.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleDeleteList = _this.handleDeleteList.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
@@ -371,8 +394,28 @@ function (_React$Component) {
       }
     }
   }, {
+    key: "toggleListOptions",
+    value: function toggleListOptions(list_id) {
+      if (this.state.showListOptions) {
+        this.setState({
+          showListOptions: null
+        });
+      } else {
+        this.setState({
+          showListOptions: list_id
+        });
+      }
+    }
+  }, {
+    key: "handleDeleteList",
+    value: function handleDeleteList(list_user_id, list_id) {
+      this.props.deleteList(list_user_id, list_id);
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var lists = this.props.lists;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sidebar"
@@ -384,16 +427,33 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons md-17 drop-down-icon"
       }, "arrow_drop_down"), "Lists", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        class: "material-icons md-12 drop-down-circle-icon"
+        className: "material-icons md-12 lists-options-icon"
       }, "arrow_drop_down_circle"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         onClick: function onClick() {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])('listForm'));
+          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])('Add'));
         },
         className: "material-icons md-12 add-box-icon"
       }, "add_box")), this.props.lists.map(function (list) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           key: list.id
-        }, list.title);
+        }, list.title, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          onClick: function onClick() {
+            return _this2.toggleListOptions(list.id);
+          },
+          className: "material-icons md-12 list-options-icon"
+        }, "arrow_drop_down_circle"), _this2.state.showListOptions === list.id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "list-options"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          onClick: function onClick() {
+            return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])('Save', {
+              selectedListId: list.id
+            }));
+          }
+        }, "Rename list"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          onClick: function onClick() {
+            return _this2.handleDeleteList(list.user_id, list.id);
+          }
+        }, "Remove list"))) : null);
       }))), this.state.showListForm ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_list_form_list_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], null) : null);
     }
   }]);
@@ -424,6 +484,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var mapStateToProps = function mapStateToProps(state) {
   return {
     currentUserId: state.session.id,
@@ -437,6 +498,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     fetchLists: function fetchLists(user_id) {
       return dispatch(Object(_actions_list_actions__WEBPACK_IMPORTED_MODULE_2__["fetchLists"])(user_id));
+    },
+    deleteList: function deleteList(user_id, list_id) {
+      return dispatch(Object(_actions_list_actions__WEBPACK_IMPORTED_MODULE_2__["deleteList"])(user_id, list_id));
     }
   };
 };
@@ -556,12 +620,12 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         onClick: this.toggleSettings,
         className: "material-icons"
-      }, "settings"), this.state.showSettings ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "settings")), this.state.showSettings ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "settings"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "logout-button",
         onClick: this.props.logout
-      }, "Log Out")) : null)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Log Out"))) : null))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "main-content"
       }, this.state.showSidebar ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dropdown_list_sidebar_container__WEBPACK_IMPORTED_MODULE_2__["default"], null) : null));
     }
@@ -660,7 +724,8 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ListForm).call(this, props));
     _this.state = {
-      title: ""
+      title: "",
+      id: _this.props.selectedListId
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
@@ -671,7 +736,7 @@ function (_React$Component) {
     value: function handleSubmit(e) {
       e.preventDefault();
       var list = Object.assign({}, this.state);
-      this.props.processForm(this.props.currentUserId, list);
+      this.props.processForm(this.props.currentUserId, list, this.props.instruction);
       this.props.closeModal();
     }
   }, {
@@ -700,7 +765,7 @@ function (_React$Component) {
         className: "list-form-buttons"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
-        value: "Add"
+        value: this.props.instruction
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         onClick: this.props.closeModal
       }, "Cancel")));
@@ -737,14 +802,19 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    currentUserId: state.session.id
+    currentUserId: state.session.id,
+    selectedListId: state.ui.selectedListId
   };
 };
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   return {
-    processForm: function processForm(currentUserId, list) {
-      return dispatch(Object(_actions_list_actions__WEBPACK_IMPORTED_MODULE_2__["createList"])(currentUserId, list));
+    processForm: function processForm(currentUserId, list, instruction) {
+      if (instruction == 'Add') {
+        return dispatch(Object(_actions_list_actions__WEBPACK_IMPORTED_MODULE_2__["createList"])(currentUserId, list));
+      } else if (instruction == 'Save') {
+        return dispatch(Object(_actions_list_actions__WEBPACK_IMPORTED_MODULE_2__["updateList"])(currentUserId, list));
+      }
     },
     closeModal: function closeModal() {
       return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__["closeModal"])());
@@ -773,8 +843,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // import LoginFormContainer from '../session_form/login_form_container';
-// import SignupFormContainer from '../session_form/signup_form_container';
+
 
 function Modal(_ref) {
   var modal = _ref.modal,
@@ -787,12 +856,12 @@ function Modal(_ref) {
   var component;
 
   switch (modal) {
-    case 'listForm':
-      component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_list_form_list_form_container__WEBPACK_IMPORTED_MODULE_3__["default"], null);
+    case 'Add':
+    case 'Save':
+      component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_list_form_list_form_container__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        instruction: modal
+      });
       break;
-    // case 'signup':
-    //   component = <SignupFormContainer />;
-    //   break;
 
     default:
       return null;
@@ -1294,6 +1363,7 @@ var listsReducer = function listsReducer() {
     case _actions_list_actions__WEBPACK_IMPORTED_MODULE_1__["REMOVE_LIST"]:
       var newState = lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state);
       delete newState[action.list_id];
+      return newState;
 
     default:
       return state;
@@ -1348,8 +1418,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _session_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./session_reducer */ "./frontend/reducers/session_reducer.js");
 /* harmony import */ var _errors_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./errors_reducer */ "./frontend/reducers/errors_reducer.js");
 /* harmony import */ var _modal_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modal_reducer */ "./frontend/reducers/modal_reducer.js");
+/* harmony import */ var _ui_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ui_reducer */ "./frontend/reducers/ui_reducer.js");
 
  // import ui from './ui_reducer';
+
 
 
 
@@ -1358,6 +1430,7 @@ var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])(
   entities: _entities_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   session: _session_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
   errors: _errors_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
+  ui: _ui_reducer__WEBPACK_IMPORTED_MODULE_5__["default"],
   modal: _modal_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (rootReducer);
@@ -1434,6 +1507,33 @@ var sessionReducer = function sessionReducer() {
 
 /***/ }),
 
+/***/ "./frontend/reducers/ui_reducer.js":
+/*!*****************************************!*\
+  !*** ./frontend/reducers/ui_reducer.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return uiReducer; });
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
+function uiReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__["OPEN_MODAL"]:
+      return Object.assign({}, state, action.options);
+
+    default:
+      return state;
+  }
+}
+
+/***/ }),
+
 /***/ "./frontend/reducers/users_reducer.js":
 /*!********************************************!*\
   !*** ./frontend/reducers/users_reducer.js ***!
@@ -1501,13 +1601,14 @@ var configureStore = function configureStore() {
 /*!****************************************!*\
   !*** ./frontend/util/list_api_util.js ***!
   \****************************************/
-/*! exports provided: fetchLists, createList, removeList */
+/*! exports provided: fetchLists, createList, updateList, removeList */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchLists", function() { return fetchLists; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createList", function() { return createList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateList", function() { return updateList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeList", function() { return removeList; });
 var fetchLists = function fetchLists(user_id) {
   return $.ajax({
@@ -1525,6 +1626,15 @@ var createList = function createList(user_id, list) {
   return $.ajax({
     method: 'POST',
     url: "/api/users/".concat(user_id, "/lists"),
+    data: {
+      list: list
+    }
+  });
+};
+var updateList = function updateList(user_id, list) {
+  return $.ajax({
+    method: 'PATCH',
+    url: "/api/users/".concat(user_id, "/lists/").concat(list.id),
     data: {
       list: list
     }
