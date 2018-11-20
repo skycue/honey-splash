@@ -20,6 +20,14 @@ export const createList = (user_id, list) => (
   })
 );
 
+export const updateList = (user_id, list) => (
+  $.ajax({
+    method: 'PATCH',
+    url: `/api/users/${user_id}/lists/${list.id}`,
+    data: { list }
+  })
+);
+
 export const removeList = (user_id, list_id) => (
   $.ajax({
     method: 'DELETE',
