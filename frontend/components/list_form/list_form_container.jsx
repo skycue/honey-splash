@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { createList } from '../../actions/list_actions';
 import ListForm from './list_form';
+import { closeModal } from '../../actions/modal_actions';
 
 const mapStateToProps = state => {
   return {
@@ -11,8 +12,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    processForm: (currentUserId, list) => dispatch(createList(currentUserId, list))
+    processForm: (currentUserId, list) => dispatch(createList(currentUserId, list)),
+    closeModal: () => dispatch(closeModal())
   };
 };
 
-export default connect(null, mapDispatchToProps)(ListForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ListForm);
