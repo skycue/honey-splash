@@ -5,7 +5,8 @@ class ListForm extends React.Component {
     super(props);
 
     this.state = {
-      title: ""
+      title: "",
+      id: this.props.selectedListId
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -14,7 +15,7 @@ class ListForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const list = Object.assign({}, this.state);
-    this.props.processForm(this.props.currentUserId, list);
+    this.props.processForm(this.props.currentUserId, list, this.props.instruction);
     this.props.closeModal();
   }
 
@@ -41,7 +42,7 @@ class ListForm extends React.Component {
         </label>
 
         <div className='list-form-buttons'>
-          <input type="submit" value="Add"/>
+          <input type="submit" value={this.props.instruction}/>
           <div onClick={this.props.closeModal}>
             Cancel
           </div>
