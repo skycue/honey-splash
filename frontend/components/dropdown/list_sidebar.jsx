@@ -44,6 +44,7 @@ class ListSidebar extends React.Component {
             <li>
               <i className="material-icons md-17 drop-down-icon">arrow_drop_down</i>
               Lists
+              <i class="material-icons md-12 drop-down-circle-icon">arrow_drop_down_circle</i>
               <i onClick={() => dispatch(openModal('listForm'))} className="material-icons md-12 add-box-icon">add_box</i>
             </li>
             {
