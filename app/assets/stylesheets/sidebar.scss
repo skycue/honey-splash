@@ -37,9 +37,16 @@
   line-height: 19px;
 }
 
-.add-box-icon {
-  margin-left: 100px;
+.add-box-icon,
+.drop-down-circle-icon {
   line-height: 18px;
+}
+
+.drop-down-circle-icon {
+  margin-left: 82px;
+}
+
+.add-box-icon {
 }
 
 .material-icons.md-12 { font-size: 12px; }
