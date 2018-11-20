@@ -7,11 +7,14 @@ class ListSidebar extends React.Component {
     super(props);
 
     this.state = {
-      showListForm: false
+      showListForm: false,
+      showListOptions: null
     }
 
     // this.toggleSidebar = this.toggleSidebar.bind(this);
     this.toggleListForm = this.toggleListForm.bind(this);
+    this.toggleListOptions = this.toggleListOptions.bind(this);
+    this.handleDeleteList = this.handleDeleteList.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +36,24 @@ class ListSidebar extends React.Component {
     }
   }
 
+  toggleListOptions(list_id) {
+
+    if (this.state.showListOptions) {
+      this.setState({
+        showListOptions: null
+      });
+    } else {
+      this.setState({
+        showListOptions: list_id
+      });
+    }
+  }
+
+  handleDeleteList(list_user_id, list_id) {
+
+    this.props.deleteList(list_user_id, list_id)
+  }
+
   render() {
     const { lists } = this.props;
     return (
@@ -44,11 +65,31 @@ class ListSidebar extends React.Component {
             <li>
               <i className="material-icons md-17 drop-down-icon">arrow_drop_down</i>
               Lists
-              <i class="material-icons md-12 drop-down-circle-icon">arrow_drop_down_circle</i>
-              <i onClick={() => dispatch(openModal('listForm'))} className="material-icons md-12 add-box-icon">add_box</i>
+              <i className="material-icons md-12 lists-options-icon">arrow_drop_down_circle</i>
+              <i onClick={() => dispatch(openModal('Add'))} className="material-icons md-12 add-box-icon">add_box</i>
+
             </li>
             {
-              this.props.lists.map(list => (<li key={list.id}>{list.title}</li>))
+              this.props.lists.map(list => (
+                <li key={list.id}>
+                  {list.title}
+                  <i onClick={() => this.toggleListOptions(list.id)} className="material-icons md-12 list-options-icon">arrow_drop_down_circle</i>
+                    {
+                      this.state.showListOptions === list.id
+                        ? (
+                          <div className='list-options'>
+                            <ul>
+                              <li onClick={() => dispatch(openModal('Save', {selectedListId: list.id}))}>Rename list</li>
+                              <li onClick={() => this.handleDeleteList(list.user_id, list.id)}>Remove list</li>
+                            </ul>
+                          </div>
+                        )
+                        : (
+                          null
+                        )
+                    }
+                </li>
+              ))
             }
           </ul>
         </div>
