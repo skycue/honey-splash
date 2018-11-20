@@ -6,13 +6,15 @@ import React from 'react';
 // import { AuthRoute } from '../util/route_util';
 import { Route } from 'react-router-dom';
 import Session from './session/session';
-import GreetingContainer from "./greeting/greeting_container";
+import GreetingContainer from './greeting/greeting_container';
+import Modal from './modal/modal';
 
 const App = () => (
   <div className="app">
-      <Route exact path="/" component={GreetingContainer}/>
-      <Route exact path="/login" component={Session}/>
-      <Route exact path="/signup" component={Session}/>
+    <Modal/>
+    <Route exact path="/" component={GreetingContainer}/>
+    <Route exact path="/login" component={Session}/>
+    <Route exact path="/signup" component={Session}/>
   </div>
 );
 
