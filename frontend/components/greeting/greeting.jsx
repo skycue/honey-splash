@@ -63,19 +63,21 @@ class Greeting extends React.Component {
             <ul>
               <li className="gear-dropdown-btn">
                 <i onClick={this.toggleSettings} className="material-icons">settings</i>
-                {
-                  this.state.showSettings
-                    ? (
-                      <div className="settings">
-                        <button className="logout-button" onClick={this.props.logout}>Log Out</button>
-                      </div>
-                    )
-                    : (
-                      null
-                    )
-                }
-
               </li>
+
+              {
+                this.state.showSettings
+                  ? (
+                    <div className="settings">
+                      <ul>
+                        <button className="logout-button" onClick={this.props.logout}>Log Out</button>
+                      </ul>
+                    </div>
+                  )
+                  : (
+                    null
+                  )
+              }
             </ul>
           </nav>
         </header>
