@@ -1,5 +1,6 @@
 import React from 'react';
 import ListFormContainer from '../list_form/list_form_container';
+import { openModal } from '../../actions/modal_actions';
 
 class ListSidebar extends React.Component {
   constructor(props) {
@@ -43,7 +44,7 @@ class ListSidebar extends React.Component {
             <li>
               <i className="material-icons md-17 drop-down-icon">arrow_drop_down</i>
               Lists
-              <i onClick={this.toggleListForm} className="material-icons md-12 add-box-icon">add_box</i>
+              <i onClick={() => dispatch(openModal('listForm'))} className="material-icons md-12 add-box-icon">add_box</i>
             </li>
             {
               this.props.lists.map(list => (<li key={list.id}>{list.title}</li>))
