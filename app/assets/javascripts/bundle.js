@@ -309,10 +309,9 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ListSidebar).call(this, props));
     _this.state = {
-      showSidebar: true,
-      showListForm: false
+      showListForm: false // this.toggleSidebar = this.toggleSidebar.bind(this);
+
     };
-    _this.toggleSidebar = _this.toggleSidebar.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.toggleListForm = _this.toggleListForm.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
@@ -321,21 +320,6 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchLists(this.props.currentUserId);
-    }
-  }, {
-    key: "toggleSidebar",
-    value: function toggleSidebar(e) {
-      e.preventDefault();
-
-      if (this.state.showSidebar) {
-        this.setState({
-          showSidebar: false
-        });
-      } else {
-        this.setState({
-          showSidebar: true
-        });
-      }
     }
   }, {
     key: "toggleListForm",
@@ -357,21 +341,23 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       var lists = this.props.lists;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        onClick: this.toggleSidebar,
-        className: "material-icons"
-      }, "menu"), this.state.showSidebar ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sidebar"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: "/bee_logo.png",
         alt: "HoneySplash"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-        onClick: this.toggleListForm
-      }, "Lists"), this.state.showListForm ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_list_form_list_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], null) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, lists ? this.props.lists.map(function (list) {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "all-lists"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons md-17 drop-down-icon"
+      }, "arrow_drop_down"), "Lists", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        onClick: this.toggleListForm,
+        className: "material-icons md-12 add-box-icon"
+      }, "add_box")), this.props.lists.map(function (list) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           key: list.id
         }, list.title);
-      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Uh oh"))) : null);
+      }))), this.state.showListForm ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_list_form_list_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], null) : null);
     }
   }]);
 
@@ -435,46 +421,122 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _dropdown_list_sidebar_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../dropdown/list_sidebar_container */ "./frontend/components/dropdown/list_sidebar_container.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
 
 
-var Greeting = function Greeting(_ref) {
-  var currentUser = _ref.currentUser,
-      logout = _ref.logout;
 
-  var sessionLinks = function sessionLinks() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
-      to: "/login"
-    });
-  };
+var Greeting =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Greeting, _React$Component);
 
-  var personalGreeting = function personalGreeting() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "main-page"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
-      className: "main-nav"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
-      className: "left-nav"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dropdown_list_sidebar_container__WEBPACK_IMPORTED_MODULE_2__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
-      className: "right-nav"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      className: "logout-button",
-      onClick: logout
-    }, "Log Out")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      className: "gear-dropdown-btn"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "material-icons"
-    }, "settings"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "main-content"
-    }));
-  };
+  function Greeting(props) {
+    var _this;
 
-  return currentUser ? personalGreeting() : sessionLinks();
-}; // <hgroup className="header-group">
-//   <h2 className="header-name">Hi, {currentUser.username}!</h2>
-// </hgroup>
+    _classCallCheck(this, Greeting);
 
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Greeting).call(this, props));
+    _this.state = {
+      showSidebar: true,
+      showSettings: false
+    };
+    _this.toggleSidebar = _this.toggleSidebar.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.toggleSettings = _this.toggleSettings.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    return _this;
+  }
+
+  _createClass(Greeting, [{
+    key: "toggleSidebar",
+    value: function toggleSidebar(e) {
+      e.preventDefault();
+
+      if (this.state.showSidebar) {
+        this.setState({
+          showSidebar: false
+        });
+      } else {
+        this.setState({
+          showSidebar: true
+        });
+      }
+    }
+  }, {
+    key: "toggleSettings",
+    value: function toggleSettings(e) {
+      e.preventDefault();
+
+      if (this.state.showSettings) {
+        this.setState({
+          showSettings: false
+        });
+      } else {
+        this.setState({
+          showSettings: true
+        });
+      }
+    }
+  }, {
+    key: "sessionLinks",
+    value: function sessionLinks() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+        to: "/login"
+      });
+    }
+  }, {
+    key: "appPage",
+    value: function appPage() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "main-page"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
+        className: "main-nav"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+        className: "left-nav"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        onClick: this.toggleSidebar,
+        className: "material-icons"
+      }, "menu")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+        className: "right-nav"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "gear-dropdown-btn"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        onClick: this.toggleSettings,
+        className: "material-icons"
+      }, "settings"), this.state.showSettings ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "settings"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "logout-button",
+        onClick: this.props.logout
+      }, "Log Out")) : null)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "main-content"
+      }, this.state.showSidebar ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dropdown_list_sidebar_container__WEBPACK_IMPORTED_MODULE_2__["default"], null) : null));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.currentUser ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.appPage()) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.sessionLinks()));
+    }
+  }]);
+
+  return Greeting;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (Greeting);
 
