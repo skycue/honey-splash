@@ -1,6 +1,6 @@
 import React from 'react';
 
-class ListShow extends React.Component{
+class ListShow extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -8,8 +8,9 @@ class ListShow extends React.Component{
   render() {
     return (
       <div className="list-show">
+        <h1>{this.props.currentList.title}</h1>
       </div>
-    )
+    );
   }
 }
 
