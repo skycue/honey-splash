@@ -90,7 +90,7 @@
 /*!******************************************!*\
   !*** ./frontend/actions/list_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_LISTS, RECEIVE_LIST, REMOVE_LIST, receiveLists, receiveList, removeList, createList, updateList, fetchLists, deleteList */
+/*! exports provided: RECEIVE_LISTS, RECEIVE_LIST, REMOVE_LIST, SET_CURRENT_LIST, receiveLists, receiveList, removeList, setCurrentList, createList, updateList, fetchLists, deleteList */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -98,9 +98,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_LISTS", function() { return RECEIVE_LISTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_LIST", function() { return RECEIVE_LIST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_LIST", function() { return REMOVE_LIST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_CURRENT_LIST", function() { return SET_CURRENT_LIST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveLists", function() { return receiveLists; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveList", function() { return receiveList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeList", function() { return removeList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCurrentList", function() { return setCurrentList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createList", function() { return createList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateList", function() { return updateList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchLists", function() { return fetchLists; });
@@ -110,6 +112,7 @@ __webpack_require__.r(__webpack_exports__);
 var RECEIVE_LISTS = 'RECEIVE_LISTS';
 var RECEIVE_LIST = 'RECEIVE_LIST';
 var REMOVE_LIST = 'REMOVE_LIST';
+var SET_CURRENT_LIST = 'SET_CURRENT_LIST';
 var receiveLists = function receiveLists(lists) {
   return {
     type: RECEIVE_LISTS,
@@ -125,6 +128,12 @@ var receiveList = function receiveList(list) {
 var removeList = function removeList(list_id) {
   return {
     type: REMOVE_LIST,
+    list_id: list_id
+  };
+};
+var setCurrentList = function setCurrentList(list_id) {
+  return {
+    type: SET_CURRENT_LIST,
     list_id: list_id
   };
 };
@@ -328,6 +337,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _list_form_list_form_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../list_form/list_form_container */ "./frontend/components/list_form/list_form_container.jsx");
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -345,6 +355,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 
 
 
@@ -369,6 +380,7 @@ function (_React$Component) {
     _this.toggleListForm = _this.toggleListForm.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.toggleListOptions = _this.toggleListOptions.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleDeleteList = _this.handleDeleteList.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleShowList = _this.handleShowList.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
@@ -412,6 +424,12 @@ function (_React$Component) {
       this.props.deleteList(list_user_id, list_id);
     }
   }, {
+    key: "handleShowList",
+    value: function handleShowList(e, list_id) {
+      e.preventDefault();
+      this.props.setCurrentList(list_id);
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -435,6 +453,9 @@ function (_React$Component) {
         className: "material-icons md-12 add-box-icon"
       }, "add_box")), this.props.lists.map(function (list) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          onClick: function onClick(e) {
+            return _this2.handleShowList(e, list.id);
+          },
           key: list.id
         }, list.title, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           onClick: function onClick() {
@@ -501,6 +522,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     deleteList: function deleteList(user_id, list_id) {
       return dispatch(Object(_actions_list_actions__WEBPACK_IMPORTED_MODULE_2__["deleteList"])(user_id, list_id));
+    },
+    setCurrentList: function setCurrentList(list_id) {
+      return dispatch(Object(_actions_list_actions__WEBPACK_IMPORTED_MODULE_2__["setCurrentList"])(list_id));
     }
   };
 };
@@ -522,6 +546,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _dropdown_list_sidebar_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../dropdown/list_sidebar_container */ "./frontend/components/dropdown/list_sidebar_container.jsx");
+/* harmony import */ var _list_show_list_show_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../list_show/list_show_container */ "./frontend/components/list_show/list_show_container.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -539,6 +564,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
 
 
 
@@ -627,7 +654,15 @@ function (_React$Component) {
         onClick: this.props.logout
       }, "Log Out"))) : null))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "main-content"
-      }, this.state.showSidebar ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dropdown_list_sidebar_container__WEBPACK_IMPORTED_MODULE_2__["default"], null) : null));
+      }, this.state.showSidebar ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dropdown_list_sidebar_container__WEBPACK_IMPORTED_MODULE_2__["default"], null) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+        exact: true,
+        path: "/lists/".concat(this.props.currentListId),
+        component: _list_show_list_show_container__WEBPACK_IMPORTED_MODULE_3__["default"]
+      }), this.props.currentListId ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+        to: "/lists/".concat(this.props.currentListId)
+      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+        to: "/"
+      })));
     }
   }, {
     key: "render",
@@ -637,7 +672,10 @@ function (_React$Component) {
   }]);
 
   return Greeting;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); // <Route exact path={`/lists/${this.props.currentListId}`}
+//   render={(routeProps) => (<ListShow {...routeProps} currentListId={this.props.currentListId}/>)}
+//   />
+
 
 /* harmony default export */ __webpack_exports__["default"] = (Greeting);
 
@@ -661,9 +699,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapStateToProps = function mapStateToProps(_ref) {
   var session = _ref.session,
-      users = _ref.entities.users;
+      users = _ref.entities.users,
+      ui = _ref.ui;
   return {
-    currentUser: users[session.id]
+    currentUser: users[session.id],
+    currentListId: ui.currentListId
   };
 };
 
@@ -823,6 +863,90 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_list_form__WEBPACK_IMPORTED_MODULE_3__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/list_show/list_show.jsx":
+/*!*****************************************************!*\
+  !*** ./frontend/components/list_show/list_show.jsx ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var ListShow =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(ListShow, _React$Component);
+
+  function ListShow(props) {
+    _classCallCheck(this, ListShow);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(ListShow).call(this, props));
+  }
+
+  _createClass(ListShow, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "list-show"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, this.props.currentList.title));
+    }
+  }]);
+
+  return ListShow;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (ListShow);
+
+/***/ }),
+
+/***/ "./frontend/components/list_show/list_show_container.jsx":
+/*!***************************************************************!*\
+  !*** ./frontend/components/list_show/list_show_container.jsx ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _list_show__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./list_show */ "./frontend/components/list_show/list_show.jsx");
+
+
+
+var mapStateToProps = function mapStateToProps(_ref) {
+  var lists = _ref.entities.lists,
+      currentListId = _ref.ui.currentListId;
+  return {
+    currentList: lists[currentListId]
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, null)(_list_show__WEBPACK_IMPORTED_MODULE_1__["default"]));
 
 /***/ }),
 
@@ -1518,6 +1642,8 @@ var sessionReducer = function sessionReducer() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return uiReducer; });
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _actions_list_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/list_actions */ "./frontend/actions/list_actions.js");
+
 
 function uiReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -1526,6 +1652,11 @@ function uiReducer() {
   switch (action.type) {
     case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__["OPEN_MODAL"]:
       return Object.assign({}, state, action.options);
+
+    case _actions_list_actions__WEBPACK_IMPORTED_MODULE_1__["SET_CURRENT_LIST"]:
+      return Object.assign({}, state, {
+        currentListId: action.list_id
+      });
 
     default:
       return state;
