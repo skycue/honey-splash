@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import ListSidebarContainer from '../dropdown/list_sidebar_container';
+import ListShowContainer from '../list_show/list_show_container';
+import { Route } from 'react-router-dom';
+
 
 class Greeting extends React.Component {
   constructor(props) {
@@ -48,7 +51,7 @@ class Greeting extends React.Component {
     return (
       <Redirect to="/login" />
     );
-  };
+  }
 
   appPage() {
     return (
@@ -92,11 +95,22 @@ class Greeting extends React.Component {
                 null
               )
           }
+
+          <Route exact path={`/lists/${this.props.currentListId}`}
+            component={ListShowContainer}
+            />
+
+          {
+            this.props.currentListId ?
+            (<Redirect to={`/lists/${this.props.currentListId}`} />) :
+            (<Redirect to="/" />)
+          }
+
         </div>
 
       </div>
     );
-  };
+  }
 
   render() {
 
@@ -119,6 +133,8 @@ class Greeting extends React.Component {
     );
   }
 }
-
+// <Route exact path={`/lists/${this.props.currentListId}`}
+//   render={(routeProps) => (<ListShow {...routeProps} currentListId={this.props.currentListId}/>)}
+//   />
 
 export default Greeting;
