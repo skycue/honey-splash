@@ -1,6 +1,7 @@
 import React from 'react';
 import ListFormContainer from '../list_form/list_form_container';
 import { openModal } from '../../actions/modal_actions';
+import { Redirect } from 'react-router-dom';
 
 class ListSidebar extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class ListSidebar extends React.Component {
     this.toggleListForm = this.toggleListForm.bind(this);
     this.toggleListOptions = this.toggleListOptions.bind(this);
     this.handleDeleteList = this.handleDeleteList.bind(this);
+    this.handleShowList = this.handleShowList.bind(this);
   }
 
   componentDidMount() {
@@ -54,6 +56,12 @@ class ListSidebar extends React.Component {
     this.props.deleteList(list_user_id, list_id)
   }
 
+  handleShowList(e, list_id) {
+    e.preventDefault();
+
+    this.props.setCurrentList(list_id);
+  }
+
   render() {
     const { lists } = this.props;
     return (
@@ -71,7 +79,7 @@ class ListSidebar extends React.Component {
             </li>
             {
               this.props.lists.map(list => (
-                <li key={list.id}>
+                <li onClick={(e) => this.handleShowList(e, list.id)} key={list.id}>
                   {list.title}
                   <i onClick={() => this.toggleListOptions(list.id)} className="material-icons md-12 list-options-icon">arrow_drop_down_circle</i>
                     {
