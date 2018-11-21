@@ -36,7 +36,7 @@ class ListForm extends React.Component {
         <label>
           Please enter a new list name:
           <input type="text"
-            value={this.state.listTitle}
+            value={this.state.title}
             onChange={this.update('title')}
           />
         </label>
