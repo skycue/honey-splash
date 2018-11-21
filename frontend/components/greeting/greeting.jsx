@@ -96,15 +96,7 @@ class Greeting extends React.Component {
               )
           }
 
-          <Route exact path={`/lists/${this.props.currentListId}`}
-            component={ListShowContainer}
-            />
-
-          {
-            this.props.currentListId ?
-            (<Redirect to={`/lists/${this.props.currentListId}`} />) :
-            (<Redirect to="/" />)
-          }
+           <Route path="/lists/:list_id" component={ListShowContainer}/>
 
         </div>
 
@@ -133,8 +125,5 @@ class Greeting extends React.Component {
     );
   }
 }
-// <Route exact path={`/lists/${this.props.currentListId}`}
-//   render={(routeProps) => (<ListShow {...routeProps} currentListId={this.props.currentListId}/>)}
-//   />
 
 export default Greeting;
