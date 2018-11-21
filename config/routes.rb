@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     resources :users, only: [:create] do
       resources :lists, only: [:create, :destroy, :index, :update]
     end
+    resources :lists do
+      resources :tasks, only: [:create, :destroy, :index, :update]
+    end
     resource :session, only: [:create, :destroy]
   end
 end
