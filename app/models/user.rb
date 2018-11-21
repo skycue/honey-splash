@@ -24,6 +24,10 @@ class User < ApplicationRecord
     foreign_key: :user_id,
     class_name: :List
 
+  has_many :tasks,
+    through: :lists,
+    source: :tasks
+
   def self.find_by_credentials(username, password)
     user = User.find_by_username(username)
     return user if user && user.is_password?(password)

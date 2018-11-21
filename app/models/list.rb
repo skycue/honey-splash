@@ -16,4 +16,9 @@ class List < ApplicationRecord
     primary_key: :id,
     foreign_key: :user_id,
     class_name: :User
+
+  has_many :tasks,
+    primary_key: :id,
+    foreign_key: :list_id,
+    class_name: :Task
 end
