@@ -7,6 +7,7 @@ class Api::TasksController < ApplicationController
       render 'api/tasks/show'
     else
       render json: @task.errors.full_messages
+    end
   end
 
   def index
@@ -36,6 +37,6 @@ class Api::TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title)
+    params.require(:task).permit(:title, :complete)
   end
 end
