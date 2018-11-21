@@ -11,7 +11,8 @@
 #
 
 class Task < ApplicationRecord
-  validates :title, :complete, presence: true
+  validates :title, presence: true
+  validates_inclusion_of :complete, in: [true, false]
 
   belongs_to :list,
     primary_key: :id,
