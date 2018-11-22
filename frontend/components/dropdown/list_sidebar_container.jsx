@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import React from 'react';
 import { createList, fetchLists } from '../../actions/list_actions';
 import ListSidebar from './list_sidebar';
@@ -19,4 +20,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListSidebar);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ListSidebar));
