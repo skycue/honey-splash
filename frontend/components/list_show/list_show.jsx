@@ -1,4 +1,5 @@
 import React from 'react';
+import TaskItemContainer from '../task_item/task_item_container';
 
 class ListShow extends React.Component {
   constructor(props) {
@@ -89,9 +90,7 @@ class ListShow extends React.Component {
         <ul>
           {
             this.props.tasks.map(task => (
-              <li key={task.id}>
-                {task.title}
-              </li>
+              <TaskItemContainer task={task}/>
             ))
           }
         </ul>
