@@ -3,7 +3,9 @@ import * as APIUtil from '../util/task_api_util';
 export const RECEIVE_TASKS = 'RECEIVE_TASKS';
 export const RECEIVE_TASK = 'RECEIVE_TASK';
 export const REMOVE_TASK = 'REMOVE_TASK';
-export const SET_CURRENT_TASK = 'SET_CURRENT_TASKTask';
+export const SELECT_TASK = 'SELECT_TASK';
+export const DESELECT_TASK = 'DESELECT_TASK';
+export const DESELECT_ALL_TASKS = 'DESELECT_ALL_TASKS';
 
 export const receiveTasks = tasks => ({
   type: RECEIVE_TASKS,
@@ -15,15 +17,31 @@ export const receiveTask = task => ({
   task
 });
 
-export const removeTask = task_id => ({
+export const removeTask = task => ({
   type: REMOVE_TASK,
-  task_id
+  task
 });
 
-export const setCurrentTask = task_id => ({
-  type: SET_CURRENT_TASK,
-  task_id
-})
+export const selectTask = task => {
+  
+  return {
+    type: SELECT_TASK,
+    task
+  }
+};
+
+export const deselectTask = task => {
+  return {
+    type: DESELECT_TASK,
+    task
+  }
+};
+
+export const deselectAllTasks = task => {
+  return {
+    type: DESELECT_ALL_TASKS,
+  }
+};
 
 export const createTask = (list_id, task) => dispatch => (
   APIUtil.createTask(list_id, task).then(task => (
@@ -44,8 +62,8 @@ export const fetchTasks = (list_id) => dispatch => (
   ))
 );
 
-export const deleteTask = (list_id, task_id) => dispatch => (
-  APIUtil.removeTask(list_id, task_id).then(task => (
-    dispatch(removeTask(task.id))
+export const deleteTask = (list_id, task) => dispatch => (
+  APIUtil.removeTask(list_id, task).then(task => (
+    dispatch(removeTask(task))
   ))
 );
