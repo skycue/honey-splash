@@ -14,6 +14,7 @@ class ListShow extends React.Component {
 
     this.handleSubmitCreateTask = this.handleSubmitCreateTask.bind(this);
     this.handleShowCompletedTasks = this.handleShowCompletedTasks.bind(this);
+    this.deleteSelectedTasks = this.deleteSelectedTasks.bind(this);
   }
 
   componentDidMount() {
@@ -23,6 +24,7 @@ class ListShow extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.list_id !== this.props.match.params.list_id) {
       this.props.fetchTasks(this.props.match.params.list_id);
+      this.props.deselectAllTasks();
     }
   }
 
@@ -38,6 +40,14 @@ class ListShow extends React.Component {
     if (this.state.showCompletedTasks !== showCompleted) {
       this.setState({ showCompletedTasks: showCompleted });
     }
+  }
+
+  deleteSelectedTasks(e) {
+    e.preventDefault();
+    this.props.selectedTasks.forEach(task_id => {
+      this.props.deleteTask(this.props.currentList.id, this.props.tasks[task_id]);
+      }
+    )
   }
 
   update(field) {
@@ -66,7 +76,7 @@ class ListShow extends React.Component {
         </div>
 
         <div className="task-options">
-          Delete Task
+          <i onClick={this.deleteSelectedTasks} className="material-icons">more_horiz</i>
         </div>
 
         {
@@ -89,7 +99,7 @@ class ListShow extends React.Component {
 
         <ul>
           {
-            this.props.tasks.map(task => (
+            this.props.currentTasks.map(task => (
               <TaskItemContainer task={task}/>
             ))
           }
