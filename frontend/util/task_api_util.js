@@ -21,9 +21,9 @@ export const updateTask = (list_id, task) => (
   })
 );
 
-export const removeTask = (list_id, task_id) => (
+export const removeTask = (list_id, task) => (
   $.ajax({
     method: 'DELETE',
-    url: `/api/lists/${list_id}/tasks/${task_id}`
+    url: `/api/lists/${list_id}/tasks/${task.id}`
   })
 );
