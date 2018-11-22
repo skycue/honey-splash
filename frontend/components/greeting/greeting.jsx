@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import ListSidebarContainer from '../dropdown/list_sidebar_container';
 import ListShowContainer from '../list_show/list_show_container';
 import { Route } from 'react-router-dom';
+import TaskEditFormContainer from '../task_edit/task_edit_form_container';
 
 
 class Greeting extends React.Component {
@@ -98,6 +99,7 @@ class Greeting extends React.Component {
 
            <Route path="/lists/:list_id" component={ListShowContainer}/>
 
+           <Route path="/lists/:list_id/tasks/:task_id" component={TaskEditFormContainer}/>
         </div>
 
       </div>
