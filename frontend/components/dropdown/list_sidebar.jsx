@@ -12,7 +12,6 @@ class ListSidebar extends React.Component {
       showListOptions: null
     }
 
-    // this.toggleSidebar = this.toggleSidebar.bind(this);
     this.toggleListForm = this.toggleListForm.bind(this);
     this.toggleListOptions = this.toggleListOptions.bind(this);
     this.handleDeleteList = this.handleDeleteList.bind(this);
@@ -60,6 +59,7 @@ class ListSidebar extends React.Component {
     e.preventDefault();
 
     this.props.setCurrentList(list_id);
+    this.props.history.push(`/lists/${list_id}`);
   }
 
   render() {
