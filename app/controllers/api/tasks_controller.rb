@@ -2,6 +2,7 @@ class Api::TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.complete = false;
     @task.list_id = params[:list_id]
     if @task.save
       render 'api/tasks/show'
