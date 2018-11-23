@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import ListFormContainer from '../list_form/list_form_container';
 import { openModal } from '../../actions/modal_actions';
 import { Redirect } from 'react-router-dom';
@@ -50,8 +51,8 @@ class ListSidebar extends React.Component {
     }
   }
 
-  handleDeleteList(list_user_id, list_id) {
-
+  handleDeleteList(e, list_user_id, list_id) {
+    e.preventDefault();
     this.props.deleteList(list_user_id, list_id)
   }
 
@@ -74,21 +75,21 @@ class ListSidebar extends React.Component {
               <i className="material-icons md-17 drop-down-icon">arrow_drop_down</i>
               Lists
               <i className="material-icons md-12 lists-options-icon">arrow_drop_down_circle</i>
-              <i onClick={() => dispatch(openModal('Add'))} className="material-icons md-12 add-box-icon">add_box</i>
+              <i onClick={() => dispatch(openModal('Add'))} className="material-icons md-14 add-box-icon">add_box</i>
 
             </li>
             {
               this.props.lists.map(list => (
                 <li onClick={(e) => this.handleShowList(e, list.id)} key={list.id}>
                   {list.title}
-                  <i onClick={() => this.toggleListOptions(list.id)} className="material-icons md-12 list-options-icon">arrow_drop_down_circle</i>
+                  <i onClick={() => this.toggleListOptions(list.id)} className="material-icons md-14 list-options-icon">arrow_drop_down_circle</i>
                     {
                       this.state.showListOptions === list.id
                         ? (
                           <div className='list-options'>
                             <ul>
                               <li onClick={() => dispatch(openModal('Save', {selectedListId: list.id}))}>Rename list</li>
-                              <li onClick={() => this.handleDeleteList(list.user_id, list.id)}>Remove list</li>
+                              <li onClick={(e) => this.handleDeleteList(e, list.user_id, list.id)}>Remove list</li>
                             </ul>
                           </div>
                         )
