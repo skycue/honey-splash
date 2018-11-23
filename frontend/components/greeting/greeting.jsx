@@ -97,9 +97,10 @@ class Greeting extends React.Component {
               )
           }
 
-           <Route path="/lists/:list_id" component={ListShowContainer}/>
+            <Route path="/lists/:list_id" component={ListShowContainer}/>
+            
+            <Route path="/lists/:list_id/tasks/:task_id" component={TaskEditFormContainer}/>
 
-           <Route path="/lists/:list_id/tasks/:task_id" component={TaskEditFormContainer}/>
         </div>
 
       </div>
