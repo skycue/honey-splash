@@ -7,14 +7,17 @@ class ListShow extends React.Component {
 
     this.state = {
       title: "",
-      complete: false,
+      completeTabClicked: false,
       showCompletedTasks: false,
+
     };
 
 
     this.handleSubmitCreateTask = this.handleSubmitCreateTask.bind(this);
     this.handleShowCompletedTasks = this.handleShowCompletedTasks.bind(this);
     this.deleteSelectedTasks = this.deleteSelectedTasks.bind(this);
+    this.completeSelectedTasks = this.completeSelectedTasks.bind(this);
+    this.incompleteSelectedTasks = this.incompleteSelectedTasks.bind(this);
   }
 
   componentDidMount() {
@@ -30,15 +33,17 @@ class ListShow extends React.Component {
 
   handleSubmitCreateTask(e) {
     e.preventDefault();
+    document.getElementById("task-create-input").value = "";
     const task = Object.assign({}, this.state);
     delete task["showCompletedTasks"];
+    delete task["completeTabClicked"]; //Doesn't seem to change anything
     this.props.createTask(this.props.currentList.id, task);
   }
 
   handleShowCompletedTasks(e, showCompleted) {
     e.preventDefault();
     if (this.state.showCompletedTasks !== showCompleted) {
-      this.setState({ showCompletedTasks: showCompleted });
+      this.setState({ showCompletedTasks: showCompleted, completeTabClicked: showCompleted });
     }
   }
 
@@ -48,6 +53,24 @@ class ListShow extends React.Component {
       this.props.deleteTask(this.props.currentList.id, this.props.tasks[task_id]);
       }
     )
+  }
+
+  completeSelectedTasks(e) {
+    e.preventDefault();
+    const tasks = this.props.tasks;
+    this.props.selectedTasks.forEach(id => {
+      const updatedTask = Object.assign({}, {id, title: tasks[id].title, complete: true, list_id: tasks[id].list_id});
+      this.props.updateTask(this.props.currentList.id, updatedTask);
+    })
+  }
+
+  incompleteSelectedTasks(e) {
+    e.preventDefault();
+    const tasks = this.props.tasks;
+    this.props.selectedTasks.forEach(id => {
+      const updatedTask = Object.assign({}, {id, title: tasks[id].title, complete: false, list_id: tasks[id].list_id});
+      this.props.updateTask(this.props.currentList.id, updatedTask);
+    })
   }
 
   update(field) {
@@ -62,21 +85,37 @@ class ListShow extends React.Component {
     }
     return (
       <div className="list-show">
-        <h1>{this.props.currentList.title}</h1>
+        <h1 className="list-title">{this.props.currentList.title}</h1>
 
         <div className="task-completion-tabs">
 
-          <div onClick={(e) => this.handleShowCompletedTasks(e, false)} className="incomplete-tasks">
+          <div onClick={(e) => this.handleShowCompletedTasks(e, false)} className={`incomplete-tasks ${this.state.completeTabClicked}`}>
             Incomplete
           </div>
 
-          <div onClick={(e) => this.handleShowCompletedTasks(e, true)} className="complete-tasks">
+          <div onClick={(e) => this.handleShowCompletedTasks(e, true)} className={`complete-tasks ${this.state.completeTabClicked}`}>
             Complete
           </div>
         </div>
 
         <div className="task-options">
-          <i onClick={this.deleteSelectedTasks} className="material-icons">more_horiz</i>
+          <div onClick={this.deleteSelectedTasks} className="task-more-options">
+            Delete
+          </div>
+
+          {
+            this.state.showCompletedTasks
+            ? (
+              <div onClick={this.incompleteSelectedTasks} className="task-incomplete">
+                Uncomplete
+              </div>
+            )
+            : (
+              <div onClick={this.completeSelectedTasks} className="task-complete">
+                Complete
+              </div>
+            )
+          }
         </div>
 
         {
@@ -86,28 +125,44 @@ class ListShow extends React.Component {
           )
           : (
             <form onSubmit={this.handleSubmitCreateTask} className="task-title-form">
-              <input className="task-title-input" type="text"
-                value={this.state.title}
+              <input id="task-create-input" className="task-title-input" type="text"
                 placeholder="Add a task..."
                 onChange={this.update('title')}
               />
 
-            <input type="submit" value="Add Task"/>
+              <input className="add-task-submit" type="submit" value="Add Task"/>
             </form>
+
           )
         }
 
-        <ul>
-          {
-            this.props.currentTasks.map(task => (
-              <TaskItemContainer task={task}/>
-            ))
-          }
-        </ul>
+        {
+          this.state.showCompletedTasks
+          ? (
+            <ul>
+              {
+                this.props.currentTasks.filter(task => task.complete).map(task => (
+                  <TaskItemContainer key={task.id} task={task}/>
+                ))
+              }
+            </ul>
+          )
+          : (
+            <ul>
+              {
+                this.props.currentTasks.filter(task => !task.complete).map(task => (
+                  <TaskItemContainer key={task.id} task={task}/>
+                ))
+              }
+            </ul>
+          )
+        }
 
       </div>
     );
   }
 }
+// <i className="material-icons">more_horiz</i>
+// <i className="material-icons">arrow_drop_down</i>
 
 export default ListShow;
