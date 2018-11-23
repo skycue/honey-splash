@@ -14,7 +14,14 @@ class TaskItem extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    debugger
+    if (this.props.closeTaskFormIds.length === 2 && this.props.closeTaskFormIds[0] === this.props.task.id) {
+      this.setState({
+        selected: false,
+        openEditForm: false
+      })
+      this.props.deselectTask(this.props.task);
+      this.props.removeTaskFormId();
+    }
   }
 
   toggleSelectTask(e, selectedTask) {
@@ -34,7 +41,6 @@ class TaskItem extends React.Component {
   }
 
   toggleSelectAndEditTask(e, selectedTask) {
-    debugger
     if (this.props.match.params.task_id) {
       this.setState({
         selected: false,
@@ -42,6 +48,7 @@ class TaskItem extends React.Component {
       })
     }
     this.toggleSelectTask(e, selectedTask);
+    this.props.setCurrentTaskForm(this.props.task);
     if (this.state.openEditForm) {
       this.setState({
         openEditForm: false
@@ -63,10 +70,10 @@ class TaskItem extends React.Component {
 
   render() {
     return (
-      <li>
-        <i onClick={(e) => this.toggleSelectTask(e, this.props.task)} class="material-icons">check_box_outline_blank</i>
-        <i class="material-icons">check</i>
-        <h3 onClick={(e) => this.toggleSelectAndEditTask(e, this.props.task)}>{this.props.task.id}</h3>
+      <li className="task-item">
+        <i onClick={(e) => this.toggleSelectTask(e, this.props.task)} className={`material-icons check-box-icon-${this.state.selected}`}>check_box_outline_blank</i>
+        <i onClick={(e) => this.toggleSelectTask(e, this.props.task)} className={`material-icons check-icon-${this.state.selected}`}>check</i>
+        <h3 onClick={(e) => this.toggleSelectAndEditTask(e, this.props.task)} className="task-title">{this.props.task.title}</h3>
       </li>
     );
   }
