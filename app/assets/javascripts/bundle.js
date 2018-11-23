@@ -280,7 +280,7 @@ var logout = function logout() {
 /*!******************************************!*\
   !*** ./frontend/actions/task_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_TASKS, RECEIVE_TASK, REMOVE_TASK, SELECT_TASK, DESELECT_TASK, DESELECT_ALL_TASKS, receiveTasks, receiveTask, removeTask, selectTask, deselectTask, deselectAllTasks, createTask, updateTask, fetchTasks, deleteTask */
+/*! exports provided: RECEIVE_TASKS, RECEIVE_TASK, REMOVE_TASK, SELECT_TASK, DESELECT_TASK, DESELECT_ALL_TASKS, SET_CURRENT_TASK_FORM, CLOSE_TASK_FORM, REMOVE_TASK_FORM_ID, receiveTasks, receiveTask, removeTask, selectTask, deselectTask, deselectAllTasks, setCurrentTaskForm, closeTaskForm, removeTaskFormId, createTask, updateTask, fetchTasks, deleteTask */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -291,12 +291,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SELECT_TASK", function() { return SELECT_TASK; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DESELECT_TASK", function() { return DESELECT_TASK; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DESELECT_ALL_TASKS", function() { return DESELECT_ALL_TASKS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_CURRENT_TASK_FORM", function() { return SET_CURRENT_TASK_FORM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLOSE_TASK_FORM", function() { return CLOSE_TASK_FORM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_TASK_FORM_ID", function() { return REMOVE_TASK_FORM_ID; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveTasks", function() { return receiveTasks; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveTask", function() { return receiveTask; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeTask", function() { return removeTask; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectTask", function() { return selectTask; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deselectTask", function() { return deselectTask; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deselectAllTasks", function() { return deselectAllTasks; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCurrentTaskForm", function() { return setCurrentTaskForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeTaskForm", function() { return closeTaskForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeTaskFormId", function() { return removeTaskFormId; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createTask", function() { return createTask; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateTask", function() { return updateTask; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchTasks", function() { return fetchTasks; });
@@ -309,6 +315,9 @@ var REMOVE_TASK = 'REMOVE_TASK';
 var SELECT_TASK = 'SELECT_TASK';
 var DESELECT_TASK = 'DESELECT_TASK';
 var DESELECT_ALL_TASKS = 'DESELECT_ALL_TASKS';
+var SET_CURRENT_TASK_FORM = 'SET_CURRENT_TASK_FORM';
+var CLOSE_TASK_FORM = 'CLOSE_TASK_FORM';
+var REMOVE_TASK_FORM_ID = 'REMOVE_TASK_FORM_ID';
 var receiveTasks = function receiveTasks(tasks) {
   return {
     type: RECEIVE_TASKS,
@@ -342,6 +351,22 @@ var deselectTask = function deselectTask(task) {
 var deselectAllTasks = function deselectAllTasks(task) {
   return {
     type: DESELECT_ALL_TASKS
+  };
+};
+var setCurrentTaskForm = function setCurrentTaskForm(task) {
+  return {
+    type: SET_CURRENT_TASK_FORM,
+    task: task
+  };
+};
+var closeTaskForm = function closeTaskForm(task) {
+  return {
+    type: CLOSE_CURRENT_TASK_FORM
+  };
+};
+var removeTaskFormId = function removeTaskFormId() {
+  return {
+    type: REMOVE_TASK_FORM_ID
   };
 };
 var createTask = function createTask(list_id, task) {
@@ -430,9 +455,11 @@ var App = function App() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _list_form_list_form_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../list_form/list_form_container */ "./frontend/components/list_form/list_form_container.jsx");
-/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _list_form_list_form_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../list_form/list_form_container */ "./frontend/components/list_form/list_form_container.jsx");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -450,6 +477,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 
 
 
@@ -514,7 +542,8 @@ function (_React$Component) {
     }
   }, {
     key: "handleDeleteList",
-    value: function handleDeleteList(list_user_id, list_id) {
+    value: function handleDeleteList(e, list_user_id, list_id) {
+      e.preventDefault();
       this.props.deleteList(list_user_id, list_id);
     }
   }, {
@@ -543,9 +572,9 @@ function (_React$Component) {
         className: "material-icons md-12 lists-options-icon"
       }, "arrow_drop_down_circle"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         onClick: function onClick() {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])('Add'));
+          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])('Add'));
         },
-        className: "material-icons md-12 add-box-icon"
+        className: "material-icons md-14 add-box-icon"
       }, "add_box")), this.props.lists.map(function (list) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           onClick: function onClick(e) {
@@ -556,21 +585,21 @@ function (_React$Component) {
           onClick: function onClick() {
             return _this2.toggleListOptions(list.id);
           },
-          className: "material-icons md-12 list-options-icon"
+          className: "material-icons md-14 list-options-icon"
         }, "arrow_drop_down_circle"), _this2.state.showListOptions === list.id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "list-options"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           onClick: function onClick() {
-            return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])('Save', {
+            return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])('Save', {
               selectedListId: list.id
             }));
           }
         }, "Rename list"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-          onClick: function onClick() {
-            return _this2.handleDeleteList(list.user_id, list.id);
+          onClick: function onClick(e) {
+            return _this2.handleDeleteList(e, list.user_id, list.id);
           }
         }, "Remove list"))) : null);
-      }))), this.state.showListForm ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_list_form_list_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], null) : null);
+      }))), this.state.showListForm ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_list_form_list_form_container__WEBPACK_IMPORTED_MODULE_2__["default"], null) : null);
     }
   }]);
 
@@ -1008,12 +1037,14 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ListShow).call(this, props));
     _this.state = {
       title: "",
-      complete: false,
+      completeTabClicked: false,
       showCompletedTasks: false
     };
     _this.handleSubmitCreateTask = _this.handleSubmitCreateTask.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleShowCompletedTasks = _this.handleShowCompletedTasks.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.deleteSelectedTasks = _this.deleteSelectedTasks.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.completeSelectedTasks = _this.completeSelectedTasks.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.incompleteSelectedTasks = _this.incompleteSelectedTasks.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
@@ -1034,8 +1065,11 @@ function (_React$Component) {
     key: "handleSubmitCreateTask",
     value: function handleSubmitCreateTask(e) {
       e.preventDefault();
+      document.getElementById("task-create-input").value = "";
       var task = Object.assign({}, this.state);
       delete task["showCompletedTasks"];
+      delete task["completeTabClicked"]; //Doesn't seem to change anything
+
       this.props.createTask(this.props.currentList.id, task);
     }
   }, {
@@ -1045,7 +1079,8 @@ function (_React$Component) {
 
       if (this.state.showCompletedTasks !== showCompleted) {
         this.setState({
-          showCompletedTasks: showCompleted
+          showCompletedTasks: showCompleted,
+          completeTabClicked: showCompleted
         });
       }
     }
@@ -1060,18 +1095,54 @@ function (_React$Component) {
       });
     }
   }, {
-    key: "update",
-    value: function update(field) {
+    key: "completeSelectedTasks",
+    value: function completeSelectedTasks(e) {
       var _this3 = this;
 
+      e.preventDefault();
+      var tasks = this.props.tasks;
+      this.props.selectedTasks.forEach(function (id) {
+        var updatedTask = Object.assign({}, {
+          id: id,
+          title: tasks[id].title,
+          complete: true,
+          list_id: tasks[id].list_id
+        });
+
+        _this3.props.updateTask(_this3.props.currentList.id, updatedTask);
+      });
+    }
+  }, {
+    key: "incompleteSelectedTasks",
+    value: function incompleteSelectedTasks(e) {
+      var _this4 = this;
+
+      e.preventDefault();
+      var tasks = this.props.tasks;
+      this.props.selectedTasks.forEach(function (id) {
+        var updatedTask = Object.assign({}, {
+          id: id,
+          title: tasks[id].title,
+          complete: false,
+          list_id: tasks[id].list_id
+        });
+
+        _this4.props.updateTask(_this4.props.currentList.id, updatedTask);
+      });
+    }
+  }, {
+    key: "update",
+    value: function update(field) {
+      var _this5 = this;
+
       return function (e) {
-        return _this3.setState(_defineProperty({}, field, e.currentTarget.value));
+        return _this5.setState(_defineProperty({}, field, e.currentTarget.value));
       };
     }
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this6 = this;
 
       if (!this.props.currentList) {
         return null;
@@ -1079,37 +1150,56 @@ function (_React$Component) {
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "list-show"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, this.props.currentList.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+        className: "list-title"
+      }, this.props.currentList.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "task-completion-tabs"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         onClick: function onClick(e) {
-          return _this4.handleShowCompletedTasks(e, false);
+          return _this6.handleShowCompletedTasks(e, false);
         },
-        className: "incomplete-tasks"
+        className: "incomplete-tasks ".concat(this.state.completeTabClicked)
       }, "Incomplete"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         onClick: function onClick(e) {
-          return _this4.handleShowCompletedTasks(e, true);
+          return _this6.handleShowCompletedTasks(e, true);
         },
-        className: "complete-tasks"
+        className: "complete-tasks ".concat(this.state.completeTabClicked)
       }, "Complete")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "task-options"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         onClick: this.deleteSelectedTasks,
-        className: "material-icons"
-      }, "more_horiz")), this.state.showCompletedTasks ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "task-more-options"
+      }, "Delete"), this.state.showCompletedTasks ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        onClick: this.incompleteSelectedTasks,
+        className: "task-incomplete"
+      }, "Uncomplete") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        onClick: this.completeSelectedTasks,
+        className: "task-complete"
+      }, "Complete")), this.state.showCompletedTasks ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmitCreateTask,
         className: "task-title-form"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        id: "task-create-input",
         className: "task-title-input",
         type: "text",
-        value: this.state.title,
         placeholder: "Add a task...",
         onChange: this.update('title')
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "add-task-submit",
         type: "submit",
         value: "Add Task"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.currentTasks.map(function (task) {
+      })), this.state.showCompletedTasks ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.currentTasks.filter(function (task) {
+        return task.complete;
+      }).map(function (task) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_task_item_task_item_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          key: task.id,
+          task: task
+        });
+      })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.currentTasks.filter(function (task) {
+        return !task.complete;
+      }).map(function (task) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_task_item_task_item_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          key: task.id,
           task: task
         });
       })));
@@ -1117,7 +1207,9 @@ function (_React$Component) {
   }]);
 
   return ListShow;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); // <i className="material-icons">more_horiz</i>
+// <i className="material-icons">arrow_drop_down</i>
+
 
 /* harmony default export */ __webpack_exports__["default"] = (ListShow);
 
@@ -1179,6 +1271,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     deleteTask: function deleteTask(list_id, task_id) {
       return dispatch(Object(_actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["deleteTask"])(list_id, task_id));
+    },
+    updateTask: function updateTask(list_id, task) {
+      return dispatch(Object(_actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["updateTask"])(list_id, task));
     }
   };
 };
@@ -1606,13 +1701,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
 
@@ -1628,8 +1723,12 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TaskEditForm).call(this, props));
     _this.state = {
-      title: _this.props.tasks[parseInt(_this.props.match.params.task_id)].title
+      id: parseInt(_this.props.match.params.task_id),
+      title: _this.props.tasks[parseInt(_this.props.match.params.task_id)].title,
+      complete: _this.props.tasks[parseInt(_this.props.match.params.task_id)].complete
     };
+    _this.editTask = _this.editTask.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleCloseForm = _this.handleCloseForm.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
@@ -1638,7 +1737,6 @@ function (_React$Component) {
     value: function componentDidUpdate(prevProps) {
       // #2?
       if (prevProps.match.params.task_id != this.props.match.params.task_id) {
-        debugger;
         this.props.deselectTask(this.props.tasks[prevProps.match.params.task_id]);
         this.setState({
           title: this.props.tasks[parseInt(this.props.match.params.task_id)].title
@@ -1655,21 +1753,36 @@ function (_React$Component) {
       };
     }
   }, {
+    key: "editTask",
+    value: function editTask(e) {
+      e.preventDefault();
+      var task = Object.assign({}, this.state);
+      this.props.updateTask(this.props.match.params.list_id, task);
+    }
+  }, {
+    key: "handleCloseForm",
+    value: function handleCloseForm(e) {
+      e.preventDefault();
+      this.props.history.push("/lists/".concat(this.props.currentListId));
+    }
+  }, {
     key: "render",
     value: function render() {
       // #2?
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onSubmit: this.editTask,
         className: "task-edit-form"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        onClick: this.handleCloseForm,
+        className: "task-edit-close"
+      }, "close", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons close-icon"
+      }, "close")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "task-edit-input",
         type: "text",
         onChange: this.update("title"),
         value: this.state.title
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "task-edit-close"
-      }, "close", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "material-icons cancel-icon"
-      }, "cancel")));
+      }));
     }
   }]);
 
@@ -1701,7 +1814,8 @@ __webpack_require__.r(__webpack_exports__);
 var mapStateToProps = function mapStateToProps(state) {
   //Should hit every single time something is clicked
   return {
-    tasks: state.entities.tasks
+    tasks: state.entities.tasks,
+    currentListId: state.ui.currentListId
   };
 };
 
@@ -1709,6 +1823,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     deselectTask: function deselectTask(task) {
       return dispatch(Object(_actions_task_actions__WEBPACK_IMPORTED_MODULE_2__["deselectTask"])(task));
+    },
+    updateTask: function updateTask(list_id, task) {
+      return dispatch(Object(_actions_task_actions__WEBPACK_IMPORTED_MODULE_2__["updateTask"])(list_id, task));
     }
   };
 };
@@ -1771,7 +1888,14 @@ function (_React$Component) {
   _createClass(TaskItem, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
-      debugger;
+      if (this.props.closeTaskFormIds.length === 2 && this.props.closeTaskFormIds[0] === this.props.task.id) {
+        this.setState({
+          selected: false,
+          openEditForm: false
+        });
+        this.props.deselectTask(this.props.task);
+        this.props.removeTaskFormId();
+      }
     }
   }, {
     key: "toggleSelectTask",
@@ -1793,8 +1917,6 @@ function (_React$Component) {
   }, {
     key: "toggleSelectAndEditTask",
     value: function toggleSelectAndEditTask(e, selectedTask) {
-      debugger;
-
       if (this.props.match.params.task_id) {
         this.setState({
           selected: false,
@@ -1803,6 +1925,7 @@ function (_React$Component) {
       }
 
       this.toggleSelectTask(e, selectedTask);
+      this.props.setCurrentTaskForm(this.props.task);
 
       if (this.state.openEditForm) {
         this.setState({
@@ -1826,18 +1949,24 @@ function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "task-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         onClick: function onClick(e) {
           return _this2.toggleSelectTask(e, _this2.props.task);
         },
-        class: "material-icons"
+        className: "material-icons check-box-icon-".concat(this.state.selected)
       }, "check_box_outline_blank"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        class: "material-icons"
+        onClick: function onClick(e) {
+          return _this2.toggleSelectTask(e, _this2.props.task);
+        },
+        className: "material-icons check-icon-".concat(this.state.selected)
       }, "check"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
         onClick: function onClick(e) {
           return _this2.toggleSelectAndEditTask(e, _this2.props.task);
-        }
-      }, this.props.task.id));
+        },
+        className: "task-title"
+      }, this.props.task.title));
     }
   }]);
 
@@ -1870,7 +1999,9 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     task: ownProps.task,
     tasks: state.entities.tasks,
-    currentListId: state.ui.currentListId
+    currentListId: state.ui.currentListId,
+    currentTaskFormId: state.ui.currentTaskFormId,
+    closeTaskFormIds: state.ui.closeTaskFormIds
   };
 };
 
@@ -1881,6 +2012,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     deselectTask: function deselectTask(selectedTask) {
       return dispatch(Object(_actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["deselectTask"])(selectedTask));
+    },
+    removeTaskFormId: function removeTaskFormId() {
+      return dispatch(Object(_actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["removeTaskFormId"])());
+    },
+    setCurrentTaskForm: function setCurrentTaskForm(task) {
+      return dispatch(Object(_actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["setCurrentTaskForm"])(task));
     }
   };
 };
@@ -2252,7 +2389,9 @@ __webpack_require__.r(__webpack_exports__);
 
 function uiReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    selectedTasks: []
+    selectedTasks: [],
+    closeTaskFormIds: [],
+    close: close
   };
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
@@ -2269,9 +2408,25 @@ function uiReducer() {
       state.selectedTasks.push(action.task.id);
       return Object.assign({}, state);
 
+    case _actions_task_actions__WEBPACK_IMPORTED_MODULE_2__["SET_CURRENT_TASK_FORM"]:
+      state.closeTaskFormIds.push(action.task.id);
+      return Object.assign({}, state, {
+        currentTaskFormId: action.task.id
+      });
+
     case _actions_task_actions__WEBPACK_IMPORTED_MODULE_2__["DESELECT_ALL_TASKS"]:
       return Object.assign({}, state, {
         selectedTasks: []
+      });
+
+    case _actions_task_actions__WEBPACK_IMPORTED_MODULE_2__["REMOVE_TASK_FORM_ID"]:
+      state.closeTaskFormIds.splice(0, 1);
+      return Object.assign({}, state);
+
+    case _actions_task_actions__WEBPACK_IMPORTED_MODULE_2__["CLOSE_TASK_FORM"]:
+      // state.closeTaskFormIds.push()
+      return Object.assign({}, state, {
+        closeTaskFormId: action.task.id
       });
 
     case _actions_task_actions__WEBPACK_IMPORTED_MODULE_2__["REMOVE_TASK"]:

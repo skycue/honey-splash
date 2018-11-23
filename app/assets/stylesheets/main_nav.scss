@@ -27,10 +27,6 @@
   margin: 5px 60px 5px 11px;
 }
 
-.main-content {
-  background-color: #F8ECA5;
-}
-
 .settings {
   position: absolute;
   z-index: 7;
@@ -45,7 +41,8 @@
 }
 
 .main-content {
+  background-color: #FBF4D0;
   display: flex;
   flex-direction: row;
-  padding-top: 9px;
+  padding-top: 12px;
 }

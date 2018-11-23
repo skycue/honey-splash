@@ -34,13 +34,18 @@
   margin-bottom: 7px;
 }
 
-.list-form-buttons input,
-.list-form-buttons div {
+.list-form-buttons > input,
+.list-form-buttons > div {
   border: 1px solid #c7cacd;
   padding: 6px 13px;
   cursor: pointer;
   border-radius: 3px;
   font-weight: bold;
+  line-height: 16.7px;
+}
+
+.list-form-buttons > div:hover {
+  color: #F2AB1C;
 }
 
 .list-form-buttons input,
