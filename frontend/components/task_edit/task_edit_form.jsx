@@ -4,14 +4,18 @@ class TaskEditForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: this.props.tasks[parseInt(this.props.match.params.task_id)].title
+      id: parseInt(this.props.match.params.task_id),
+      title: this.props.tasks[parseInt(this.props.match.params.task_id)].title,
+      complete: this.props.tasks[parseInt(this.props.match.params.task_id)].complete
     };
+
+    this.editTask = this.editTask.bind(this);
+    this.handleCloseForm = this.handleCloseForm.bind(this);
   }
 
   componentDidUpdate(prevProps) {
      // #2?
     if (prevProps.match.params.task_id != this.props.match.params.task_id) {
-      debugger
       this.props.deselectTask(this.props.tasks[prevProps.match.params.task_id]);
       this.setState({ title: this.props.tasks[parseInt(this.props.match.params.task_id)].title})
     }
@@ -23,20 +27,31 @@ class TaskEditForm extends React.Component {
     });
   }
 
+  editTask(e) {
+    e.preventDefault();
+    const task = Object.assign({}, this.state);
+    this.props.updateTask(this.props.match.params.list_id, task);
+  }
+
+  handleCloseForm(e) {
+    e.preventDefault();
+    this.props.history.push(`/lists/${this.props.currentListId}`)
+  }
+
   render() {
      // #2?
     return (
-      <form className="task-edit-form">
+      <form onSubmit={this.editTask} className="task-edit-form">
+        <div onClick={this.handleCloseForm} className="task-edit-close">
+          close
+          <i className="material-icons close-icon">close</i>
+        </div>
+
         <input className="task-edit-input"
           type="text"
           onChange={this.update("title")}
           value={this.state.title}
         />
-
-        <div className="task-edit-close">
-          close
-          <i className="material-icons cancel-icon">cancel</i>
-        </div>
       </form>
 
     );

@@ -1,18 +1,20 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { deselectTask } from '../../actions/task_actions';
+import { deselectTask, updateTask } from '../../actions/task_actions';
 import TaskEditForm from './task_edit_form';
 
 const mapStateToProps = (state) => {
    //Should hit every single time something is clicked
   return {
-    tasks: state.entities.tasks
+    tasks: state.entities.tasks,
+    currentListId: state.ui.currentListId
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    deselectTask: (task) => dispatch(deselectTask(task))
+    deselectTask: (task) => dispatch(deselectTask(task)),
+    updateTask: (list_id, task) => dispatch(updateTask(list_id, task))
   };
 };
 
