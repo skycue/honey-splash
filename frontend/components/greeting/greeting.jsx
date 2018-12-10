@@ -12,7 +12,8 @@ class Greeting extends React.Component {
 
     this.state = {
       showSidebar: true,
-      showSettings: false
+      showSettings: false,
+      showSearchResult: false;
     }
 
     this.toggleSidebar = this.toggleSidebar.bind(this);
@@ -48,6 +49,16 @@ class Greeting extends React.Component {
     }
   }
 
+  handleSearch(e) {
+    e.preventDefault();
+
+    if (!this.state.showSearchResult) {
+      this.setState({
+        showSearchResult: true
+      });
+    }
+  }
+
   sessionLinks() {
     return (
       <Redirect to="/login" />
@@ -64,7 +75,7 @@ class Greeting extends React.Component {
           </nav>
 
           <nav className="mid-nav">
-            <form className="search-form">
+            <form onSubmit={this.handleSearch} className="search-form">
               <input className="search-input"
                 type="text"
               />
@@ -105,9 +116,17 @@ class Greeting extends React.Component {
               )
           }
 
-            <Route path="/lists/:list_id" component={ListShowContainer}/>
+          {
+            this.state.showSearchResult
+              ? (
+                <Route path="/lists/:search" component={ListShowContainer}/>
+              )
+              : (
+                <Route path="/lists/:list_id" component={ListShowContainer}/>
+              )
+          }
 
-            <Route path="/lists/:list_id/tasks/:task_id" component={TaskEditFormContainer}/>
+          <Route path="/lists/:list_id/tasks/:task_id" component={TaskEditFormContainer}/>
 
         </div>
 
