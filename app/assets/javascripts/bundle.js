@@ -325,6 +325,7 @@ var receiveTasks = function receiveTasks(tasks) {
   };
 };
 var receiveTask = function receiveTask(task) {
+  // debugger
   return {
     type: RECEIVE_TASK,
     task: task
@@ -378,6 +379,7 @@ var createTask = function createTask(list_id, task) {
 };
 var updateTask = function updateTask(list_id, task) {
   return function (dispatch) {
+    // debugger
     return _util_task_api_util__WEBPACK_IMPORTED_MODULE_0__["updateTask"](list_id, task).then(function (task) {
       return dispatch(receiveTask(task));
     }, function (error) {
@@ -1146,7 +1148,8 @@ function (_React$Component) {
 
       if (!this.props.currentList) {
         return null;
-      }
+      } // debugger
+
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "list-show"
@@ -1243,6 +1246,7 @@ var mapStateToProps = function mapStateToProps(_ref) {
   var currentTasks = [];
 
   if (currentList) {
+    // debugger
     currentList.task_ids.forEach(function (id) {
       if (tasks[id]) {
         currentTasks.push(tasks[id]);
@@ -1888,6 +1892,7 @@ function (_React$Component) {
   _createClass(TaskItem, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
+      // debugger
       if (this.props.closeTaskFormIds.length === 2 && this.props.closeTaskFormIds[0] === this.props.task.id) {
         this.setState({
           selected: false,
@@ -1949,6 +1954,7 @@ function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
+      // debugger
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "task-item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -2177,7 +2183,9 @@ var listsReducer = function listsReducer() {
 
     case _actions_task_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_TASK"]:
       newState = lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state);
-      newState[action.task.list_id].task_ids.push(action.task.id);
+      var taskIdsOfList = newState[action.task.list_id].task_ids;
+      taskIdsOfList.splice(taskIdsOfList.indexOf(action.task.id), 1);
+      taskIdsOfList.push(action.task.id);
       return newState;
 
     case _actions_task_actions__WEBPACK_IMPORTED_MODULE_1__["REMOVE_TASK"]:

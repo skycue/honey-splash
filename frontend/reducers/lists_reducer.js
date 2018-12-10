@@ -22,7 +22,11 @@ const listsReducer = (state = {}, action) => {
       return newState;
     case RECEIVE_TASK:
       newState = merge({}, state);
-      newState[action.task.list_id].task_ids.push(action.task.id);
+      
+      const taskIdsOfList = newState[action.task.list_id].task_ids;
+      taskIdsOfList.splice(taskIdsOfList.indexOf(action.task.id), 1);
+      taskIdsOfList.push(action.task.id);
+
       return newState;
     case REMOVE_TASK:
       newState = merge({}, state);
