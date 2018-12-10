@@ -63,6 +63,14 @@ class Greeting extends React.Component {
             <i onClick={this.toggleSidebar} className="material-icons">menu</i>
           </nav>
 
+          <nav className="mid-nav">
+            <form className="search-form">
+              <input className="search-input"
+                type="text"
+              />
+            </form>
+          </nav>
+
           <nav className="right-nav">
             <ul>
               <li className="gear-dropdown-btn">
@@ -98,7 +106,7 @@ class Greeting extends React.Component {
           }
 
             <Route path="/lists/:list_id" component={ListShowContainer}/>
-            
+
             <Route path="/lists/:list_id/tasks/:task_id" component={TaskEditFormContainer}/>
 
         </div>
