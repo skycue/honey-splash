@@ -1080,7 +1080,10 @@ function (_React$Component) {
       delete task["showCompletedTasks"];
       delete task["completeTabClicked"]; //Doesn't seem to change anything
 
+      this.props.fetchLists(this.props.currentUserId); //Why does this let tasks be rendered properly?
+
       this.props.createTask(this.props.currentList.id, task);
+      this.props.fetchLists(this.props.currentUserId);
     }
   }, {
     key: "handleShowCompletedTasks",
@@ -1238,6 +1241,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _list_show__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./list_show */ "./frontend/components/list_show/list_show.jsx");
 /* harmony import */ var _actions_task_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/task_actions */ "./frontend/actions/task_actions.js");
+/* harmony import */ var _actions_list_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/list_actions */ "./frontend/actions/list_actions.js");
+
 
 
 
@@ -1245,6 +1250,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapStateToProps = function mapStateToProps(_ref) {
   var tasks = _ref.entities.tasks,
+      session = _ref.session,
       lists = _ref.entities.lists,
       _ref$ui = _ref.ui,
       selectedTasks = _ref$ui.selectedTasks,
@@ -1261,6 +1267,7 @@ var mapStateToProps = function mapStateToProps(_ref) {
   }
 
   return {
+    currentUserId: session.id,
     currentList: currentList,
     currentTasks: currentTasks,
     tasks: tasks,
@@ -1275,6 +1282,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     fetchTasks: function fetchTasks(options) {
       return dispatch(Object(_actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["fetchTasks"])(options));
+    },
+    fetchLists: function fetchLists(user_id) {
+      return dispatch(Object(_actions_list_actions__WEBPACK_IMPORTED_MODULE_4__["fetchLists"])(user_id));
     },
     deselectAllTasks: function deselectAllTasks() {
       return dispatch(Object(_actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["deselectAllTasks"])());
@@ -1902,8 +1912,8 @@ function (_React$Component) {
         this.setState({
           selected: false,
           openEditForm: false
-        });
-        this.props.deselectTask(this.props.task);
+        }); // this.props.deselectTask(this.props.task);
+
         this.props.removeTaskFormId();
       }
     }
@@ -1916,11 +1926,13 @@ function (_React$Component) {
         this.setState({
           selected: false
         });
+        debugger;
         this.props.deselectTask(selectedTask);
       } else {
         this.setState({
           selected: true
         });
+        debugger;
         this.props.selectTask(selectedTask);
       }
     }
@@ -2177,7 +2189,6 @@ var listsReducer = function listsReducer() {
       //   lists[list.id] = list;
       // });
       // return lists;
-      debugger;
       return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state, action.lists);
 
     case _actions_list_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_LIST"]:

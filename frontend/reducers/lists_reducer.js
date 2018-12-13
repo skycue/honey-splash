@@ -14,7 +14,6 @@ const listsReducer = (state = {}, action) => {
       //   lists[list.id] = list;
       // });
       // return lists;
-      debugger
       return merge({}, state, action.lists);
     case RECEIVE_LIST:
       return merge({}, state, { [action.list.id]: action.list });
