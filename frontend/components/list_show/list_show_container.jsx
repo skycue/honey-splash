@@ -26,7 +26,7 @@ const mapDispatchToProps = dispatch => {
     createTask: (list_id, task) => {
       return dispatch(createTask(list_id, task))
     },
-    fetchTasks: (list_id) => dispatch(fetchTasks(list_id)),
+    fetchTasks: (options) => dispatch(fetchTasks(options)),
     deselectAllTasks: () => dispatch(deselectAllTasks()),
     deleteTask: (list_id, task_id) => dispatch(deleteTask(list_id, task_id)),
     updateTask: (list_id, task) => dispatch(updateTask(list_id, task))
