@@ -12,13 +12,12 @@ class Greeting extends React.Component {
 
     this.state = {
       showSidebar: true,
-      showSettings: false,
-      showSearchResult: false;
+      showSettings: false
     }
 
     this.toggleSidebar = this.toggleSidebar.bind(this);
     this.toggleSettings = this.toggleSettings.bind(this);
-
+    // this.handleSearch = this.handleSearch.bind(this);
   }
 
   toggleSidebar(e) {
@@ -49,15 +48,11 @@ class Greeting extends React.Component {
     }
   }
 
-  handleSearch(e) {
-    e.preventDefault();
-
-    if (!this.state.showSearchResult) {
-      this.setState({
-        showSearchResult: true
-      });
-    }
-  }
+  // handleSearch(e) {
+  //   e.preventDefault();
+  //
+  //   this.props.history.push(`/lists/search`);
+  // }
 
   sessionLinks() {
     return (
@@ -72,14 +67,6 @@ class Greeting extends React.Component {
         <header className="main-nav">
           <nav className="left-nav">
             <i onClick={this.toggleSidebar} className="material-icons">menu</i>
-          </nav>
-
-          <nav className="mid-nav">
-            <form onSubmit={this.handleSearch} className="search-form">
-              <input className="search-input"
-                type="text"
-              />
-            </form>
           </nav>
 
           <nav className="right-nav">
@@ -116,15 +103,7 @@ class Greeting extends React.Component {
               )
           }
 
-          {
-            this.state.showSearchResult
-              ? (
-                <Route path="/lists/:search" component={ListShowContainer}/>
-              )
-              : (
-                <Route path="/lists/:list_id" component={ListShowContainer}/>
-              )
-          }
+          <Route path="/lists/:list_id" component={ListShowContainer}/>
 
           <Route path="/lists/:list_id/tasks/:task_id" component={TaskEditFormContainer}/>
 
