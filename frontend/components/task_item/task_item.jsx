@@ -31,13 +31,11 @@ class TaskItem extends React.Component {
       this.setState({
         selected: false
       })
-      debugger
       this.props.deselectTask(selectedTask);
     } else {
       this.setState({
         selected: true
       })
-      debugger
       this.props.selectTask(selectedTask);
     }
   }
