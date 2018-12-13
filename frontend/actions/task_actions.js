@@ -79,11 +79,11 @@ export const updateTask = (list_id, task) => dispatch => {
   )
 };
 
-export const fetchTasks = (list_id) => dispatch => (
-  APIUtil.fetchTasks(list_id).then(tasks => (
+export const fetchTasks = (options) => dispatch => {
+  return APIUtil.fetchTasks(options).then(tasks => (
     dispatch(receiveTasks(tasks))
   ))
-);
+};
 
 export const deleteTask = (list_id, task) => dispatch => (
   APIUtil.removeTask(list_id, task).then(task => (
