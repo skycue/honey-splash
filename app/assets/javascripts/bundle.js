@@ -1198,14 +1198,14 @@ function (_React$Component) {
         className: "add-task-submit",
         type: "submit",
         value: "Add Task"
-      })), this.state.showCompletedTasks ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.tasks.filter(function (task) {
+      })), this.state.showCompletedTasks ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.currentTasks.filter(function (task) {
         return task.complete;
       }).map(function (task) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_task_item_task_item_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
           key: task.id,
           task: task
         });
-      })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.tasks.filter(function (task) {
+      })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.currentTasks.filter(function (task) {
         return !task.complete;
       }).map(function (task) {
         return (//didn't change before
@@ -1219,9 +1219,7 @@ function (_React$Component) {
   }]);
 
   return ListShow;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); // <i className="material-icons">more_horiz</i>
-// <i className="material-icons">arrow_drop_down</i>
-
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (ListShow);
 
@@ -2158,7 +2156,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_merge__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _actions_task_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/task_actions */ "./frontend/actions/task_actions.js");
 /* harmony import */ var _actions_list_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/list_actions */ "./frontend/actions/list_actions.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -2177,6 +2177,7 @@ var listsReducer = function listsReducer() {
       //   lists[list.id] = list;
       // });
       // return lists;
+      debugger;
       return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state, action.lists);
 
     case _actions_list_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_LIST"]:
@@ -2199,6 +2200,9 @@ var listsReducer = function listsReducer() {
       var listTaskIds = newState[action.task.list_id].task_ids;
       listTaskIds.splice(listTaskIds.indexOf(action.task.id), 1);
       return newState;
+
+    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_3__["LOGOUT_CURRENT_USER"]:
+      return {};
 
     default:
       return state;
@@ -2354,7 +2358,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
 /* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_merge__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _actions_task_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/task_actions */ "./frontend/actions/task_actions.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -2375,6 +2381,9 @@ var tasksReducer = function tasksReducer() {
       var newState = lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state);
       delete newState[action.task_id];
       return newState;
+
+    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["LOGOUT_CURRENT_USER"]:
+      return {};
 
     default:
       return state;
@@ -2480,6 +2489,9 @@ var usersReducer = function usersReducer() {
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_CURRENT_USER"]:
       return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state, _defineProperty({}, action.currentUser.id, action.currentUser));
+
+    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["LOGOUT_CURRENT_USER"]:
+      return {};
 
     default:
       return state;

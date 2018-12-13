@@ -2,6 +2,7 @@ import merge from 'lodash/merge';
 import { RECEIVE_TASK, REMOVE_TASK } from '../actions/task_actions';
 
 import { RECEIVE_LISTS, RECEIVE_LIST, REMOVE_LIST } from '../actions/list_actions';
+import { LOGOUT_CURRENT_USER } from '../actions/session_actions';
 
 const listsReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -13,6 +14,7 @@ const listsReducer = (state = {}, action) => {
       //   lists[list.id] = list;
       // });
       // return lists;
+      debugger
       return merge({}, state, action.lists);
     case RECEIVE_LIST:
       return merge({}, state, { [action.list.id]: action.list });
@@ -22,7 +24,7 @@ const listsReducer = (state = {}, action) => {
       return newState;
     case RECEIVE_TASK:
       newState = merge({}, state);
-      
+
       const taskIdsOfList = newState[action.task.list_id].task_ids;
       taskIdsOfList.splice(taskIdsOfList.indexOf(action.task.id), 1);
       taskIdsOfList.push(action.task.id);
@@ -33,6 +35,8 @@ const listsReducer = (state = {}, action) => {
       let listTaskIds = newState[action.task.list_id].task_ids;
       listTaskIds.splice(listTaskIds.indexOf(action.task.id), 1);
       return newState;
+    case LOGOUT_CURRENT_USER:
+      return {};
     default:
       return state;
   }
