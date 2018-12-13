@@ -1908,12 +1908,12 @@ function (_React$Component) {
   _createClass(TaskItem, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
-      if (this.props.closeTaskFormIds.length === 2 && this.props.closeTaskFormIds[0] === this.props.task.id) {
+      if (this.props.closeTaskFormIds.length === 2 && this.props.closeTaskFormIds[0] === this.props.task.id && this.state.openEditForm === false) {
         this.setState({
           selected: false,
           openEditForm: false
-        }); // this.props.deselectTask(this.props.task);
-
+        });
+        this.props.deselectTask(this.props.task);
         this.props.removeTaskFormId();
       }
     }
@@ -1937,6 +1937,8 @@ function (_React$Component) {
   }, {
     key: "toggleSelectAndEditTask",
     value: function toggleSelectAndEditTask(e, selectedTask) {
+      e.preventDefault();
+
       if (this.props.match.params.task_id) {
         this.setState({
           selected: false,
@@ -1961,7 +1963,7 @@ function (_React$Component) {
         //
         // }
 
-        this.props.history.push("/lists/".concat(this.props.currentListId, "/tasks/").concat(this.props.task.id));
+        var a = "hello";
       }
     }
   }, {

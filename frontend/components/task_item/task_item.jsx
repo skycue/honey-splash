@@ -14,12 +14,14 @@ class TaskItem extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.closeTaskFormIds.length === 2 && this.props.closeTaskFormIds[0] === this.props.task.id) {
+    if (this.props.closeTaskFormIds.length === 2
+      && this.props.closeTaskFormIds[0] === this.props.task.id
+      && this.state.openEditForm === false) {
       this.setState({
         selected: false,
         openEditForm: false
       })
-      // this.props.deselectTask(this.props.task);
+      this.props.deselectTask(this.props.task);
       this.props.removeTaskFormId();
     }
   }
@@ -41,6 +43,7 @@ class TaskItem extends React.Component {
   }
 
   toggleSelectAndEditTask(e, selectedTask) {
+    e.preventDefault();
     if (this.props.match.params.task_id) {
       this.setState({
         selected: false,
@@ -63,8 +66,7 @@ class TaskItem extends React.Component {
       //   this.props.deselectTask(this.props.tasks[this.props.match.params.task_id]);
       //
       // }
-
-      this.props.history.push(`/lists/${this.props.currentListId}/tasks/${this.props.task.id}`);
+      const a = "hello";
     }
   }
 
