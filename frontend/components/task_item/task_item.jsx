@@ -19,7 +19,7 @@ class TaskItem extends React.Component {
         selected: false,
         openEditForm: false
       })
-      this.props.deselectTask(this.props.task);
+      // this.props.deselectTask(this.props.task);
       this.props.removeTaskFormId();
     }
   }
@@ -31,11 +31,13 @@ class TaskItem extends React.Component {
       this.setState({
         selected: false
       })
+      debugger
       this.props.deselectTask(selectedTask);
     } else {
       this.setState({
         selected: true
       })
+      debugger
       this.props.selectTask(selectedTask);
     }
   }
