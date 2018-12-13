@@ -35,7 +35,9 @@ class ListShow extends React.Component {
     const task = Object.assign({}, this.state);
     delete task["showCompletedTasks"];
     delete task["completeTabClicked"]; //Doesn't seem to change anything
+    this.props.fetchLists(this.props.currentUserId); //Why does this let tasks be rendered properly?
     this.props.createTask(this.props.currentList.id, task);
+    this.props.fetchLists(this.props.currentUserId);
   }
 
   handleShowCompletedTasks(e, showCompleted) {
@@ -81,7 +83,7 @@ class ListShow extends React.Component {
     if (!this.props.currentList) {
       return null;
     }
-
+    
     return (
       <div className="list-show">
         <h1 className="list-title">{this.props.currentList.title}</h1>
