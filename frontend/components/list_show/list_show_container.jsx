@@ -2,8 +2,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ListShow from './list_show';
 import { createTask, fetchTasks, deselectAllTasks, deleteTask, updateTask } from '../../actions/task_actions';
+import { fetchLists } from '../../actions/list_actions';
 
-const mapStateToProps = ({entities: { tasks }, entities: { lists }, ui: {selectedTasks, currentListId}}) => {
+const mapStateToProps = ({entities: { tasks }, session, entities: { lists }, ui: {selectedTasks, currentListId}}) => {
   const currentList = lists[currentListId];
   const currentTasks = [];
   if (currentList) {
@@ -14,6 +15,7 @@ const mapStateToProps = ({entities: { tasks }, entities: { lists }, ui: {selecte
     })
   }
   return {
+    currentUserId: session.id,
     currentList,
     currentTasks,
     tasks,
@@ -27,6 +29,7 @@ const mapDispatchToProps = dispatch => {
       return dispatch(createTask(list_id, task))
     },
     fetchTasks: (options) => dispatch(fetchTasks(options)),
+    fetchLists: (user_id) => dispatch(fetchLists(user_id)),
     deselectAllTasks: () => dispatch(deselectAllTasks()),
     deleteTask: (list_id, task_id) => dispatch(deleteTask(list_id, task_id)),
     updateTask: (list_id, task) => dispatch(updateTask(list_id, task))
