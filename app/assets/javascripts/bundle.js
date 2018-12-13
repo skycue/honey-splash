@@ -1908,7 +1908,7 @@ function (_React$Component) {
   _createClass(TaskItem, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
-      if (this.props.closeTaskFormIds.length === 2 && this.props.closeTaskFormIds[0] === this.props.task.id && this.state.openEditForm === false) {
+      if (this.props.closeTaskFormIds.length === 2 && this.props.closeTaskFormIds[0] === this.props.task.id && (this.props.closeTaskFormIds[1] === this.props.task.id && this.state.openEditForm === false || this.props.closeTaskFormIds[1] !== this.props.task.id && this.state.openEditForm === true)) {
         this.setState({
           selected: false,
           openEditForm: false
@@ -1963,7 +1963,7 @@ function (_React$Component) {
         //
         // }
 
-        var a = "hello";
+        this.props.history.push("/lists/".concat(this.props.currentListId, "/tasks/").concat(this.props.task.id));
       }
     }
   }, {

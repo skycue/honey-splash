@@ -15,8 +15,9 @@ class TaskItem extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.closeTaskFormIds.length === 2
-      && this.props.closeTaskFormIds[0] === this.props.task.id
-      && this.state.openEditForm === false) {
+      && this.props.closeTaskFormIds[0] === this.props.task.id &&
+      ((this.props.closeTaskFormIds[1] === this.props.task.id && this.state.openEditForm === false)
+      ||  (this.props.closeTaskFormIds[1] !== this.props.task.id && this.state.openEditForm === true))) {
       this.setState({
         selected: false,
         openEditForm: false
@@ -66,7 +67,7 @@ class TaskItem extends React.Component {
       //   this.props.deselectTask(this.props.tasks[this.props.match.params.task_id]);
       //
       // }
-      const a = "hello";
+      this.props.history.push(`/lists/${this.props.currentListId}/tasks/${this.props.task.id}`);
     }
   }
 
