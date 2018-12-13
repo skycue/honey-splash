@@ -9,9 +9,7 @@ class ListShow extends React.Component {
       title: "",
       completeTabClicked: false,
       showCompletedTasks: false,
-
     };
-
 
     this.handleSubmitCreateTask = this.handleSubmitCreateTask.bind(this);
     this.handleShowCompletedTasks = this.handleShowCompletedTasks.bind(this);
@@ -21,12 +19,12 @@ class ListShow extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchTasks(this.props.match.params.list_id);
+    this.props.fetchTasks({list_id: this.props.match.params.list_id});
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.list_id !== this.props.match.params.list_id) {
-      this.props.fetchTasks(this.props.match.params.list_id);
+      this.props.fetchTasks({list_id: this.props.match.params.list_id});
       this.props.deselectAllTasks();
     }
   }
@@ -83,6 +81,7 @@ class ListShow extends React.Component {
     if (!this.props.currentList) {
       return null;
     }
+
     return (
       <div className="list-show">
         <h1 className="list-title">{this.props.currentList.title}</h1>
@@ -141,7 +140,7 @@ class ListShow extends React.Component {
           ? (
             <ul>
               {
-                this.props.currentTasks.filter(task => task.complete).map(task => (
+                this.props.tasks.filter(task => task.complete).map(task => (
                   <TaskItemContainer key={task.id} task={task}/>
                 ))
               }
@@ -150,7 +149,7 @@ class ListShow extends React.Component {
           : (
             <ul>
               {
-                this.props.currentTasks.filter(task => !task.complete).map(task => (
+                this.props.tasks.filter(task => !task.complete).map(task => ( //didn't change before
                   <TaskItemContainer key={task.id} task={task}/>
                 ))
               }
