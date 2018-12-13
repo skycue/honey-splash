@@ -1,14 +1,14 @@
-export const fetchTasks = list_id => (
+export const fetchTasks = options => (
   $.ajax({
     method: 'GET',
-    url: `/api/lists/${list_id}/tasks`,
+    url: `/api/lists/${options.list_id}/tasks`
   })
 );
 
 export const createTask = (list_id, task) => {
   return $.ajax({
     method: 'POST',
-    url: `/api/lists/${list_id}/tasks`,
+    url: `/api/lists/${list_id}/tasks/`,
     data: { task }
   })
 }
