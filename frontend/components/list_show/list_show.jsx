@@ -140,7 +140,7 @@ class ListShow extends React.Component {
           ? (
             <ul>
               {
-                this.props.tasks.filter(task => task.complete).map(task => (
+                this.props.currentTasks.filter(task => task.complete).map(task => (
                   <TaskItemContainer key={task.id} task={task}/>
                 ))
               }
@@ -149,7 +149,7 @@ class ListShow extends React.Component {
           : (
             <ul>
               {
-                this.props.tasks.filter(task => !task.complete).map(task => ( //didn't change before
+                this.props.currentTasks.filter(task => !task.complete).map(task => ( //didn't change before
                   <TaskItemContainer key={task.id} task={task}/>
                 ))
               }
@@ -161,7 +161,5 @@ class ListShow extends React.Component {
     );
   }
 }
-// <i className="material-icons">more_horiz</i>
-// <i className="material-icons">arrow_drop_down</i>
 
 export default ListShow;
