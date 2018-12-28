@@ -10,7 +10,7 @@
 #
 
 class List < ApplicationRecord
-  validates :title, presence: true
+  validates :title, presence: true, length: { minimum: 1 }, allow_nil: true
 
   belongs_to :user,
     primary_key: :id,
