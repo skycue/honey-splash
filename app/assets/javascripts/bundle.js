@@ -1248,14 +1248,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var mapStateToProps = function mapStateToProps(_ref) {
+var mapStateToProps = function mapStateToProps(_ref, ownProps) {
   var tasks = _ref.entities.tasks,
       session = _ref.session,
       lists = _ref.entities.lists,
       _ref$ui = _ref.ui,
       selectedTasks = _ref$ui.selectedTasks,
       currentListId = _ref$ui.currentListId;
-  var currentList = lists[currentListId];
+  var currentList;
+
+  if (!currentListId) {
+    currentList = lists[parseInt(ownProps.match.params.list_id)];
+  } else {
+    currentList = lists[currentListId];
+  }
+
   var currentTasks = [];
 
   if (currentList) {

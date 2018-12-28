@@ -4,8 +4,15 @@ import ListShow from './list_show';
 import { createTask, fetchTasks, deselectAllTasks, deleteTask, updateTask } from '../../actions/task_actions';
 import { fetchLists } from '../../actions/list_actions';
 
-const mapStateToProps = ({entities: { tasks }, session, entities: { lists }, ui: {selectedTasks, currentListId}}) => {
-  const currentList = lists[currentListId];
+const mapStateToProps = ({entities: { tasks }, session, entities: { lists }, ui: {selectedTasks, currentListId}}, ownProps) => {
+  
+  let currentList;
+  if (!currentListId) {
+    currentList = lists[parseInt(ownProps.match.params.list_id)]
+  } else {
+    currentList = lists[currentListId];
+  }
+
   const currentTasks = [];
   if (currentList) {
     currentList.task_ids.forEach(id => {
