@@ -104,8 +104,17 @@ class Greeting extends React.Component {
           }
 
           <Route path="/lists/:list_id" component={ListShowContainer}/>
+          
+          {
+            this.props.currentListId
+              ? (
+                <Route path="/lists/:list_id/tasks/:task_id" component={TaskEditFormContainer}/>
+              )
+              : (
+                null
+              )
+          }
 
-          <Route path="/lists/:list_id/tasks/:task_id" component={TaskEditFormContainer}/>
 
         </div>
 
