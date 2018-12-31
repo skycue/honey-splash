@@ -1,9 +1,10 @@
 import { OPEN_MODAL } from '../actions/modal_actions';
 import { SET_CURRENT_LIST } from '../actions/list_actions';
+import { LOGOUT_CURRENT_USER } from '../actions/session_actions';
 import { SELECT_TASK, DESELECT_TASK, DESELECT_ALL_TASKS, REMOVE_TASK, SET_CURRENT_TASK_FORM,
   CLOSE_TASK_FORM, REMOVE_TASK_FORM_ID } from '../actions/task_actions';
 
-export default function uiReducer(state = {selectedTasks: [], closeTaskFormIds: [], close}, action) {
+export default function uiReducer(state = {selectedTasks: [], closeTaskFormIds: []}, action) {
   switch (action.type) {
     case OPEN_MODAL:
       return Object.assign({}, state, action.options);
@@ -27,6 +28,8 @@ export default function uiReducer(state = {selectedTasks: [], closeTaskFormIds: 
     case DESELECT_TASK:
       state.selectedTasks.splice(state.selectedTasks.indexOf(action.task.id), 1);
       return Object.assign({}, state);
+    case LOGOUT_CURRENT_USER:
+      return {selectedTasks: [], closeTaskFormIds: []};
     default:
       return state;
   }

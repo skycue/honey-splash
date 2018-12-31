@@ -2427,15 +2427,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return uiReducer; });
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/modal_actions */ "./frontend/actions/modal_actions.js");
 /* harmony import */ var _actions_list_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/list_actions */ "./frontend/actions/list_actions.js");
-/* harmony import */ var _actions_task_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/task_actions */ "./frontend/actions/task_actions.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_task_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/task_actions */ "./frontend/actions/task_actions.js");
+
 
 
 
 function uiReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
     selectedTasks: [],
-    closeTaskFormIds: [],
-    close: close
+    closeTaskFormIds: []
   };
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
@@ -2448,35 +2449,41 @@ function uiReducer() {
         currentListId: action.list_id
       });
 
-    case _actions_task_actions__WEBPACK_IMPORTED_MODULE_2__["SELECT_TASK"]:
+    case _actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["SELECT_TASK"]:
       state.selectedTasks.push(action.task.id);
       return Object.assign({}, state);
 
-    case _actions_task_actions__WEBPACK_IMPORTED_MODULE_2__["SET_CURRENT_TASK_FORM"]:
+    case _actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["SET_CURRENT_TASK_FORM"]:
       state.closeTaskFormIds.push(action.task.id);
       return Object.assign({}, state, {
         currentTaskFormId: action.task.id
       });
 
-    case _actions_task_actions__WEBPACK_IMPORTED_MODULE_2__["DESELECT_ALL_TASKS"]:
+    case _actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["DESELECT_ALL_TASKS"]:
       return Object.assign({}, state, {
         selectedTasks: []
       });
 
-    case _actions_task_actions__WEBPACK_IMPORTED_MODULE_2__["REMOVE_TASK_FORM_ID"]:
+    case _actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["REMOVE_TASK_FORM_ID"]:
       state.closeTaskFormIds.splice(0, 1);
       return Object.assign({}, state);
 
-    case _actions_task_actions__WEBPACK_IMPORTED_MODULE_2__["CLOSE_TASK_FORM"]:
+    case _actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["CLOSE_TASK_FORM"]:
       // state.closeTaskFormIds.push()
       return Object.assign({}, state, {
         closeTaskFormId: action.task.id
       });
 
-    case _actions_task_actions__WEBPACK_IMPORTED_MODULE_2__["REMOVE_TASK"]:
-    case _actions_task_actions__WEBPACK_IMPORTED_MODULE_2__["DESELECT_TASK"]:
+    case _actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["REMOVE_TASK"]:
+    case _actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["DESELECT_TASK"]:
       state.selectedTasks.splice(state.selectedTasks.indexOf(action.task.id), 1);
       return Object.assign({}, state);
+
+    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["LOGOUT_CURRENT_USER"]:
+      return {
+        selectedTasks: [],
+        closeTaskFormIds: []
+      };
 
     default:
       return state;
