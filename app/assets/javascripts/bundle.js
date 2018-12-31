@@ -1913,9 +1913,15 @@ function (_React$Component) {
       selected = true;
     }
 
+    var openEditForm = false;
+
+    if (_this.props.closeTaskFormIds[0] === _this.props.task.id) {
+      openEditForm = true;
+    }
+
     _this.state = {
       selected: selected,
-      openEditForm: false
+      openEditForm: openEditForm
     };
     _this.toggleSelectTask = _this.toggleSelectTask.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.toggleSelectAndEditTask = _this.toggleSelectAndEditTask.bind(_assertThisInitialized(_assertThisInitialized(_this)));

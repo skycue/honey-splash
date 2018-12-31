@@ -9,9 +9,14 @@ class TaskItem extends React.Component {
       selected = true;
     }
 
+    let openEditForm = false;
+    if (this.props.closeTaskFormIds[0] === this.props.task.id) {
+      openEditForm = true;
+    }
+
     this.state = {
       selected,
-      openEditForm: false
+      openEditForm
     }
 
     this.toggleSelectTask = this.toggleSelectTask.bind(this);
