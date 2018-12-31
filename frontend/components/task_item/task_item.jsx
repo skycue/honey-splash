@@ -4,8 +4,13 @@ class TaskItem extends React.Component {
   constructor(props) {
     super(props)
 
+    let selected = false;
+    if (this.props.selectedTaskIds.includes(this.props.task.id)) {
+      selected = true;
+    }
+
     this.state = {
-      selected: false,
+      selected,
       openEditForm: false
     }
 
@@ -44,6 +49,7 @@ class TaskItem extends React.Component {
   }
 
   toggleSelectAndEditTask(e, selectedTask) {
+    debugger
     e.preventDefault();
     if (this.props.match.params.task_id) {
       this.setState({
@@ -70,8 +76,10 @@ class TaskItem extends React.Component {
   render() {
     return (
       <li className="task-item">
-        <i onClick={(e) => this.toggleSelectTask(e, this.props.task)} className={`material-icons check-box-icon-${this.state.selected}`}>check_box_outline_blank</i>
-        <i onClick={(e) => this.toggleSelectTask(e, this.props.task)} className={`material-icons check-icon-${this.state.selected}`}>check</i>
+        <i onClick={(e) => this.toggleSelectTask(e, this.props.task)}
+          className={`material-icons check-box-icon-${this.state.selected}`}>check_box_outline_blank</i>
+        <i onClick={(e) => this.toggleSelectTask(e, this.props.task)}
+          className={`material-icons check-icon-${this.state.selected}`}>check</i>
         <h3 onClick={(e) => this.toggleSelectAndEditTask(e, this.props.task)} className="task-title">{this.props.task.title}</h3>
       </li>
     );

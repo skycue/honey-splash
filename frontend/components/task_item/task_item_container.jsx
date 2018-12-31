@@ -4,12 +4,14 @@ import TaskItem from './task_item';
 import { selectTask, deselectTask, setCurrentTaskForm, removeTaskFormId } from '../../actions/task_actions';
 
 const mapStateToProps = (state, ownProps) => {
+
   return {
     task: ownProps.task,
     tasks: state.entities.tasks,
     currentListId: state.ui.currentListId,
     currentTaskFormId: state.ui.currentTaskFormId,
-    closeTaskFormIds: state.ui.closeTaskFormIds
+    closeTaskFormIds: state.ui.closeTaskFormIds,
+    selectedTaskIds: state.ui.selectedTasks
   }
 };
 

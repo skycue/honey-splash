@@ -1907,8 +1907,14 @@ function (_React$Component) {
     _classCallCheck(this, TaskItem);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TaskItem).call(this, props));
+    var selected = false;
+
+    if (_this.props.selectedTaskIds.includes(_this.props.task.id)) {
+      selected = true;
+    }
+
     _this.state = {
-      selected: false,
+      selected: selected,
       openEditForm: false
     };
     _this.toggleSelectTask = _this.toggleSelectTask.bind(_assertThisInitialized(_assertThisInitialized(_this)));
@@ -1948,6 +1954,7 @@ function (_React$Component) {
   }, {
     key: "toggleSelectAndEditTask",
     value: function toggleSelectAndEditTask(e, selectedTask) {
+      debugger;
       e.preventDefault();
 
       if (this.props.match.params.task_id) {
@@ -2029,7 +2036,8 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
     tasks: state.entities.tasks,
     currentListId: state.ui.currentListId,
     currentTaskFormId: state.ui.currentTaskFormId,
-    closeTaskFormIds: state.ui.closeTaskFormIds
+    closeTaskFormIds: state.ui.closeTaskFormIds,
+    selectedTaskIds: state.ui.selectedTasks
   };
 };
 
