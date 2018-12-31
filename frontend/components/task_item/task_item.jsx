@@ -62,11 +62,7 @@ class TaskItem extends React.Component {
       this.setState({
         openEditForm: true
       })
-       // #1 Check this.props.match.params.task_id && path
-      // if (this.props.match.params.task_id) {
-      //   this.props.deselectTask(this.props.tasks[this.props.match.params.task_id]);
-      //
-      // }
+
       this.props.history.push(`/lists/${this.props.currentListId}/tasks/${this.props.task.id}`);
     }
   }

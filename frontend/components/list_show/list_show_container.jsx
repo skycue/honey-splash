@@ -5,15 +5,10 @@ import { createTask, fetchTasks, deselectAllTasks, deleteTask, updateTask } from
 import { fetchLists } from '../../actions/list_actions';
 
 const mapStateToProps = ({entities: { tasks }, session, entities: { lists }, ui: {selectedTasks, currentListId}}, ownProps) => {
-  
-  let currentList;
-  if (!currentListId) {
-    currentList = lists[parseInt(ownProps.match.params.list_id)]
-  } else {
-    currentList = lists[currentListId];
-  }
 
+  const currentList = lists[currentListId];
   const currentTasks = [];
+
   if (currentList) {
     currentList.task_ids.forEach(id => {
       if (tasks[id]) {
@@ -21,6 +16,7 @@ const mapStateToProps = ({entities: { tasks }, session, entities: { lists }, ui:
       }
     })
   }
+  
   return {
     currentUserId: session.id,
     currentList,
@@ -39,7 +35,8 @@ const mapDispatchToProps = dispatch => {
     fetchLists: (user_id) => dispatch(fetchLists(user_id)),
     deselectAllTasks: () => dispatch(deselectAllTasks()),
     deleteTask: (list_id, task_id) => dispatch(deleteTask(list_id, task_id)),
-    updateTask: (list_id, task) => dispatch(updateTask(list_id, task))
+    updateTask: (list_id, task) => dispatch(updateTask(list_id, task)),
+    setCurrentList: (list_id) => dispatch(setCurrentList)
   };
 };
 

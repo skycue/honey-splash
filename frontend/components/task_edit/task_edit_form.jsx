@@ -14,7 +14,6 @@ class TaskEditForm extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-     // #2?
     if (prevProps.match.params.task_id != this.props.match.params.task_id) {
       this.props.deselectTask(this.props.tasks[prevProps.match.params.task_id]);
       this.setState({ title: this.props.tasks[parseInt(this.props.match.params.task_id)].title})

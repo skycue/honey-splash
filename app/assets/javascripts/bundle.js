@@ -1255,14 +1255,7 @@ var mapStateToProps = function mapStateToProps(_ref, ownProps) {
       _ref$ui = _ref.ui,
       selectedTasks = _ref$ui.selectedTasks,
       currentListId = _ref$ui.currentListId;
-  var currentList;
-
-  if (!currentListId) {
-    currentList = lists[parseInt(ownProps.match.params.list_id)];
-  } else {
-    currentList = lists[currentListId];
-  }
-
+  var currentList = lists[currentListId];
   var currentTasks = [];
 
   if (currentList) {
@@ -1301,7 +1294,20 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     updateTask: function updateTask(list_id, task) {
       return dispatch(Object(_actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["updateTask"])(list_id, task));
-    }
+    },
+    setCurrentList: function (_setCurrentList) {
+      function setCurrentList(_x) {
+        return _setCurrentList.apply(this, arguments);
+      }
+
+      setCurrentList.toString = function () {
+        return _setCurrentList.toString();
+      };
+
+      return setCurrentList;
+    }(function (list_id) {
+      return dispatch(setCurrentList);
+    })
   };
 };
 
@@ -1762,7 +1768,6 @@ function (_React$Component) {
   _createClass(TaskEditForm, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
-      // #2?
       if (prevProps.match.params.task_id != this.props.match.params.task_id) {
         this.props.deselectTask(this.props.tasks[prevProps.match.params.task_id]);
         this.setState({
@@ -1839,7 +1844,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  //Should hit every single time something is clicked
   return {
     tasks: state.entities.tasks,
     currentListId: state.ui.currentListId
@@ -1964,12 +1968,7 @@ function (_React$Component) {
       } else {
         this.setState({
           openEditForm: true
-        }); // #1 Check this.props.match.params.task_id && path
-        // if (this.props.match.params.task_id) {
-        //   this.props.deselectTask(this.props.tasks[this.props.match.params.task_id]);
-        //
-        // }
-
+        });
         this.props.history.push("/lists/".concat(this.props.currentListId, "/tasks/").concat(this.props.task.id));
       }
     }
@@ -2068,19 +2067,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store/store */ "./frontend/store/store.js");
-/* harmony import */ var _components_root__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/root */ "./frontend/components/root.jsx");
-/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./actions/session_actions */ "./frontend/actions/session_actions.js");
-/* harmony import */ var _util_list_api_util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util/list_api_util */ "./frontend/util/list_api_util.js");
+/* harmony import */ var _components_root__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/root */ "./frontend/components/root.jsx");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _util_list_api_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util/list_api_util */ "./frontend/util/list_api_util.js");
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store/store */ "./frontend/store/store.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 
- // import {login, logout, signup} from './util/session_api_util'
-
 
  //For testing
+
 
 document.addEventListener('DOMContentLoaded', function () {
   var root = document.getElementById('root');
@@ -2095,22 +2093,27 @@ document.addEventListener('DOMContentLoaded', function () {
         id: window.currentUser.id
       }
     };
-    store = Object(_store_store__WEBPACK_IMPORTED_MODULE_2__["default"])(preloadedState);
-    window.store = store; //For testing
-
+    store = Object(_store_store__WEBPACK_IMPORTED_MODULE_5__["configureStore"])(preloadedState);
+    store.subscribe(function () {
+      return Object(_store_store__WEBPACK_IMPORTED_MODULE_5__["saveToLocalStorage"])(store.getState());
+    });
     delete window.currentUser;
   } else {
-    store = Object(_store_store__WEBPACK_IMPORTED_MODULE_2__["default"])();
-  }
+    store = Object(_store_store__WEBPACK_IMPORTED_MODULE_5__["configureStore"])();
+    store.subscribe(function () {
+      return Object(_store_store__WEBPACK_IMPORTED_MODULE_5__["saveToLocalStorage"])(store.getState());
+    });
+  } // window.getState = store.getState;
+  // window.dispatch = store.dispatch;
+  // window.login = login;
+  // window.logout = logout;
+  // window.signup = signup;
+  //
+  // window.createList = createList;
+  // window.removeList = removeList;
 
-  window.getState = store.getState;
-  window.dispatch = store.dispatch;
-  window.login = _actions_session_actions__WEBPACK_IMPORTED_MODULE_4__["login"];
-  window.logout = _actions_session_actions__WEBPACK_IMPORTED_MODULE_4__["logout"];
-  window.signup = _actions_session_actions__WEBPACK_IMPORTED_MODULE_4__["signup"];
-  window.createList = _util_list_api_util__WEBPACK_IMPORTED_MODULE_5__["createList"];
-  window.removeList = _util_list_api_util__WEBPACK_IMPORTED_MODULE_5__["removeList"];
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_root__WEBPACK_IMPORTED_MODULE_3__["default"], {
+
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_root__WEBPACK_IMPORTED_MODULE_2__["default"], {
     store: store
   }), root);
 });
@@ -2524,11 +2527,13 @@ var usersReducer = function usersReducer() {
 /*!*********************************!*\
   !*** ./frontend/store/store.js ***!
   \*********************************/
-/*! exports provided: default */
+/*! exports provided: saveToLocalStorage, configureStore */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveToLocalStorage", function() { return saveToLocalStorage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "configureStore", function() { return configureStore; });
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
 /* harmony import */ var redux_logger__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux-logger */ "./node_modules/redux-logger/dist/redux-logger.js");
@@ -2538,13 +2543,40 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-var configureStore = function configureStore() {
-  var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"], redux_logger__WEBPACK_IMPORTED_MODULE_2___default.a));
+var saveToLocalStorage = function saveToLocalStorage(state) {
+  try {
+    var serializedState = JSON.stringify(state);
+    localStorage.setItem('state', serializedState);
+  } catch (e) {
+    console.log(e);
+  }
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (configureStore);
+var loadFromLocalStorage = function loadFromLocalStorage() {
+  try {
+    var serializedState = localStorage.getItem('state');
+
+    if (serializedState === null) {
+      return undefined;
+    } else {
+      return JSON.parse(serializedState);
+    }
+  } catch (e) {
+    console.log(e);
+    return undefined;
+  }
+};
+
+var persistedState = loadFromLocalStorage();
+var configureStore = function configureStore() {
+  var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  if (preloadedState !== {}) {
+    persistedState = Object.assign({}, preloadedState, persistedState);
+  }
+
+  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], persistedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"], redux_logger__WEBPACK_IMPORTED_MODULE_2___default.a));
+};
 
 /***/ }),
 
