@@ -19,7 +19,11 @@ export default function uiReducer(state = {selectedTasks: [], closeTaskFormIds: 
     case DESELECT_ALL_TASKS:
       return Object.assign({}, state, {selectedTasks: []})
     case REMOVE_TASK_FORM_ID:
-      state.closeTaskFormIds.splice(0, 1);
+      if (state.closeTaskFormIds[0] === state.closeTaskFormIds[1]) {
+        state.closeTaskFormIds.splice(0, 2);
+      } else {
+        state.closeTaskFormIds.splice(0, 1);
+      }
       return Object.assign({}, state);
     case CLOSE_TASK_FORM:
       // state.closeTaskFormIds.push()

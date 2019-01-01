@@ -3,7 +3,7 @@ import React from 'react';
 class TaskItem extends React.Component {
   constructor(props) {
     super(props)
-
+    
     let selected = false;
     if (this.props.selectedTaskIds.includes(this.props.task.id)) {
       selected = true;
@@ -32,31 +32,66 @@ class TaskItem extends React.Component {
         selected: false,
         openEditForm: false
       })
+      debugger
       this.props.deselectTask(this.props.task);
       this.props.removeTaskFormId();
+      // if (this.props.closeTaskFormIds[1] === this.props.task.id) {
+      //   this.props.removeTaskFormId(this.props.task);
+      // }
     }
+
+    // On opening a task edit form, all other selected tasks should be deselected
+    // if (this.props.selectedTaskIds.includes(this.props.task.id) && this.props.closeTaskFormIds.length > 0) {
+    //   this.setState({
+    //     selected: false
+    //   })
+    // }
   }
 
   toggleSelectTask(e, selectedTask) {
     e.preventDefault();
 
-    if (this.state.selected) {
+    // if (this.state.selected || this.state.openEditForm) {
+    //   debugger
+    //   this.setState({
+    //     selected: false
+    //   })
+    //   this.props.deselectTask(selectedTask);
+    // } else {
+    //   debugger
+    //   this.setState({
+    //     selected: true
+    //   })
+    //   this.props.selectTask(selectedTask);
+    // }
+
+    if (this.state.selected && !this.state.openEditForm) {
+      
       this.setState({
-        selected: false
+        openEditForm: true,
+      })
+    } else if (this.state.selected) {
+      
+      this.setState({
+        selected: false,
+        openEditForm: false
       })
       this.props.deselectTask(selectedTask);
     } else {
+      
       this.setState({
-        selected: true
+        selected: true,
+        openEditForm: true
       })
       this.props.selectTask(selectedTask);
     }
   }
 
   toggleSelectAndEditTask(e, selectedTask) {
-    debugger
+    
     e.preventDefault();
     if (this.props.match.params.task_id) {
+      
       this.setState({
         selected: false,
         openEditForm: false
@@ -65,15 +100,27 @@ class TaskItem extends React.Component {
     this.toggleSelectTask(e, selectedTask);
     this.props.setCurrentTaskForm(this.props.task);
     if (this.state.openEditForm) {
-      this.setState({
-        openEditForm: false
-      })
+      
+      // this.setState({
+      //   openEditForm: false
+      // })
       this.props.history.push(`/lists/${this.props.currentListId}`);
     } else {
-      this.setState({
-        openEditForm: true
-      })
+      
+      // if (!this.state.selected) {
+      //   this.setState({
+      //     openEditForm: true,
+      //     selected: true
+      //   })
+      //   this.props.selectTask(selectedTask);
+      // } else {
+        // this.setState({
+        //   openEditForm: true,
+        // })
+      // }
 
+      // Empty selectedTasks ui slice of state on opening edit task form
+      // this.props.deselectAllTasks();
       this.props.history.push(`/lists/${this.props.currentListId}/tasks/${this.props.task.id}`);
     }
   }

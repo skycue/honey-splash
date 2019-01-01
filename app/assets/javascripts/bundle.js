@@ -1936,23 +1936,50 @@ function (_React$Component) {
           selected: false,
           openEditForm: false
         });
+        debugger;
         this.props.deselectTask(this.props.task);
-        this.props.removeTaskFormId();
-      }
+        this.props.removeTaskFormId(); // if (this.props.closeTaskFormIds[1] === this.props.task.id) {
+        //   this.props.removeTaskFormId(this.props.task);
+        // }
+      } // On opening a task edit form, all other selected tasks should be deselected
+      // if (this.props.selectedTaskIds.includes(this.props.task.id) && this.props.closeTaskFormIds.length > 0) {
+      //   this.setState({
+      //     selected: false
+      //   })
+      // }
+
     }
   }, {
     key: "toggleSelectTask",
     value: function toggleSelectTask(e, selectedTask) {
-      e.preventDefault();
+      e.preventDefault(); // if (this.state.selected || this.state.openEditForm) {
+      //   debugger
+      //   this.setState({
+      //     selected: false
+      //   })
+      //   this.props.deselectTask(selectedTask);
+      // } else {
+      //   debugger
+      //   this.setState({
+      //     selected: true
+      //   })
+      //   this.props.selectTask(selectedTask);
+      // }
 
-      if (this.state.selected) {
+      if (this.state.selected && !this.state.openEditForm) {
         this.setState({
-          selected: false
+          openEditForm: true
+        });
+      } else if (this.state.selected) {
+        this.setState({
+          selected: false,
+          openEditForm: false
         });
         this.props.deselectTask(selectedTask);
       } else {
         this.setState({
-          selected: true
+          selected: true,
+          openEditForm: true
         });
         this.props.selectTask(selectedTask);
       }
@@ -1960,7 +1987,6 @@ function (_React$Component) {
   }, {
     key: "toggleSelectAndEditTask",
     value: function toggleSelectAndEditTask(e, selectedTask) {
-      debugger;
       e.preventDefault();
 
       if (this.props.match.params.task_id) {
@@ -1974,14 +2000,24 @@ function (_React$Component) {
       this.props.setCurrentTaskForm(this.props.task);
 
       if (this.state.openEditForm) {
-        this.setState({
-          openEditForm: false
-        });
+        // this.setState({
+        //   openEditForm: false
+        // })
         this.props.history.push("/lists/".concat(this.props.currentListId));
       } else {
-        this.setState({
-          openEditForm: true
-        });
+        // if (!this.state.selected) {
+        //   this.setState({
+        //     openEditForm: true,
+        //     selected: true
+        //   })
+        //   this.props.selectTask(selectedTask);
+        // } else {
+        // this.setState({
+        //   openEditForm: true,
+        // })
+        // }
+        // Empty selectedTasks ui slice of state on opening edit task form
+        // this.props.deselectAllTasks();
         this.props.history.push("/lists/".concat(this.props.currentListId, "/tasks/").concat(this.props.task.id));
       }
     }
@@ -2054,6 +2090,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     deselectTask: function deselectTask(selectedTask) {
       return dispatch(Object(_actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["deselectTask"])(selectedTask));
+    },
+    deselectAllTasks: function deselectAllTasks() {
+      return dispatch(Object(_actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["deselectAllTasks"])());
     },
     removeTaskFormId: function removeTaskFormId() {
       return dispatch(Object(_actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["removeTaskFormId"])());
@@ -2479,7 +2518,12 @@ function uiReducer() {
       });
 
     case _actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["REMOVE_TASK_FORM_ID"]:
-      state.closeTaskFormIds.splice(0, 1);
+      if (state.closeTaskFormIds[0] === state.closeTaskFormIds[1]) {
+        state.closeTaskFormIds.splice(0, 2);
+      } else {
+        state.closeTaskFormIds.splice(0, 1);
+      }
+
       return Object.assign({}, state);
 
     case _actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["CLOSE_TASK_FORM"]:
