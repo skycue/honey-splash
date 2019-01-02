@@ -53,16 +53,13 @@ class TaskItem extends React.Component {
     e.preventDefault();
 
     if (this.state.selected && !this.state.openEditForm) {
+      // Don't change selected
+    } else if (this.state.selected) { // Selected and task form open
       this.setState({
-        openEditForm: true
-      })
-    } else if (this.state.selected) {
-      this.setState({
-        selected: false,
-        openEditForm: false
+        selected: false
       })
       this.props.deselectTask(selectedTask);
-    } else {
+    } else { // Not selected => Should mean task form closed
       this.setState({
         selected: true
       })
@@ -72,34 +69,28 @@ class TaskItem extends React.Component {
 
   toggleSelectAndEditTask(e, selectedTask) {
     e.preventDefault();
-    if (this.props.match.params.task_id) {
-      this.setState({
-        selected: false,
-        openEditForm: false
-      })
-    }
+    // if (this.props.match.params.task_id) {
+    //   this.setState({
+    //     selected: false,
+    //     openEditForm: false
+    //   })
+    // }
     this.toggleSelectTask(e, selectedTask);
     this.props.setCurrentTaskForm(this.props.task);
     if (this.state.openEditForm) {
-      // this.setState({
-      //   openEditForm: false
-      // })
+      this.setState({
+        openEditForm: false
+      })
       this.props.history.push(`/lists/${this.props.currentListId}`);
     } else {
-      // if (!this.state.selected) {
-      //   this.setState({
-      //     openEditForm: true,
-      //     selected: true
-      //   })
-      //   this.props.selectTask(selectedTask);
-      // } else {
-        // this.setState({
-        //   openEditForm: true,
-        // })
-      // }
+
+      this.setState({
+        openEditForm: true
+      })
 
       // Empty selectedTasks ui slice of state on opening edit task form
       // this.props.deselectAllTasks();
+
       this.props.history.push(`/lists/${this.props.currentListId}/tasks/${this.props.task.id}`);
     }
   }
