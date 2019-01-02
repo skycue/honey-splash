@@ -2,7 +2,7 @@ import React from 'react';
 
 class TaskItem extends React.Component {
   constructor(props) {
-    super(props
+    super(props)
     let selected = false;
     if (this.props.selectedTaskIds.includes(this.props.task.id)) {
       selected = true;
