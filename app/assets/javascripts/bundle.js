@@ -1955,10 +1955,18 @@ function (_React$Component) {
     }
   }, {
     key: "toggleSelectTask",
-    value: function toggleSelectTask(e, selectedTask) {
+    value: function toggleSelectTask(e, selectedTask, toggleForm) {
       e.preventDefault();
 
-      if (this.state.selected && !this.state.openEditForm) {// Don't change selected
+      if (this.state.selected && !this.state.openEditForm) {
+        // Deselect task if only toggling task selection
+        if (!toggleForm) {
+          this.setState({
+            selected: false
+          });
+          this.props.deselectTask(selectedTask);
+        } // Do not change task selection if toggling task edit form
+
       } else if (this.state.selected) {
         // Selected and task form open
         this.setState({
@@ -1983,11 +1991,12 @@ function (_React$Component) {
       //   })
       // }
 
-      this.toggleSelectTask(e, selectedTask);
+      this.toggleSelectTask(e, selectedTask, true);
       this.props.setCurrentTaskForm(this.props.task);
 
       if (this.state.openEditForm) {
         this.setState({
+          selected: true,
           openEditForm: false
         });
         this.props.history.push("/lists/".concat(this.props.currentListId));
