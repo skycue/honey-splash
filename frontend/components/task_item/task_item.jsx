@@ -70,7 +70,7 @@ class TaskItem extends React.Component {
     }
   }
 
-  toggleSelectAndEditTask(e, selectedTask)
+  toggleSelectAndEditTask(e, selectedTask) {
     e.preventDefault();
     if (this.props.match.params.task_id) {
       this.setState({
