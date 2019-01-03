@@ -30,7 +30,10 @@ export default function uiReducer(state = {selectedTasks: [], closeTaskFormIds: 
       return Object.assign({}, state, {closeTaskFormId: action.task.id})
     case REMOVE_TASK:
     case DESELECT_TASK:
-      state.selectedTasks.splice(state.selectedTasks.indexOf(action.task.id), 1);
+      const taskIndex = state.selectedTasks.indexOf(action.task.id);
+      if (taskIndex >= 0) {
+        state.selectedTasks.splice(state.selectedTasks.indexOf(action.task.id), 1);
+      }
       return Object.assign({}, state);
     case LOGOUT_CURRENT_USER:
       return {selectedTasks: [], closeTaskFormIds: []};

@@ -2518,7 +2518,12 @@ function uiReducer() {
 
     case _actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["REMOVE_TASK"]:
     case _actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["DESELECT_TASK"]:
-      state.selectedTasks.splice(state.selectedTasks.indexOf(action.task.id), 1);
+      var taskIndex = state.selectedTasks.indexOf(action.task.id);
+
+      if (taskIndex >= 0) {
+        state.selectedTasks.splice(state.selectedTasks.indexOf(action.task.id), 1);
+      }
+
       return Object.assign({}, state);
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["LOGOUT_CURRENT_USER"]:
