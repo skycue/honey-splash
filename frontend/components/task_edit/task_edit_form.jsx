@@ -13,6 +13,12 @@ class TaskEditForm extends React.Component {
     this.handleCloseForm = this.handleCloseForm.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.task_id != this.props.match.params.task_id) {
+      this.setState({ title: this.props.tasks[parseInt(this.props.match.params.task_id)].title})
+    }
+  }
+
   update(field) {
     return e => this.setState({
       [field]: e.currentTarget.value

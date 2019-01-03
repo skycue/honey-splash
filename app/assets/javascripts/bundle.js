@@ -1764,6 +1764,15 @@ function (_React$Component) {
   }
 
   _createClass(TaskEditForm, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.match.params.task_id != this.props.match.params.task_id) {
+        this.setState({
+          title: this.props.tasks[parseInt(this.props.match.params.task_id)].title
+        });
+      }
+    }
+  }, {
     key: "update",
     value: function update(field) {
       var _this2 = this;
