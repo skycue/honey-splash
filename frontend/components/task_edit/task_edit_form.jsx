@@ -13,13 +13,6 @@ class TaskEditForm extends React.Component {
     this.handleCloseForm = this.handleCloseForm.bind(this);
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.match.params.task_id != this.props.match.params.task_id) {
-      this.props.deselectTask(this.props.tasks[prevProps.match.params.task_id]);
-      this.setState({ title: this.props.tasks[parseInt(this.props.match.params.task_id)].title})
-    }
-  }
-
   update(field) {
     return e => this.setState({
       [field]: e.currentTarget.value
@@ -38,7 +31,6 @@ class TaskEditForm extends React.Component {
   }
 
   render() {
-     // #2?
     return (
       <form onSubmit={this.editTask} className="task-edit-form">
         <div onClick={this.handleCloseForm} className="task-edit-close">

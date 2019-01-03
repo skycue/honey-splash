@@ -83,7 +83,7 @@ class ListShow extends React.Component {
     if (!this.props.currentList) {
       return null;
     }
-    
+
     return (
       <div className="list-show">
         <h1 className="list-title">{this.props.currentList.title}</h1>
@@ -151,7 +151,7 @@ class ListShow extends React.Component {
           : (
             <ul>
               {
-                this.props.currentTasks.filter(task => !task.complete).map(task => ( //didn't change before
+                this.props.currentTasks.filter(task => !task.complete).map(task => (
                   <TaskItemContainer key={task.id} task={task}/>
                 ))
               }

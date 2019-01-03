@@ -1211,12 +1211,10 @@ function (_React$Component) {
       })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.currentTasks.filter(function (task) {
         return !task.complete;
       }).map(function (task) {
-        return (//didn't change before
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_task_item_task_item_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
-            key: task.id,
-            task: task
-          })
-        );
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_task_item_task_item_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          key: task.id,
+          task: task
+        });
       })));
     }
   }]);
@@ -1766,16 +1764,6 @@ function (_React$Component) {
   }
 
   _createClass(TaskEditForm, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      if (prevProps.match.params.task_id != this.props.match.params.task_id) {
-        this.props.deselectTask(this.props.tasks[prevProps.match.params.task_id]);
-        this.setState({
-          title: this.props.tasks[parseInt(this.props.match.params.task_id)].title
-        });
-      }
-    }
-  }, {
     key: "update",
     value: function update(field) {
       var _this2 = this;
@@ -1800,7 +1788,6 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      // #2?
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.editTask,
         className: "task-edit-form"
