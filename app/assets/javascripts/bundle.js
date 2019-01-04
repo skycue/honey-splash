@@ -1132,6 +1132,14 @@ function (_React$Component) {
 
         _this3.props.updateTask(_this3.props.currentList.id, updatedTask);
       });
+      this.props.deselectAllTasks();
+      var taskEditFormOpen = this.props.closeTaskFormIds.length > 0 ? true : false;
+      this.props.removeTaskFormId();
+
+      if (taskEditFormOpen) {
+        // Close task form if there is a task form open
+        this.props.history.push("/lists/".concat(this.props.currentList.id));
+      }
     }
   }, {
     key: "incompleteSelectedTasks",
@@ -1150,6 +1158,14 @@ function (_React$Component) {
 
         _this4.props.updateTask(_this4.props.currentList.id, updatedTask);
       });
+      this.props.deselectAllTasks();
+      var taskEditFormOpen = this.props.closeTaskFormIds.length > 0 ? true : false;
+      this.props.removeTaskFormId();
+
+      if (taskEditFormOpen) {
+        // Close task form if there is a task form open
+        this.props.history.push("/lists/".concat(this.props.currentList.id));
+      }
     }
   }, {
     key: "update",

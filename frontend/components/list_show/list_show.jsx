@@ -68,6 +68,13 @@ class ListShow extends React.Component {
       const updatedTask = Object.assign({}, {id, title: tasks[id].title, complete: true, list_id: tasks[id].list_id});
       this.props.updateTask(this.props.currentList.id, updatedTask);
     })
+    this.props.deselectAllTasks();
+    const taskEditFormOpen = this.props.closeTaskFormIds.length > 0 ? true : false;
+    this.props.removeTaskFormId();
+    if (taskEditFormOpen) {
+      // Close task form if there is a task form open
+      this.props.history.push(`/lists/${this.props.currentList.id}`);
+    }
   }
 
   incompleteSelectedTasks(e) {
@@ -77,6 +84,13 @@ class ListShow extends React.Component {
       const updatedTask = Object.assign({}, {id, title: tasks[id].title, complete: false, list_id: tasks[id].list_id});
       this.props.updateTask(this.props.currentList.id, updatedTask);
     })
+    this.props.deselectAllTasks();
+    const taskEditFormOpen = this.props.closeTaskFormIds.length > 0 ? true : false;
+    this.props.removeTaskFormId();
+    if (taskEditFormOpen) {
+      // Close task form if there is a task form open
+      this.props.history.push(`/lists/${this.props.currentList.id}`);
+    }
   }
 
   update(field) {
