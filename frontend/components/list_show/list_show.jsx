@@ -23,9 +23,12 @@ class ListShow extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    // When changing current list, fetch new list's tasks and empty
+    // selectedTasks and closeTaskFormIds
     if (prevProps.match.params.list_id !== this.props.match.params.list_id) {
       this.props.fetchTasks({list_id: this.props.match.params.list_id});
       this.props.deselectAllTasks();
+      this.props.removeTaskFormId();
     }
   }
 
