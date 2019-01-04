@@ -2465,7 +2465,7 @@ var tasksReducer = function tasksReducer() {
 
   switch (action.type) {
     case _actions_task_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_TASKS"]:
-      return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state, action.tasks);
+      return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, action.tasks);
 
     case _actions_task_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_TASK"]:
       return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state, _defineProperty({}, action.task.id, action.task));
