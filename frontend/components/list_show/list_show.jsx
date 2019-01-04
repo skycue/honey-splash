@@ -51,8 +51,14 @@ class ListShow extends React.Component {
     e.preventDefault();
     this.props.selectedTasks.forEach(task_id => {
       this.props.deleteTask(this.props.currentList.id, this.props.tasks[task_id]);
-      }
-    )
+    })
+    this.props.deselectAllTasks();
+    const taskEditFormOpen = this.props.closeTaskFormIds.length > 0 ? true : false;
+    this.props.removeTaskFormId();
+    if (taskEditFormOpen) {
+      // Close task form if there is a task form open
+      this.props.history.push(`/lists/${this.props.currentList.id}`);
+    }
   }
 
   completeSelectedTasks(e) {

@@ -1106,6 +1106,14 @@ function (_React$Component) {
       this.props.selectedTasks.forEach(function (task_id) {
         _this2.props.deleteTask(_this2.props.currentList.id, _this2.props.tasks[task_id]);
       });
+      this.props.deselectAllTasks();
+      var taskEditFormOpen = this.props.closeTaskFormIds.length > 0 ? true : false;
+      this.props.removeTaskFormId();
+
+      if (taskEditFormOpen) {
+        // Close task form if there is a task form open
+        this.props.history.push("/lists/".concat(this.props.currentList.id));
+      }
     }
   }, {
     key: "completeSelectedTasks",
@@ -1252,7 +1260,8 @@ var mapStateToProps = function mapStateToProps(_ref, ownProps) {
       lists = _ref.entities.lists,
       _ref$ui = _ref.ui,
       selectedTasks = _ref$ui.selectedTasks,
-      currentListId = _ref$ui.currentListId;
+      currentListId = _ref$ui.currentListId,
+      closeTaskFormIds = _ref$ui.closeTaskFormIds;
   var currentList = lists[currentListId];
   var currentTasks = [];
 
@@ -1269,7 +1278,8 @@ var mapStateToProps = function mapStateToProps(_ref, ownProps) {
     currentList: currentList,
     currentTasks: currentTasks,
     tasks: tasks,
-    selectedTasks: selectedTasks
+    selectedTasks: selectedTasks,
+    closeTaskFormIds: closeTaskFormIds
   };
 };
 
@@ -1283,6 +1293,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     fetchLists: function fetchLists(user_id) {
       return dispatch(Object(_actions_list_actions__WEBPACK_IMPORTED_MODULE_4__["fetchLists"])(user_id));
+    },
+    deselectTask: function deselectTask(task) {
+      return dispatch(Object(_actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["deselectTask"])(task));
     },
     deselectAllTasks: function deselectAllTasks() {
       return dispatch(Object(_actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["deselectAllTasks"])());
@@ -1304,8 +1317,11 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
       return setCurrentList;
     }(function (list_id) {
-      return dispatch(setCurrentList);
-    })
+      return dispatch(setCurrentList(list_id));
+    }),
+    removeTaskFormId: function removeTaskFormId() {
+      return dispatch(Object(_actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["removeTaskFormId"])());
+    }
   };
 };
 
@@ -2511,12 +2527,10 @@ function uiReducer() {
       return Object.assign({}, state);
 
     case _actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["CLOSE_TASK_FORM"]:
-      // state.closeTaskFormIds.push()
       return Object.assign({}, state, {
         closeTaskFormId: action.task.id
       });
 
-    case _actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["REMOVE_TASK"]:
     case _actions_task_actions__WEBPACK_IMPORTED_MODULE_3__["DESELECT_TASK"]:
       var taskIndex = state.selectedTasks.indexOf(action.task.id);
 

@@ -11,8 +11,8 @@ const tasksReducer = (state = {}, action) => {
     case RECEIVE_TASK:
       return merge({}, state, { [action.task.id]: action.task })
     case REMOVE_TASK:
-      let newState = merge({}, state)
-      delete newState[action.task_id]
+      let newState = merge({}, state);
+      delete newState[action.task_id];
       return newState;
     case LOGOUT_CURRENT_USER:
       return {};
