@@ -458,8 +458,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _list_form_list_form_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../list_form/list_form_container */ "./frontend/components/list_form/list_form_container.jsx");
-/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -483,7 +482,6 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
-
 var ListSidebar =
 /*#__PURE__*/
 function (_React$Component) {
@@ -496,10 +494,8 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ListSidebar).call(this, props));
     _this.state = {
-      showListForm: false,
       showListOptions: null
     };
-    _this.toggleListForm = _this.toggleListForm.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.toggleListOptions = _this.toggleListOptions.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleDeleteList = _this.handleDeleteList.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleShowList = _this.handleShowList.bind(_assertThisInitialized(_assertThisInitialized(_this)));
@@ -510,22 +506,6 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchLists(this.props.currentUserId);
-    }
-  }, {
-    key: "toggleListForm",
-    value: function toggleListForm(e) {
-      e.preventDefault();
-      this.renderCount += 1;
-
-      if (this.state.showListForm) {
-        this.setState({
-          showListForm: false
-        });
-      } else {
-        this.setState({
-          showListForm: true
-        });
-      }
     }
   }, {
     key: "toggleListOptions",
@@ -572,7 +552,7 @@ function (_React$Component) {
         className: "material-icons md-12 lists-options-icon"
       }, "arrow_drop_down_circle"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         onClick: function onClick() {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])('Add'));
+          return _this2.props.openModal('Add');
         },
         className: "material-icons md-14 add-box-icon"
       }, "add_box")), this.props.lists.map(function (list) {
@@ -590,9 +570,9 @@ function (_React$Component) {
           className: "list-options"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           onClick: function onClick() {
-            return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])('Save', {
+            return _this2.props.openModal('Save', {
               selectedListId: list.id
-            }));
+            });
           }
         }, "Rename list"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           onClick: function onClick(e) {
@@ -625,6 +605,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _actions_list_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/list_actions */ "./frontend/actions/list_actions.js");
 /* harmony import */ var _list_sidebar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./list_sidebar */ "./frontend/components/dropdown/list_sidebar.jsx");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
 
 
 
@@ -637,7 +619,8 @@ var mapStateToProps = function mapStateToProps(state) {
     currentUserId: state.session.id,
     lists: Object.keys(state.entities.lists).map(function (list_id) {
       return state.entities.lists[list_id];
-    })
+    }),
+    currentListId: state.ui.currentListId
   };
 };
 
@@ -651,6 +634,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     setCurrentList: function setCurrentList(list_id) {
       return dispatch(Object(_actions_list_actions__WEBPACK_IMPORTED_MODULE_3__["setCurrentList"])(list_id));
+    },
+    openModal: function openModal(modal, options) {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__["openModal"])(modal, options));
     }
   };
 };
@@ -715,8 +701,7 @@ function (_React$Component) {
       showSettings: false
     };
     _this.toggleSidebar = _this.toggleSidebar.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.toggleSettings = _this.toggleSettings.bind(_assertThisInitialized(_assertThisInitialized(_this))); // this.handleSearch = this.handleSearch.bind(this);
-
+    _this.toggleSettings = _this.toggleSettings.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
@@ -749,12 +734,7 @@ function (_React$Component) {
           showSettings: true
         });
       }
-    } // handleSearch(e) {
-    //   e.preventDefault();
-    //
-    //   this.props.history.push(`/lists/search`);
-    // }
-
+    }
   }, {
     key: "sessionLinks",
     value: function sessionLinks() {

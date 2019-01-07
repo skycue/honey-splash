@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ListFormContainer from '../list_form/list_form_container';
-import { openModal } from '../../actions/modal_actions';
 import { Redirect } from 'react-router-dom';
 
 class ListSidebar extends React.Component {
@@ -9,11 +8,9 @@ class ListSidebar extends React.Component {
     super(props);
 
     this.state = {
-      showListForm: false,
       showListOptions: null
     }
 
-    this.toggleListForm = this.toggleListForm.bind(this);
     this.toggleListOptions = this.toggleListOptions.bind(this);
     this.handleDeleteList = this.handleDeleteList.bind(this);
     this.handleShowList = this.handleShowList.bind(this);
@@ -21,21 +18,6 @@ class ListSidebar extends React.Component {
 
   componentDidMount() {
     this.props.fetchLists(this.props.currentUserId);
-  }
-
-  toggleListForm(e) {
-    e.preventDefault();
-    this.renderCount += 1;
-
-    if (this.state.showListForm) {
-      this.setState({
-        showListForm: false
-      });
-    } else {
-      this.setState({
-        showListForm: true
-      });
-    }
   }
 
   toggleListOptions(list_id) {
@@ -75,7 +57,7 @@ class ListSidebar extends React.Component {
               <i className="material-icons md-17 drop-down-icon">arrow_drop_down</i>
               Lists
               <i className="material-icons md-12 lists-options-icon">arrow_drop_down_circle</i>
-              <i onClick={() => dispatch(openModal('Add'))} className="material-icons md-14 add-box-icon">add_box</i>
+              <i onClick={() => this.props.openModal('Add')} className="material-icons md-14 add-box-icon">add_box</i>
 
             </li>
             {
@@ -88,7 +70,7 @@ class ListSidebar extends React.Component {
                         ? (
                           <div className='list-options'>
                             <ul>
-                              <li onClick={() => dispatch(openModal('Save', {selectedListId: list.id}))}>Rename list</li>
+                              <li onClick={() => this.props.openModal('Save', {selectedListId: list.id})}>Rename list</li>
                               <li onClick={(e) => this.handleDeleteList(e, list.user_id, list.id)}>Remove list</li>
                             </ul>
                           </div>

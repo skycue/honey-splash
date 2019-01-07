@@ -17,7 +17,6 @@ class Greeting extends React.Component {
 
     this.toggleSidebar = this.toggleSidebar.bind(this);
     this.toggleSettings = this.toggleSettings.bind(this);
-    // this.handleSearch = this.handleSearch.bind(this);
   }
 
   toggleSidebar(e) {
@@ -47,12 +46,6 @@ class Greeting extends React.Component {
       });
     }
   }
-
-  // handleSearch(e) {
-  //   e.preventDefault();
-  //
-  //   this.props.history.push(`/lists/search`);
-  // }
 
   sessionLinks() {
     return (
@@ -104,7 +97,7 @@ class Greeting extends React.Component {
           }
 
           <Route path="/lists/:list_id" component={ListShowContainer}/>
-          
+
           {
             this.props.currentListId
               ? (
