@@ -28,7 +28,7 @@ class TaskEditForm extends React.Component {
   editTask(e) {
     e.preventDefault();
     const task = Object.assign({}, this.state);
-    this.props.updateTask(this.props.match.params.list_id, task);
+    this.props.updateTask(parseInt(this.props.match.params.list_id), task);
   }
 
   handleCloseForm(e) {
