@@ -8,7 +8,7 @@ class Api::ListsController < ApplicationController
     if @list.save
       render 'api/lists/show'
     else
-      render json: @list.errors.full_messages #status...
+      render json: @list.errors.full_messages, status: 422
     end
   end
 
