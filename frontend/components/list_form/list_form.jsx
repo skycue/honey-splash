@@ -16,7 +16,7 @@ class ListForm extends React.Component {
     e.preventDefault();
     const list = Object.assign({}, this.state);
     this.props.processForm(this.props.currentUserId, list, this.props.instruction);
-    this.props.closeModal();
+    // this.props.closeModal();
   }
 
   update(field) {
@@ -32,6 +32,8 @@ class ListForm extends React.Component {
         <i onClick={this.props.closeModal} className="material-icons cancel-icon">cancel</i>
 
         <h1>Add a List</h1>
+
+        {this.renderErrors()}
 
         <label>
           Please enter a new list name:
@@ -49,6 +51,20 @@ class ListForm extends React.Component {
         </div>
       </form>
     );
+  }
+
+  renderErrors() {
+    if (this.props.errors.length > 0) {
+      return(
+        <ul>
+          {this.props.errors.map((error, i) => (
+            <li key={`error-${i}`}>
+              {error}
+            </li>
+          ))}
+        </ul>
+      );
+    }
   }
 }
 
