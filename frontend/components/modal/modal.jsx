@@ -2,8 +2,9 @@ import React from 'react';
 import { closeModal } from '../../actions/modal_actions';
 import { connect } from 'react-redux';
 import ListFormContainer from '../list_form/list_form_container';
+import { removeErrors } from '../../actions/list_actions';
 
-function Modal({modal, closeModal}) {
+function Modal({modal, closeModal, clearErrors}) {
   if (!modal) {
     return null;
   }
@@ -17,7 +18,10 @@ function Modal({modal, closeModal}) {
       return null;
   }
   return (
-    <div className="modal-background" onClick={closeModal}>
+    <div className="modal-background" onClick={() => {
+        closeModal();
+        clearErrors();
+      }}>
       <div className="modal-child" onClick={e => e.stopPropagation()}>
         { component }
       </div>
@@ -33,7 +37,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    closeModal: () => dispatch(closeModal())
+    closeModal: () => dispatch(closeModal()),
+    clearErrors: () => dispatch(removeErrors())
   };
 };
 
