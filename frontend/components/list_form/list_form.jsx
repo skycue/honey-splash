@@ -10,13 +10,19 @@ class ListForm extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
     const list = Object.assign({}, this.state);
     this.props.processForm(this.props.currentUserId, list, this.props.instruction);
-    // this.props.closeModal();
+  }
+
+  handleCloseModal(e) {
+    e.preventDefault();
+    this.props.closeModal();
+    this.props.clearErrors();
   }
 
   update(field) {
@@ -29,7 +35,7 @@ class ListForm extends React.Component {
 
     return (
       <form onSubmit={this.handleSubmit} className="list-form-box">
-        <i onClick={this.props.closeModal} className="material-icons cancel-icon">cancel</i>
+        <i onClick={this.handleCloseModal} className="material-icons cancel-icon">cancel</i>
 
         <h1>Add a List</h1>
 
@@ -45,7 +51,7 @@ class ListForm extends React.Component {
 
         <div className='list-form-buttons'>
           <input type="submit" value={this.props.instruction}/>
-          <div onClick={this.props.closeModal}>
+          <div onClick={this.handleCloseModal}>
             Cancel
           </div>
         </div>

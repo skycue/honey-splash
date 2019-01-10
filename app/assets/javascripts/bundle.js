@@ -151,7 +151,7 @@ var receiveErrors = function receiveErrors(errors) {
 };
 var removeErrors = function removeErrors() {
   return {
-    type: REMOVE_SESSION_ERRORS
+    type: REMOVE_LIST_ERRORS
   };
 };
 var createList = function createList(user_id, list) {
@@ -847,14 +847,172 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
+/***/ "./frontend/components/list_form/list_form.jsx":
+/*!*****************************************************!*\
+  !*** ./frontend/components/list_form/list_form.jsx ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+var ListForm =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(ListForm, _React$Component);
+
+  function ListForm(props) {
+    var _this;
+
+    _classCallCheck(this, ListForm);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ListForm).call(this, props));
+    _this.state = {
+      title: "",
+      id: _this.props.selectedListId
+    };
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleCloseModal = _this.handleCloseModal.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    return _this;
+  }
+
+  _createClass(ListForm, [{
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      var list = Object.assign({}, this.state);
+      this.props.processForm(this.props.currentUserId, list, this.props.instruction);
+    }
+  }, {
+    key: "handleCloseModal",
+    value: function handleCloseModal(e) {
+      e.preventDefault();
+      this.props.closeModal();
+      this.props.clearErrors();
+    }
+  }, {
+    key: "update",
+    value: function update(field) {
+      var _this2 = this;
+
+      return function (e) {
+        return _this2.setState(_defineProperty({}, field, e.currentTarget.value));
+      };
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onSubmit: this.handleSubmit,
+        className: "list-form-box"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        onClick: this.handleCloseModal,
+        className: "material-icons cancel-icon"
+      }, "cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Add a List"), this.renderErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Please enter a new list name:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        value: this.state.title,
+        onChange: this.update('title')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "list-form-buttons"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "submit",
+        value: this.props.instruction
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        onClick: this.handleCloseModal
+      }, "Cancel")));
+    }
+  }, {
+    key: "renderErrors",
+    value: function renderErrors() {
+      if (this.props.errors.length > 0) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.errors.map(function (error, i) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+            key: "error-".concat(i)
+          }, error);
+        }));
+      }
+    }
+  }]);
+
+  return ListForm;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (ListForm);
+
+/***/ }),
+
 /***/ "./frontend/components/list_form/list_form_container.jsx":
 /*!***************************************************************!*\
   !*** ./frontend/components/list_form/list_form_container.jsx ***!
   \***************************************************************/
 /*! exports provided: default */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/susanna/Desktop/fullstack_project/honey_splash/frontend/components/list_form/list_form_container.jsx: Unexpected token, expected \",\" (25:47)\n\n\u001b[0m \u001b[90m 23 | \u001b[39m    }\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 24 | \u001b[39m    closeModal\u001b[33m:\u001b[39m () \u001b[33m=>\u001b[39m dispatch(closeModal())\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 25 | \u001b[39m    clearErrors\u001b[33m:\u001b[39m () \u001b[33m=>\u001b[39m dispatch(removeErrors())\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m                                               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 26 | \u001b[39m  }\u001b[0m\n\u001b[0m \u001b[90m 27 | \u001b[39m}\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 28 | \u001b[39m\u001b[0m\n    at _class.raise (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:4021:15)\n    at _class.unexpected (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:5330:16)\n    at _class.expect (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:5318:28)\n    at _class.parseObj (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:6734:14)\n    at _class.parseExprAtom (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:6384:21)\n    at _class.parseExprAtom (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:3717:52)\n    at _class.parseExprSubscripts (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:6006:21)\n    at _class.parseMaybeUnary (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:5985:21)\n    at _class.parseExprOps (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:5894:21)\n    at _class.parseMaybeConditional (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:5866:21)\n    at _class.parseMaybeAssign (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:5813:21)\n    at _class.parseExpression (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:5766:21)\n    at _class.parseReturnStatement (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:7607:28)\n    at _class.parseStatementContent (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:7287:21)\n    at _class.parseStatement (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:7253:17)\n    at _class.parseBlockOrModuleBlockBody (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:7805:23)\n    at _class.parseBlockBody (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:7792:10)\n    at _class.parseBlock (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:7781:10)\n    at _class.parseFunctionBody (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:7026:24)\n    at _class.parseArrowExpression (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:6979:10)\n    at _class.parseParenAndDistinguishExpression (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:6591:12)\n    at _class.parseExprAtom (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:6374:21)\n    at _class.parseExprAtom (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:3717:52)\n    at _class.parseExprSubscripts (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:6006:21)\n    at _class.parseMaybeUnary (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:5985:21)\n    at _class.parseExprOps (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:5894:21)\n    at _class.parseMaybeConditional (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:5866:21)\n    at _class.parseMaybeAssign (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:5813:21)\n    at _class.parseVar (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:7874:26)\n    at _class.parseVarStatement (/Users/susanna/Desktop/fullstack_project/honey_splash/node_modules/@babel/parser/lib/index.js:7704:10)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _actions_list_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/list_actions */ "./frontend/actions/list_actions.js");
+/* harmony import */ var _list_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./list_form */ "./frontend/components/list_form/list_form.jsx");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    errors: state.errors.list,
+    currentUserId: state.session.id,
+    selectedListId: state.ui.selectedListId
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    processForm: function processForm(currentUserId, list, instruction) {
+      if (instruction == 'Add') {
+        return dispatch(Object(_actions_list_actions__WEBPACK_IMPORTED_MODULE_2__["createList"])(currentUserId, list));
+      } else if (instruction == 'Save') {
+        return dispatch(Object(_actions_list_actions__WEBPACK_IMPORTED_MODULE_2__["updateList"])(currentUserId, list));
+      }
+    },
+    closeModal: function closeModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__["closeModal"])());
+    },
+    clearErrors: function clearErrors() {
+      return dispatch(Object(_actions_list_actions__WEBPACK_IMPORTED_MODULE_2__["removeErrors"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_list_form__WEBPACK_IMPORTED_MODULE_3__["default"]));
 
 /***/ }),
 
@@ -1225,6 +1383,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _list_form_list_form_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../list_form/list_form_container */ "./frontend/components/list_form/list_form_container.jsx");
+/* harmony import */ var _actions_list_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/list_actions */ "./frontend/actions/list_actions.js");
+
 
 
 
@@ -1232,7 +1392,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function Modal(_ref) {
   var modal = _ref.modal,
-      closeModal = _ref.closeModal;
+      closeModal = _ref.closeModal,
+      clearErrors = _ref.clearErrors;
 
   if (!modal) {
     return null;
@@ -1254,7 +1415,10 @@ function Modal(_ref) {
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "modal-background",
-    onClick: closeModal
+    onClick: function onClick() {
+      closeModal();
+      clearErrors();
+    }
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "modal-child",
     onClick: function onClick(e) {
@@ -1273,6 +1437,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     closeModal: function closeModal() {
       return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["closeModal"])());
+    },
+    clearErrors: function clearErrors() {
+      return dispatch(Object(_actions_list_actions__WEBPACK_IMPORTED_MODULE_4__["removeErrors"])());
     }
   };
 };
