@@ -33,7 +33,7 @@ export const receiveErrors = errors => ({
 });
 
 export const removeErrors = () => ({
-  type: REMOVE_SESSION_ERRORS
+  type: REMOVE_LIST_ERRORS
 });
 
 export const createList = (user_id, list) => dispatch => (
