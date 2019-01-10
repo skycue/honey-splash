@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       }
     },
     closeModal: () => dispatch(closeModal()),
-    clearErrors: () => dispatch(removeErrors());
+    clearErrors: () => dispatch(removeErrors())
   }
 };
 
