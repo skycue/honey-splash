@@ -90,7 +90,7 @@
 /*!******************************************!*\
   !*** ./frontend/actions/list_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_LISTS, RECEIVE_LIST, REMOVE_LIST, SET_CURRENT_LIST, receiveLists, receiveList, removeList, setCurrentList, createList, updateList, fetchLists, deleteList */
+/*! exports provided: RECEIVE_LISTS, RECEIVE_LIST, REMOVE_LIST, SET_CURRENT_LIST, RECEIVE_LIST_ERRORS, REMOVE_LIST_ERRORS, receiveLists, receiveList, removeList, setCurrentList, receiveErrors, removeErrors, createList, updateList, fetchLists, deleteList */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -99,10 +99,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_LIST", function() { return RECEIVE_LIST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_LIST", function() { return REMOVE_LIST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_CURRENT_LIST", function() { return SET_CURRENT_LIST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_LIST_ERRORS", function() { return RECEIVE_LIST_ERRORS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_LIST_ERRORS", function() { return REMOVE_LIST_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveLists", function() { return receiveLists; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveList", function() { return receiveList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeList", function() { return removeList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCurrentList", function() { return setCurrentList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveErrors", function() { return receiveErrors; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeErrors", function() { return removeErrors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createList", function() { return createList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateList", function() { return updateList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchLists", function() { return fetchLists; });
@@ -113,6 +117,8 @@ var RECEIVE_LISTS = 'RECEIVE_LISTS';
 var RECEIVE_LIST = 'RECEIVE_LIST';
 var REMOVE_LIST = 'REMOVE_LIST';
 var SET_CURRENT_LIST = 'SET_CURRENT_LIST';
+var RECEIVE_LIST_ERRORS = 'RECEIVE_LIST_ERRORS';
+var REMOVE_LIST_ERRORS = 'REMOVE_LIST_ERRORS';
 var receiveLists = function receiveLists(lists) {
   return {
     type: RECEIVE_LISTS,
@@ -137,10 +143,23 @@ var setCurrentList = function setCurrentList(list_id) {
     list_id: list_id
   };
 };
+var receiveErrors = function receiveErrors(errors) {
+  return {
+    type: RECEIVE_LIST_ERRORS,
+    errors: errors
+  };
+};
+var removeErrors = function removeErrors() {
+  return {
+    type: REMOVE_SESSION_ERRORS
+  };
+};
 var createList = function createList(user_id, list) {
   return function (dispatch) {
     return _util_list_api_util__WEBPACK_IMPORTED_MODULE_0__["createList"](user_id, list).then(function (list) {
       return dispatch(receiveList(list));
+    }, function (err) {
+      return dispatch(receiveErrors(err.responseJSON));
     });
   };
 };
