@@ -1,24 +1,14 @@
-# README
+# Honey Splash
+Honey Splash is a single-page web application designed to help users organize and manage their tasks.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+![Image of Splash Page](splash-page.png)
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Technologies
+* React
+* Redux
+* Ruby on Rails
+* JavaScript
+* PostgreSQL
+* HTML
+* CSS
+* Webpack
