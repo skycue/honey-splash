@@ -17,6 +17,7 @@ class ListForm extends React.Component {
     e.preventDefault();
     const list = Object.assign({}, this.state);
     this.props.processForm(this.props.currentUserId, list, this.props.instruction);
+    this.props.clearErrors();
   }
 
   handleCloseModal(e) {

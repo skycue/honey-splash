@@ -906,6 +906,7 @@ function (_React$Component) {
       e.preventDefault();
       var list = Object.assign({}, this.state);
       this.props.processForm(this.props.currentUserId, list, this.props.instruction);
+      this.props.clearErrors();
     }
   }, {
     key: "handleCloseModal",
