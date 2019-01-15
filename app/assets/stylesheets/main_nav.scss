@@ -8,7 +8,6 @@
 .main-nav i {
 	font-size: 24px;
   color: #F7E691;
-  margin: 3px 6px;
 }
 
 .main-nav i:hover {
@@ -17,10 +16,19 @@
 
 .right-nav ul {
   display: flex;
+  width: 140px;
+  justify-content: space-around;
 }
 
-.right-nav ul li:last-of-type {
+.right-nav ul li {
+  width: 25px;
   line-height: 52px;
+}
+
+.github-logo,
+.linkedin-logo {
+  display: inline;
+  cursor: pointer;
 }
 
 // .search-form {

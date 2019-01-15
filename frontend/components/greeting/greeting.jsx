@@ -64,6 +64,16 @@ class Greeting extends React.Component {
 
           <nav className="right-nav">
             <ul>
+              <li>
+                <a href="https://linkedin.com/in/sohi-kim">
+                  <img className="linkedin-logo" src="/linkedin-logo.png"/>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/skycue">
+                  <img className="github-logo" src="/github-logo.png"/>
+                </a>
+              </li>
               <li className="gear-dropdown-btn">
                 <i onClick={this.toggleSettings} className="material-icons">settings</i>
               </li>

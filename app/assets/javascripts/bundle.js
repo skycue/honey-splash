@@ -775,7 +775,17 @@ function (_React$Component) {
         className: "material-icons"
       }, "menu")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
         className: "right-nav"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://linkedin.com/in/sohi-kim"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "linkedin-logo",
+        src: "/linkedin-logo.png"
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://github.com/skycue"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "github-logo",
+        src: "/github-logo.png"
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "gear-dropdown-btn"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         onClick: this.toggleSettings,
