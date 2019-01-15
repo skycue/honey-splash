@@ -10,8 +10,8 @@
 #
 
 class List < ApplicationRecord
-  validates :title, presence: true
-  
+  validates :title, presence: true, uniqueness: { scope: :user_id }
+
   belongs_to :user,
     primary_key: :id,
     foreign_key: :user_id,
