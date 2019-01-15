@@ -26,6 +26,13 @@
   cursor: default;
 }
 
+.list-form-box > ul > li {
+  background: #FEE4DD;
+  border-radius: 5px;
+  font-size: .8125rem;
+  padding: 5px 20px 5px 44px;
+}
+
 .list-form-buttons {
   display: flex;
   flex-direction: row;
