@@ -59,7 +59,7 @@ class Greeting extends React.Component {
 
         <header className="main-nav">
           <nav className="left-nav">
-            <i onClick={this.toggleSidebar} className="material-icons">menu</i>
+            <i onClick={this.toggleSidebar} className="material-icons menu-icon">menu</i>
           </nav>
 
           <nav className="right-nav">
@@ -75,7 +75,7 @@ class Greeting extends React.Component {
                 </a>
               </li>
               <li className="gear-dropdown-btn">
-                <i onClick={this.toggleSettings} className="material-icons">settings</i>
+                <i onClick={this.toggleSettings} className="material-icons gear-icon">settings</i>
               </li>
 
               {
