@@ -7,7 +7,7 @@ class Api::TasksController < ApplicationController
     if @task.save
       render 'api/tasks/show'
     else
-      render json: @task.errors.full_messages
+      render json: @task.errors.full_messages, status: 422
     end
   end
 
