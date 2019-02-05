@@ -9,6 +9,7 @@ class ListShow extends React.Component {
       title: "",
       completeTabClicked: false,
       showCompletedTasks: false,
+      created: false
     };
 
     this.handleSubmitCreateTask = this.handleSubmitCreateTask.bind(this);
@@ -30,6 +31,14 @@ class ListShow extends React.Component {
       this.props.deselectAllTasks();
       this.props.removeTaskFormId();
     }
+
+    // After creation of a task, fetch lists to update task_ids of the list
+    if (this.state.created) {
+      this.props.fetchLists(this.props.currentUserId);
+      this.setState({
+        created: false
+      })
+    }
   }
 
   handleSubmitCreateTask(e) {
@@ -37,10 +46,11 @@ class ListShow extends React.Component {
     document.getElementById("task-create-input").value = "";
     const task = Object.assign({}, this.state);
     delete task["showCompletedTasks"];
-    delete task["completeTabClicked"]; //Doesn't seem to change anything
-    this.props.fetchLists(this.props.currentUserId); //Why does this let tasks be rendered properly?
+    delete task["completeTabClicked"];
     this.props.createTask(this.props.currentList.id, task);
-    this.props.fetchLists(this.props.currentUserId);
+    this.setState({
+      created: true
+    })
   }
 
   handleShowCompletedTasks(e, showCompleted) {

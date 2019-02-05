@@ -525,7 +525,11 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchLists(this.props.currentUserId);
-    }
+    } // componentDidUpdate() {
+    //   debugger
+    //   this.props.fetchLists(this.props.currentUserId);
+    // }
+
   }, {
     key: "toggleListOptions",
     value: function toggleListOptions(list_id) {
@@ -1076,7 +1080,8 @@ function (_React$Component) {
     _this.state = {
       title: "",
       completeTabClicked: false,
-      showCompletedTasks: false
+      showCompletedTasks: false,
+      created: false
     };
     _this.handleSubmitCreateTask = _this.handleSubmitCreateTask.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleShowCompletedTasks = _this.handleShowCompletedTasks.bind(_assertThisInitialized(_assertThisInitialized(_this)));
@@ -1089,6 +1094,7 @@ function (_React$Component) {
   _createClass(ListShow, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      debugger;
       this.props.fetchTasks({
         list_id: this.props.match.params.list_id
       });
@@ -1096,14 +1102,23 @@ function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
-      // When changing current list, fetch new list's tasks and empty
+      debugger; // When changing current list, fetch new list's tasks and empty
       // selectedTasks and closeTaskFormIds
+
       if (prevProps.match.params.list_id !== this.props.match.params.list_id) {
         this.props.fetchTasks({
           list_id: this.props.match.params.list_id
         });
+        debugger;
         this.props.deselectAllTasks();
         this.props.removeTaskFormId();
+      }
+
+      if (this.state.created) {
+        this.props.fetchLists(this.props.currentUserId);
+        this.setState({
+          created: false
+        });
       }
     }
   }, {
@@ -1115,10 +1130,12 @@ function (_React$Component) {
       delete task["showCompletedTasks"];
       delete task["completeTabClicked"]; //Doesn't seem to change anything
 
-      this.props.fetchLists(this.props.currentUserId); //Why does this let tasks be rendered properly?
+      debugger; // this.props.fetchLists(this.props.currentUserId); //Why does this let tasks be rendered properly?
 
       this.props.createTask(this.props.currentList.id, task);
-      this.props.fetchLists(this.props.currentUserId);
+      this.setState({
+        created: true
+      }); // this.props.fetchLists(this.props.currentUserId);
     }
   }, {
     key: "handleShowCompletedTasks",
@@ -1216,7 +1233,9 @@ function (_React$Component) {
     value: function render() {
       var _this6 = this;
 
-      if (!this.props.currentList) {
+      debugger;
+
+      if (!this.props.currentList || this.state.created) {
         return null;
       }
 
@@ -1313,6 +1332,7 @@ var mapStateToProps = function mapStateToProps(_ref, ownProps) {
       selectedTasks = _ref$ui.selectedTasks,
       currentListId = _ref$ui.currentListId,
       closeTaskFormIds = _ref$ui.closeTaskFormIds;
+  debugger;
   var currentList = lists[currentListId];
   var currentTasks = [];
 
@@ -1324,6 +1344,7 @@ var mapStateToProps = function mapStateToProps(_ref, ownProps) {
     });
   }
 
+  debugger;
   return {
     currentUserId: session.id,
     currentList: currentList,
@@ -2348,6 +2369,7 @@ var listsReducer = function listsReducer() {
       //   lists[list.id] = list;
       // });
       // return lists;
+      debugger;
       return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state, action.lists);
 
     case _actions_list_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_LIST"]:
