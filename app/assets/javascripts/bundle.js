@@ -532,7 +532,9 @@ function (_React$Component) {
   }, {
     key: "handleClick",
     value: function handleClick(e) {
-      if (this.node.contains(e.target)) {
+      e.preventDefault();
+
+      if (this.state.showListOptions && this.node.contains(e.target)) {
         return;
       }
 

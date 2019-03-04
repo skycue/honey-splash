@@ -24,7 +24,8 @@ class ListSidebar extends React.Component {
   }
 
   handleClick(e) {
-    if (this.node.contains(e.target)) {
+    e.preventDefault();
+    if (this.state.showListOptions && this.node.contains(e.target)) {
       return;
     }
     this.handleClickOutside();
