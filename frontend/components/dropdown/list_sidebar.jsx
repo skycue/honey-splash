@@ -15,6 +15,7 @@ class ListSidebar extends React.Component {
     this.handleDeleteList = this.handleDeleteList.bind(this);
     this.handleShowList = this.handleShowList.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
   }
 
   componentDidMount() {
@@ -27,6 +28,14 @@ class ListSidebar extends React.Component {
       return;
     }
     this.handleClickOutside();
+  }
+
+  handleClickOutside() {
+    if (this.state.showListOptions) {
+      this.setState({
+        showListOptions: null
+      });
+    }
   }
 
   toggleListOptions(list_id) {
