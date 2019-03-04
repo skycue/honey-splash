@@ -14,11 +14,19 @@ class ListSidebar extends React.Component {
     this.toggleListOptions = this.toggleListOptions.bind(this);
     this.handleDeleteList = this.handleDeleteList.bind(this);
     this.handleShowList = this.handleShowList.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchLists(this.props.currentUserId);
     document.addEventListener('mousedown', this.handleClick, false);
+  }
+
+  handleClick(e) {
+    if (this.node.contains(e.target)) {
+      return;
+    }
+    this.handleClickOutside();
   }
 
   toggleListOptions(list_id) {
