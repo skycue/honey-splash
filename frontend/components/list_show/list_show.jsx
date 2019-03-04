@@ -49,6 +49,7 @@ class ListShow extends React.Component {
     delete task["completeTabClicked"];
     this.props.createTask(this.props.currentList.id, task);
     this.setState({
+      title: "",
       created: true
     })
   }
@@ -116,7 +117,6 @@ class ListShow extends React.Component {
     if (!this.props.currentList) {
       return null;
     }
-
     return (
       <div className="list-show">
         <h1 className="list-title">{this.props.currentList.title}</h1>
