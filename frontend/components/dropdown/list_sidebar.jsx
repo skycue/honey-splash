@@ -18,6 +18,7 @@ class ListSidebar extends React.Component {
 
   componentDidMount() {
     this.props.fetchLists(this.props.currentUserId);
+    document.addEventListener('mousedown', this.handleClick, false);
   }
 
   toggleListOptions(list_id) {
@@ -68,7 +69,7 @@ class ListSidebar extends React.Component {
                     {
                       this.state.showListOptions === list.id
                         ? (
-                          <div className='list-options'>
+                          <div className='list-options' ref={node => this.node = node}>
                             <ul>
                               <li onClick={() => this.props.openModal('Save', {selectedListId: list.id})}>Rename list</li>
                               <li onClick={(e) => this.handleDeleteList(e, list.user_id, list.id)}>Remove list</li>
