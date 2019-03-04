@@ -518,6 +518,8 @@ function (_React$Component) {
     _this.toggleListOptions = _this.toggleListOptions.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleDeleteList = _this.handleDeleteList.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleShowList = _this.handleShowList.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleClickOutside = _this.handleClickOutside.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
@@ -525,11 +527,26 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchLists(this.props.currentUserId);
-    } // componentDidUpdate() {
-    //   debugger
-    //   this.props.fetchLists(this.props.currentUserId);
-    // }
+      document.addEventListener('mousedown', this.handleClick, false);
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick(e) {
+      if (this.node.contains(e.target)) {
+        return;
+      }
 
+      this.handleClickOutside();
+    }
+  }, {
+    key: "handleClickOutside",
+    value: function handleClickOutside() {
+      if (this.state.showListOptions) {
+        this.setState({
+          showListOptions: null
+        });
+      }
+    }
   }, {
     key: "toggleListOptions",
     value: function toggleListOptions(list_id) {
@@ -590,7 +607,10 @@ function (_React$Component) {
           },
           className: "material-icons md-14 list-options-icon"
         }, "arrow_drop_down_circle"), _this2.state.showListOptions === list.id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "list-options"
+          className: "list-options",
+          ref: function ref(node) {
+            return _this2.node = node;
+          }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           onClick: function onClick() {
             return _this2.props.openModal('Save', {
@@ -1094,7 +1114,6 @@ function (_React$Component) {
   _createClass(ListShow, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      debugger;
       this.props.fetchTasks({
         list_id: this.props.match.params.list_id
       });
@@ -1102,17 +1121,16 @@ function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
-      debugger; // When changing current list, fetch new list's tasks and empty
+      // When changing current list, fetch new list's tasks and empty
       // selectedTasks and closeTaskFormIds
-
       if (prevProps.match.params.list_id !== this.props.match.params.list_id) {
         this.props.fetchTasks({
           list_id: this.props.match.params.list_id
         });
-        debugger;
         this.props.deselectAllTasks();
         this.props.removeTaskFormId();
-      }
+      } // After creation of a task, fetch lists to update task_ids of the list
+
 
       if (this.state.created) {
         this.props.fetchLists(this.props.currentUserId);
@@ -1128,14 +1146,12 @@ function (_React$Component) {
       document.getElementById("task-create-input").value = "";
       var task = Object.assign({}, this.state);
       delete task["showCompletedTasks"];
-      delete task["completeTabClicked"]; //Doesn't seem to change anything
-
-      debugger; // this.props.fetchLists(this.props.currentUserId); //Why does this let tasks be rendered properly?
-
+      delete task["completeTabClicked"];
       this.props.createTask(this.props.currentList.id, task);
       this.setState({
+        title: "",
         created: true
-      }); // this.props.fetchLists(this.props.currentUserId);
+      });
     }
   }, {
     key: "handleShowCompletedTasks",
@@ -1233,9 +1249,7 @@ function (_React$Component) {
     value: function render() {
       var _this6 = this;
 
-      debugger;
-
-      if (!this.props.currentList || this.state.created) {
+      if (!this.props.currentList) {
         return null;
       }
 
@@ -1332,7 +1346,6 @@ var mapStateToProps = function mapStateToProps(_ref, ownProps) {
       selectedTasks = _ref$ui.selectedTasks,
       currentListId = _ref$ui.currentListId,
       closeTaskFormIds = _ref$ui.closeTaskFormIds;
-  debugger;
   var currentList = lists[currentListId];
   var currentTasks = [];
 
@@ -1344,7 +1357,6 @@ var mapStateToProps = function mapStateToProps(_ref, ownProps) {
     });
   }
 
-  debugger;
   return {
     currentUserId: session.id,
     currentList: currentList,
@@ -2077,13 +2089,7 @@ function (_React$Component) {
   }, {
     key: "toggleSelectAndEditTask",
     value: function toggleSelectAndEditTask(e, selectedTask) {
-      e.preventDefault(); // if (this.props.match.params.task_id) {
-      //   this.setState({
-      //     selected: false,
-      //     openEditForm: false
-      //   })
-      // }
-
+      e.preventDefault();
       this.toggleSelectTask(e, selectedTask, true);
       this.props.setCurrentTaskForm(this.props.task);
 
@@ -2096,9 +2102,7 @@ function (_React$Component) {
       } else {
         this.setState({
           openEditForm: true
-        }); // Empty selectedTasks ui slice of state on opening edit task form
-        // this.props.deselectAllTasks();
-
+        });
         this.props.history.push("/lists/".concat(this.props.currentListId, "/tasks/").concat(this.props.task.id));
       }
     }
@@ -2369,7 +2373,6 @@ var listsReducer = function listsReducer() {
       //   lists[list.id] = list;
       // });
       // return lists;
-      debugger;
       return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state, action.lists);
 
     case _actions_list_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_LIST"]:

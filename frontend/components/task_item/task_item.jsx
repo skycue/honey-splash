@@ -76,12 +76,6 @@ class TaskItem extends React.Component {
 
   toggleSelectAndEditTask(e, selectedTask) {
     e.preventDefault();
-    // if (this.props.match.params.task_id) {
-    //   this.setState({
-    //     selected: false,
-    //     openEditForm: false
-    //   })
-    // }
     this.toggleSelectTask(e, selectedTask, true);
     this.props.setCurrentTaskForm(this.props.task);
     if (this.state.openEditForm) {
@@ -95,9 +89,6 @@ class TaskItem extends React.Component {
       this.setState({
         openEditForm: true
       })
-
-      // Empty selectedTasks ui slice of state on opening edit task form
-      // this.props.deselectAllTasks();
 
       this.props.history.push(`/lists/${this.props.currentListId}/tasks/${this.props.task.id}`);
     }
