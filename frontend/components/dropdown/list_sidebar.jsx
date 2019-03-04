@@ -20,7 +20,14 @@ class ListSidebar extends React.Component {
 
   componentDidMount() {
     this.props.fetchLists(this.props.currentUserId);
-    document.addEventListener('mousedown', this.handleClick, false);
+  }
+
+  componentDidUpdate() {
+    if (this.state.showListOptions) {
+      document.addEventListener('mousedown', this.handleClick, false);
+    } else {
+      document.removeEventListener('mousedown', this.handleClick, false);
+    }
   }
 
   handleClick(e) {

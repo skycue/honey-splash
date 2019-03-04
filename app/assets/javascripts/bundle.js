@@ -527,7 +527,15 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchLists(this.props.currentUserId);
-      document.addEventListener('mousedown', this.handleClick, false);
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      if (this.state.showListOptions) {
+        document.addEventListener('mousedown', this.handleClick, false);
+      } else {
+        document.removeEventListener('mousedown', this.handleClick, false);
+      }
     }
   }, {
     key: "handleClick",
