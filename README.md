@@ -1,5 +1,5 @@
 # Honey Splash
-[Honey Splash](https://honey-splash.herokuapp.com) is a single-page web application designed to help users organize and manage their tasks.
+Honey Splash is a single-page web application designed to help users organize and manage their tasks.
 
 ![Image of Splash Page](splash-page.png)
 
